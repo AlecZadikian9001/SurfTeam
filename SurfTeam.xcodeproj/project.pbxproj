@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E140E6BC17F4F4AB00A58831 /* BrowserWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = E140E6BB17F4F4AB00A58831 /* BrowserWindowController.m */; };
+		E140E6BF17F51E3800A58831 /* IGIsolatedCookieWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = E140E6BE17F51E3800A58831 /* IGIsolatedCookieWebView.m */; };
 		E14E295217F3F5B5007F9C36 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14E295117F3F5B5007F9C36 /* Cocoa.framework */; };
 		E14E295C17F3F5B5007F9C36 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E14E295A17F3F5B5007F9C36 /* InfoPlist.strings */; };
 		E14E295E17F3F5B5007F9C36 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E14E295D17F3F5B5007F9C36 /* main.m */; };
@@ -18,6 +20,7 @@
 		E14E297217F3F5B6007F9C36 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14E295117F3F5B5007F9C36 /* Cocoa.framework */; };
 		E14E297A17F3F5B6007F9C36 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E14E297817F3F5B6007F9C36 /* InfoPlist.strings */; };
 		E14E297C17F3F5B6007F9C36 /* SurfTeamTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E14E297B17F3F5B6007F9C36 /* SurfTeamTests.m */; };
+		E14E298617F3F844007F9C36 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14E298517F3F844007F9C36 /* WebKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +34,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E140E6BA17F4F4AB00A58831 /* BrowserWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserWindowController.h; sourceTree = "<group>"; };
+		E140E6BB17F4F4AB00A58831 /* BrowserWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowserWindowController.m; sourceTree = "<group>"; };
+		E140E6BD17F51E3800A58831 /* IGIsolatedCookieWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGIsolatedCookieWebView.h; sourceTree = "<group>"; };
+		E140E6BE17F51E3800A58831 /* IGIsolatedCookieWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGIsolatedCookieWebView.m; sourceTree = "<group>"; };
 		E14E294E17F3F5B5007F9C36 /* SurfTeam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SurfTeam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E14E295117F3F5B5007F9C36 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		E14E295417F3F5B5007F9C36 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -50,6 +57,7 @@
 		E14E297717F3F5B6007F9C36 /* SurfTeamTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SurfTeamTests-Info.plist"; sourceTree = "<group>"; };
 		E14E297917F3F5B6007F9C36 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E14E297B17F3F5B6007F9C36 /* SurfTeamTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SurfTeamTests.m; sourceTree = "<group>"; };
+		E14E298517F3F844007F9C36 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E14E298617F3F844007F9C36 /* WebKit.framework in Frameworks */,
 				E14E295217F3F5B5007F9C36 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -95,6 +104,7 @@
 		E14E295017F3F5B5007F9C36 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E14E298517F3F844007F9C36 /* WebKit.framework */,
 				E14E295117F3F5B5007F9C36 /* Cocoa.framework */,
 				E14E297017F3F5B6007F9C36 /* XCTest.framework */,
 				E14E295317F3F5B5007F9C36 /* Other Frameworks */,
@@ -115,6 +125,7 @@
 		E14E295717F3F5B5007F9C36 /* SurfTeam */ = {
 			isa = PBXGroup;
 			children = (
+				E14E298717F40162007F9C36 /* View */,
 				E14E296317F3F5B5007F9C36 /* AppDelegate.h */,
 				E14E296417F3F5B5007F9C36 /* AppDelegate.m */,
 				E14E296617F3F5B5007F9C36 /* MainMenu.xib */,
@@ -152,6 +163,17 @@
 				E14E297817F3F5B6007F9C36 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E14E298717F40162007F9C36 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E140E6BA17F4F4AB00A58831 /* BrowserWindowController.h */,
+				E140E6BB17F4F4AB00A58831 /* BrowserWindowController.m */,
+				E140E6BD17F51E3800A58831 /* IGIsolatedCookieWebView.h */,
+				E140E6BE17F51E3800A58831 /* IGIsolatedCookieWebView.m */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -252,7 +274,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E140E6BF17F51E3800A58831 /* IGIsolatedCookieWebView.m in Sources */,
 				E14E296517F3F5B5007F9C36 /* AppDelegate.m in Sources */,
+				E140E6BC17F4F4AB00A58831 /* BrowserWindowController.m in Sources */,
 				E14E295E17F3F5B5007F9C36 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -464,6 +488,7 @@
 				E14E298117F3F5B6007F9C36 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E14E298217F3F5B6007F9C36 /* Build configuration list for PBXNativeTarget "SurfTeamTests" */ = {
 			isa = XCConfigurationList;
@@ -472,6 +497,7 @@
 				E14E298417F3F5B6007F9C36 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

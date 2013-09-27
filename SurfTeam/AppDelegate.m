@@ -7,12 +7,14 @@
 //
 
 #import "AppDelegate.h"
+#import "BrowserWindowController.h"
 
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    // Insert code here to initialize your application
+    WebHistory *myHistory = [[WebHistory alloc] init]; //TODO
+    [WebHistory setOptionalSharedHistory:myHistory];
 }
 
 @end
