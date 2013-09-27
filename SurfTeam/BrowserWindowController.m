@@ -10,6 +10,13 @@
 
 @implementation BrowserWindowController
 
+AsyncSocket *socket;
+NSError *error;
+
+- (void) init{
+   socket = [[AsyncSocket alloc] init]; //fix this to use delegate
+}
+
 - (void)saveCookies
 {
     NSData         *cookiesData = [NSKeyedArchiver archivedDataWithRootObject: [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies]];
@@ -28,6 +35,10 @@
     {
         [cookieStorage setCookie: cookie];
     }
+}
+
+- (BOOL)connectToServer: (NSString) *address onPort: (int) port{
+    if (![socket connectToHost: address onPort: port error: &error]) NSLog(@"Failed to connect to host %@: %@", address, error);
 }
 
 @end
