@@ -149,7 +149,7 @@ didReceiveResponse:(NSURLResponse *)response
 {
     self = [super init];
     if (self) {
-        cookieStore = [[NSMutableArray arrayWithCapacity:0] retain];
+        cookieStore = [NSMutableArray arrayWithCapacity:0];
     }
     return self;
 }

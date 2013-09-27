@@ -12,5 +12,6 @@
 
 - (void)saveCookies;
 - (void)loadCookies;
+- (void)handleQuit;
 
 @end

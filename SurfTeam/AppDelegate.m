@@ -11,10 +11,41 @@
 
 @implementation AppDelegate
 
+WebHistory* history;
+NSURL *applicationSupportURL, *historyFileURL;
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    WebHistory *myHistory = [[WebHistory alloc] init]; //TODO
-    [WebHistory setOptionalSharedHistory:myHistory];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
+    applicationSupportURL = [[NSURL alloc] initFileURLWithPath:[NSString stringWithFormat: @"%@/SurfTeam/", [paths objectAtIndex:0]] isDirectory: YES];
+    historyFileURL = [[NSURL alloc] initFileURLWithPath:[NSString stringWithFormat: @"%@/SurfTeamHistory.txt", [applicationSupportURL path]] isDirectory: NO];
+    NSLog(@"App support directory: '%@'", applicationSupportURL);
+    NSLog(@"History file: '%@'", historyFileURL);
+    [self initializeHistory];
+}
+
+- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender{
+    NSLog(@"Saving history file to URL %@", historyFileURL);
+    [history saveToURL:[[NSURL alloc] initFileURLWithPath: [historyFileURL path]] error:nil];
+    return NSTerminateNow;
+}
+
+- (void)initializeHistory{
+    history = [[WebHistory alloc] init];
+    if (![history loadFromURL: historyFileURL error:nil]){
+        NSError *error;
+        NSLog(@"No existing history found... Making new one.");
+        if (![[NSFileManager defaultManager] createDirectoryAtURL:applicationSupportURL
+                                                     withIntermediateDirectories:NO
+                                                    attributes:nil
+                                                    error:&error])
+            NSLog(@"Error while making application support directory!!! %@", error);
+        if (![[NSFileManager defaultManager] createFileAtPath:[historyFileURL path]
+                                                contents:nil
+                                              attributes:nil])
+            NSLog(@"Error while making history file!!!");
+    }
+    [WebHistory setOptionalSharedHistory:history];
 }
 
 @end
