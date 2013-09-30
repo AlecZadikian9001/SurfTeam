@@ -11,7 +11,7 @@
 #import "ClientHandler.h"
 
 @implementation Server
-@synthesize clientSockets, password;
+@synthesize clientHandlers, password;
 
 NSError *error;
 NSData *inData, *outData;
@@ -23,7 +23,7 @@ int DEFAULT_PORT = 9000;
     self = [super init];
     if(self){
         password = pw;
-    clientSockets = [[NSMutableArray alloc] init];
+    clientHandlers = [[NSMutableArray alloc] init];
     serverSocket = [[AsyncSocket alloc] initWithDelegate: self];
     NSError *error;
     [serverSocket acceptOnPort: DEFAULT_PORT error: &error];
@@ -31,8 +31,13 @@ int DEFAULT_PORT = 9000;
     return self;
 }
 
-- (void)distributeData: (NSData*) data fromUser: (int) userID{
-
+- (void)distributeData: (NSData*) data 
+	withTimeout: (NSTimeInterval)timeout
+	tag: (long) tag
+	{
+for (ClientHandler* client in clientHandlers{
+	[client.socket writeData: data withTimeout: timeout tag: tag];
+	}
 }
 
 
@@ -40,8 +45,8 @@ int DEFAULT_PORT = 9000;
 
 - (void)onSocket:(AsyncSocket *)sock didAcceptNewSocket:(AsyncSocket *)newSocket{
 	NSLog(@"New socket %@ created by %@", newSocket, sock);
-    newSocket.delegate = [[ClientHandler alloc] init];
-    [clientSockets addObject: newSocket];
+    newSocket.delegate = [[ClientHandler alloc] initWithServer: self socket: newSocket];
+    [clientHandlers addObject: newSocket];
 }
 
 //- (NSRunLoop *)onSocket:(AsyncSocket *)sock wantsRunLoopForNewSocket:(AsyncSocket *)newSocket{ return nil; }

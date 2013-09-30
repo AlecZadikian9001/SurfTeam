@@ -10,7 +10,7 @@
 
 @interface Server : NSObject
 
-@property(strong, nonatomic) NSMutableArray* clientSockets;
+@property(strong, nonatomic) NSMutableArray* clientHandlers;
 @property(strong, nonatomic) NSString* password;
 
 - (id) initWithPassword: (NSString*) pw;

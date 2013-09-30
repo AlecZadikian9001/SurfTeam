@@ -12,6 +12,8 @@
 
 @interface ClientHandler : NSObject //delegate for each connected client
 
+@property(strong, nonatomic) AsyncSocket* socket;
+
 - (id) initWithServer: (Server*) server;
 - (void)disconnectForcibly: (AsyncSocket*) socket;
 - (void)disconnectGracefully: (AsyncSocket*) socket;
