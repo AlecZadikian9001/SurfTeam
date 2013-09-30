@@ -34,7 +34,7 @@
 
 
 @interface IGIsolatedCookieWebView : WebView {
-    
+
 }
 
 - (void)injectCookie:(NSHTTPCookie *)cookie;

@@ -8,12 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface Server : NSWindowController
+@interface Server : NSObject
 
-@property(strong, nonatomic) NSMutableArray* sockets; 
+@property(strong, nonatomic) NSMutableArray* clientSockets;
+@property(strong, nonatomic) NSString* password;
 
-- (void)saveCookies;
-- (void)loadCookies;
-- (void)handleQuit;
+- (id) initWithPassword: (NSString*) pw;
+- (void)distributeData: (NSData*) data fromUser: (int) userID;
 
 @end

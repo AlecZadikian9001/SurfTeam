@@ -131,199 +131,199 @@
                     </menu>
                 </menuItem>
                 <menuItem title="Edit" id="217">
-                    <menu key="submenu" title="Edit" id="205">
+                    <menu key="submenu" title="Edit" id="mDy-jE-J77">
                         <items>
-                            <menuItem title="Undo" keyEquivalent="z" id="207">
+                            <menuItem title="Undo" keyEquivalent="z" id="vLO-Z9-FMB">
                                 <connections>
-                                    <action selector="undo:" target="-1" id="223"/>
+                                    <action selector="undo:" target="-1" id="8LI-ib-Bao"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Redo" keyEquivalent="Z" id="215">
+                            <menuItem title="Redo" keyEquivalent="Z" id="TwR-Ww-A4v">
                                 <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
                                 <connections>
-                                    <action selector="redo:" target="-1" id="231"/>
+                                    <action selector="redo:" target="-1" id="WeS-kt-yec"/>
                                 </connections>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="206">
+                            <menuItem isSeparatorItem="YES" id="OAg-gZ-zIX">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Cut" keyEquivalent="x" id="199">
+                            <menuItem title="Cut" keyEquivalent="x" id="BO7-Pq-XHs">
                                 <connections>
-                                    <action selector="cut:" target="-1" id="228"/>
+                                    <action selector="cut:" target="-1" id="dVU-5a-d6K"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Copy" keyEquivalent="c" id="197">
+                            <menuItem title="Copy" keyEquivalent="c" id="AAY-LR-FwG">
                                 <connections>
-                                    <action selector="copy:" target="-1" id="224"/>
+                                    <action selector="copy:" target="-1" id="LU3-t9-J8a"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Paste" keyEquivalent="v" id="203">
+                            <menuItem title="Paste" keyEquivalent="v" id="PxG-7H-2Um">
                                 <connections>
-                                    <action selector="paste:" target="-1" id="226"/>
+                                    <action selector="paste:" target="-1" id="ZfL-0N-XbW"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Paste and Match Style" keyEquivalent="V" id="485">
+                            <menuItem title="Paste and Match Style" keyEquivalent="V" id="C6t-7K-UiY">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
-                                    <action selector="pasteAsPlainText:" target="-1" id="486"/>
+                                    <action selector="pasteAsPlainText:" target="-1" id="zKv-ui-Cdp"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Select All" keyEquivalent="a" id="198">
+                            <menuItem title="Select All" keyEquivalent="a" id="Tjk-oH-Whe">
                                 <connections>
-                                    <action selector="selectAll:" target="-1" id="232"/>
+                                    <action selector="selectAll:" target="-1" id="LgW-36-xBV"/>
                                 </connections>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="214">
+                            <menuItem isSeparatorItem="YES" id="x47-7z-o5o">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Find" id="218">
-                                <menu key="submenu" title="Find" id="220">
+                            <menuItem title="Find" id="mv0-9I-cyR">
+                                <menu key="submenu" title="Find" id="u8a-eV-4Ak">
                                     <items>
-                                        <menuItem title="Find…" tag="1" keyEquivalent="f" id="209">
+                                        <menuItem title="Find…" tag="1" keyEquivalent="f" id="d3s-MD-vpj">
                                             <connections>
-                                                <action selector="performFindPanelAction:" target="-1" id="241"/>
+                                                <action selector="performFindPanelAction:" target="-1" id="5Vu-ie-rup"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Find and Replace…" tag="12" keyEquivalent="f" id="534">
+                                        <menuItem title="Find and Replace…" tag="12" keyEquivalent="f" id="Ybw-p0-T60">
                                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                             <connections>
-                                                <action selector="performFindPanelAction:" target="-1" id="535"/>
+                                                <action selector="performFindPanelAction:" target="-1" id="zKk-F4-7UA"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Find Next" tag="2" keyEquivalent="g" id="208">
+                                        <menuItem title="Find Next" tag="2" keyEquivalent="g" id="N8G-H1-WvI">
                                             <connections>
-                                                <action selector="performFindPanelAction:" target="-1" id="487"/>
+                                                <action selector="performFindPanelAction:" target="-1" id="gI9-jO-t2m"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Find Previous" tag="3" keyEquivalent="G" id="213">
+                                        <menuItem title="Find Previous" tag="3" keyEquivalent="G" id="pPz-e7-2OE">
                                             <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
                                             <connections>
-                                                <action selector="performFindPanelAction:" target="-1" id="488"/>
+                                                <action selector="performFindPanelAction:" target="-1" id="C58-br-dCy"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Use Selection for Find" tag="7" keyEquivalent="e" id="221">
+                                        <menuItem title="Use Selection for Find" tag="7" keyEquivalent="e" id="daQ-Mf-Hmr">
                                             <connections>
-                                                <action selector="performFindPanelAction:" target="-1" id="489"/>
+                                                <action selector="performFindPanelAction:" target="-1" id="O0w-RW-lf2"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Jump to Selection" keyEquivalent="j" id="210">
+                                        <menuItem title="Jump to Selection" keyEquivalent="j" id="9OD-hM-CeO">
                                             <connections>
-                                                <action selector="centerSelectionInVisibleArea:" target="-1" id="245"/>
+                                                <action selector="centerSelectionInVisibleArea:" target="-1" id="kuF-vC-foN"/>
                                             </connections>
                                         </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Spelling and Grammar" id="216">
-                                <menu key="submenu" title="Spelling and Grammar" id="200">
+                            <menuItem title="Spelling and Grammar" id="zuA-q0-gsF">
+                                <menu key="submenu" title="Spelling and Grammar" id="kqC-6e-VLu">
                                     <items>
-                                        <menuItem title="Show Spelling and Grammar" keyEquivalent=":" id="204">
+                                        <menuItem title="Show Spelling and Grammar" keyEquivalent=":" id="KOX-mB-rDz">
                                             <connections>
-                                                <action selector="showGuessPanel:" target="-1" id="230"/>
+                                                <action selector="showGuessPanel:" target="-1" id="jsn-qA-FtC"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Check Document Now" keyEquivalent=";" id="201">
+                                        <menuItem title="Check Document Now" keyEquivalent=";" id="imW-cG-aP5">
                                             <connections>
-                                                <action selector="checkSpelling:" target="-1" id="225"/>
+                                                <action selector="checkSpelling:" target="-1" id="v8u-gE-0O0"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="453"/>
-                                        <menuItem title="Check Spelling While Typing" id="219">
+                                        <menuItem isSeparatorItem="YES" id="29Y-la-BwZ"/>
+                                        <menuItem title="Check Spelling While Typing" id="12a-dX-7f5">
                                             <connections>
-                                                <action selector="toggleContinuousSpellChecking:" target="-1" id="222"/>
+                                                <action selector="toggleContinuousSpellChecking:" target="-1" id="s4u-oK-9wI"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Check Grammar With Spelling" id="346">
+                                        <menuItem title="Check Grammar With Spelling" id="ZJx-VY-Gas">
                                             <connections>
-                                                <action selector="toggleGrammarChecking:" target="-1" id="347"/>
+                                                <action selector="toggleGrammarChecking:" target="-1" id="TcP-Li-Jqj"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Correct Spelling Automatically" id="454">
+                                        <menuItem title="Correct Spelling Automatically" id="W2x-lC-Oct">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="toggleAutomaticSpellingCorrection:" target="-1" id="456"/>
+                                                <action selector="toggleAutomaticSpellingCorrection:" target="-1" id="xco-hK-0Mo"/>
                                             </connections>
                                         </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Substitutions" id="348">
-                                <menu key="submenu" title="Substitutions" id="349">
+                            <menuItem title="Substitutions" id="kNU-Za-awF">
+                                <menu key="submenu" title="Substitutions" id="YkA-8J-twQ">
                                     <items>
-                                        <menuItem title="Show Substitutions" id="457">
+                                        <menuItem title="Show Substitutions" id="3Hf-jH-AM4">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="orderFrontSubstitutionsPanel:" target="-1" id="458"/>
+                                                <action selector="orderFrontSubstitutionsPanel:" target="-1" id="qX1-2c-MOK"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="459"/>
-                                        <menuItem title="Smart Copy/Paste" tag="1" keyEquivalent="f" id="350">
+                                        <menuItem isSeparatorItem="YES" id="mXQ-Xl-STb"/>
+                                        <menuItem title="Smart Copy/Paste" tag="1" keyEquivalent="f" id="ul1-nR-M2d">
                                             <connections>
-                                                <action selector="toggleSmartInsertDelete:" target="-1" id="355"/>
+                                                <action selector="toggleSmartInsertDelete:" target="-1" id="RpZ-DU-glu"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Smart Quotes" tag="2" keyEquivalent="g" id="351">
+                                        <menuItem title="Smart Quotes" tag="2" keyEquivalent="g" id="Bk6-je-gMb">
                                             <connections>
-                                                <action selector="toggleAutomaticQuoteSubstitution:" target="-1" id="356"/>
+                                                <action selector="toggleAutomaticQuoteSubstitution:" target="-1" id="wGE-nM-0qY"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Smart Dashes" id="460">
+                                        <menuItem title="Smart Dashes" id="Twp-JM-t4p">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="toggleAutomaticDashSubstitution:" target="-1" id="461"/>
+                                                <action selector="toggleAutomaticDashSubstitution:" target="-1" id="BUq-45-jOJ"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Smart Links" tag="3" keyEquivalent="G" id="354">
+                                        <menuItem title="Smart Links" tag="3" keyEquivalent="G" id="w69-nx-2Ud">
                                             <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
                                             <connections>
-                                                <action selector="toggleAutomaticLinkDetection:" target="-1" id="357"/>
+                                                <action selector="toggleAutomaticLinkDetection:" target="-1" id="KlX-Q0-GN5"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Text Replacement" id="462">
+                                        <menuItem title="Text Replacement" id="XDa-QX-By5">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="toggleAutomaticTextReplacement:" target="-1" id="463"/>
+                                                <action selector="toggleAutomaticTextReplacement:" target="-1" id="ADG-qJ-1C3"/>
                                             </connections>
                                         </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Transformations" id="450">
+                            <menuItem title="Transformations" id="Mvj-Pe-sg8">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Transformations" id="451">
+                                <menu key="submenu" title="Transformations" id="1ba-PW-9ai">
                                     <items>
-                                        <menuItem title="Make Upper Case" id="452">
+                                        <menuItem title="Make Upper Case" id="6eH-ze-Efn">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="uppercaseWord:" target="-1" id="464"/>
+                                                <action selector="uppercaseWord:" target="-1" id="xD5-do-Ybe"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Make Lower Case" id="465">
+                                        <menuItem title="Make Lower Case" id="DNo-Np-eE5">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="lowercaseWord:" target="-1" id="468"/>
+                                                <action selector="lowercaseWord:" target="-1" id="PZ6-Tv-1kf"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Capitalize" id="466">
+                                        <menuItem title="Capitalize" id="QiJ-ZD-Sfd">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="capitalizeWord:" target="-1" id="467"/>
+                                                <action selector="capitalizeWord:" target="-1" id="1HS-uB-7ys"/>
                                             </connections>
                                         </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Speech" id="211">
-                                <menu key="submenu" title="Speech" id="212">
+                            <menuItem title="Speech" id="MrY-iX-xeG">
+                                <menu key="submenu" title="Speech" id="PLL-ta-Zsb">
                                     <items>
-                                        <menuItem title="Start Speaking" id="196">
+                                        <menuItem title="Start Speaking" id="2WE-Lf-eIM">
                                             <connections>
-                                                <action selector="startSpeaking:" target="-1" id="233"/>
+                                                <action selector="startSpeaking:" target="-1" id="aS4-jI-9GX"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Stop Speaking" id="195">
+                                        <menuItem title="Stop Speaking" id="Ys4-Vg-ptv">
                                             <connections>
-                                                <action selector="stopSpeaking:" target="-1" id="227"/>
+                                                <action selector="stopSpeaking:" target="-1" id="TVD-Ny-xdw"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -332,20 +332,24 @@
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem title="View" id="295">
-                    <menu key="submenu" title="View" id="296">
+                <menuItem title="History" id="e7F-ka-uWZ">
+                    <menu key="submenu" title="History" id="rcD-YD-i6x">
                         <items>
-                            <menuItem title="Show Toolbar" keyEquivalent="t" id="297">
+                            <menuItem title="Show All History" keyEquivalent="2" id="lY8-Co-xhG">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                <connections>
-                                    <action selector="toggleToolbarShown:" target="-1" id="366"/>
-                                </connections>
                             </menuItem>
-                            <menuItem title="Customize Toolbar…" id="298">
-                                <connections>
-                                    <action selector="runToolbarCustomizationPalette:" target="-1" id="365"/>
-                                </connections>
+                            <menuItem isSeparatorItem="YES" id="Ou5-KF-ApF"/>
+                            <menuItem title="Back" keyEquivalent="[" id="uiK-xo-9RS"/>
+                            <menuItem title="Forward" keyEquivalent="]" id="qLA-6U-oWZ"/>
+                            <menuItem title="Home" keyEquivalent="H" id="c4i-wJ-d85"/>
+                            <menuItem title="Search Results SnapBack" keyEquivalent="s" id="gfX-7g-vPL">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="DgY-Xs-Ail">
+                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                            </menuItem>
+                            <menuItem title="Reopen Last Closed Window" id="oFz-Pi-pbM"/>
+                            <menuItem title="Reopen All Windows from Last Session" id="eIo-z8-U3c"/>
                         </items>
                     </menu>
                 </menuItem>
@@ -396,7 +400,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="1234" height="756"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <webView translatesAutoresizingMaskIntoConstraints="NO" id="D13-YX-aNE">
+                    <webView translatesAutoresizingMaskIntoConstraints="NO" id="D13-YX-aNE" customClass="IGIsolatedCookieWebView">
                         <rect key="frame" x="0.0" y="0.0" width="1234" height="727"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12">

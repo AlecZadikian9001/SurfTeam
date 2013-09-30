@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E10A070117F67E1D00087C59 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = E10A070017F67E1D00087C59 /* AsyncSocket.m */; };
+		E10A070417F67E2400087C59 /* Server.m in Sources */ = {isa = PBXBuildFile; fileRef = E10A070317F67E2400087C59 /* Server.m */; };
 		E140E6BC17F4F4AB00A58831 /* BrowserWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = E140E6BB17F4F4AB00A58831 /* BrowserWindowController.m */; };
-		E140E6BF17F51E3800A58831 /* IGIsolatedCookieWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = E140E6BE17F51E3800A58831 /* IGIsolatedCookieWebView.m */; };
 		E14E295217F3F5B5007F9C36 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14E295117F3F5B5007F9C36 /* Cocoa.framework */; };
 		E14E295C17F3F5B5007F9C36 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E14E295A17F3F5B5007F9C36 /* InfoPlist.strings */; };
 		E14E295E17F3F5B5007F9C36 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E14E295D17F3F5B5007F9C36 /* main.m */; };
@@ -21,6 +22,9 @@
 		E14E297A17F3F5B6007F9C36 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E14E297817F3F5B6007F9C36 /* InfoPlist.strings */; };
 		E14E297C17F3F5B6007F9C36 /* SurfTeamTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E14E297B17F3F5B6007F9C36 /* SurfTeamTests.m */; };
 		E14E298617F3F844007F9C36 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14E298517F3F844007F9C36 /* WebKit.framework */; };
+		E161539917F7813B0097708F /* ClientHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = E161539817F7813B0097708F /* ClientHandler.m */; };
+		E164FBA717F7A86400372B20 /* IGIsolatedCookieWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = E164FBA617F7A86400372B20 /* IGIsolatedCookieWebView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		E164FBAD17F7A91600372B20 /* StarterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E164FBAC17F7A91600372B20 /* StarterViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,10 +38,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E10A06FF17F67E1D00087C59 /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
+		E10A070017F67E1D00087C59 /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncSocket.m; sourceTree = "<group>"; };
+		E10A070217F67E2400087C59 /* Server.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Server.h; sourceTree = "<group>"; };
+		E10A070317F67E2400087C59 /* Server.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Server.m; sourceTree = "<group>"; };
 		E140E6BA17F4F4AB00A58831 /* BrowserWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserWindowController.h; sourceTree = "<group>"; };
 		E140E6BB17F4F4AB00A58831 /* BrowserWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowserWindowController.m; sourceTree = "<group>"; };
-		E140E6BD17F51E3800A58831 /* IGIsolatedCookieWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGIsolatedCookieWebView.h; sourceTree = "<group>"; };
-		E140E6BE17F51E3800A58831 /* IGIsolatedCookieWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGIsolatedCookieWebView.m; sourceTree = "<group>"; };
 		E14E294E17F3F5B5007F9C36 /* SurfTeam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SurfTeam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E14E295117F3F5B5007F9C36 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		E14E295417F3F5B5007F9C36 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -58,6 +64,12 @@
 		E14E297917F3F5B6007F9C36 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E14E297B17F3F5B6007F9C36 /* SurfTeamTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SurfTeamTests.m; sourceTree = "<group>"; };
 		E14E298517F3F844007F9C36 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		E161539717F7813B0097708F /* ClientHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClientHandler.h; sourceTree = "<group>"; };
+		E161539817F7813B0097708F /* ClientHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClientHandler.m; sourceTree = "<group>"; };
+		E164FBA517F7A86400372B20 /* IGIsolatedCookieWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGIsolatedCookieWebView.h; sourceTree = "<group>"; };
+		E164FBA617F7A86400372B20 /* IGIsolatedCookieWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGIsolatedCookieWebView.m; sourceTree = "<group>"; };
+		E164FBAB17F7A91600372B20 /* StarterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarterViewController.h; sourceTree = "<group>"; };
+		E164FBAC17F7A91600372B20 /* StarterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarterViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +94,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E10A06FE17F67DFA00087C59 /* Server */ = {
+			isa = PBXGroup;
+			children = (
+				E164FBB117F7A96300372B20 /* Model */,
+			);
+			name = Server;
+			sourceTree = "<group>";
+		};
 		E14E294517F3F5B5007F9C36 = {
 			isa = PBXGroup;
 			children = (
@@ -125,7 +145,10 @@
 		E14E295717F3F5B5007F9C36 /* SurfTeam */ = {
 			isa = PBXGroup;
 			children = (
-				E14E298717F40162007F9C36 /* View */,
+				E164FBAE17F7A92400372B20 /* Client */,
+				E10A06FF17F67E1D00087C59 /* AsyncSocket.h */,
+				E10A070017F67E1D00087C59 /* AsyncSocket.m */,
+				E10A06FE17F67DFA00087C59 /* Server */,
 				E14E296317F3F5B5007F9C36 /* AppDelegate.h */,
 				E14E296417F3F5B5007F9C36 /* AppDelegate.m */,
 				E14E296617F3F5B5007F9C36 /* MainMenu.xib */,
@@ -165,15 +188,44 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		E14E298717F40162007F9C36 /* View */ = {
+		E164FBAE17F7A92400372B20 /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				E164FBB017F7A93E00372B20 /* Model */,
+				E164FBAF17F7A93300372B20 /* View */,
+			);
+			name = Client;
+			sourceTree = "<group>";
+		};
+		E164FBAF17F7A93300372B20 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E164FBA517F7A86400372B20 /* IGIsolatedCookieWebView.h */,
+				E164FBA617F7A86400372B20 /* IGIsolatedCookieWebView.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		E164FBB017F7A93E00372B20 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				E140E6BA17F4F4AB00A58831 /* BrowserWindowController.h */,
 				E140E6BB17F4F4AB00A58831 /* BrowserWindowController.m */,
-				E140E6BD17F51E3800A58831 /* IGIsolatedCookieWebView.h */,
-				E140E6BE17F51E3800A58831 /* IGIsolatedCookieWebView.m */,
+				E164FBAB17F7A91600372B20 /* StarterViewController.h */,
+				E164FBAC17F7A91600372B20 /* StarterViewController.m */,
 			);
-			name = View;
+			name = Model;
+			sourceTree = "<group>";
+		};
+		E164FBB117F7A96300372B20 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E10A070217F67E2400087C59 /* Server.h */,
+				E10A070317F67E2400087C59 /* Server.m */,
+				E161539717F7813B0097708F /* ClientHandler.h */,
+				E161539817F7813B0097708F /* ClientHandler.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -274,9 +326,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E140E6BF17F51E3800A58831 /* IGIsolatedCookieWebView.m in Sources */,
+				E10A070117F67E1D00087C59 /* AsyncSocket.m in Sources */,
 				E14E296517F3F5B5007F9C36 /* AppDelegate.m in Sources */,
 				E140E6BC17F4F4AB00A58831 /* BrowserWindowController.m in Sources */,
+				E164FBA717F7A86400372B20 /* IGIsolatedCookieWebView.m in Sources */,
+				E161539917F7813B0097708F /* ClientHandler.m in Sources */,
+				E10A070417F67E2400087C59 /* Server.m in Sources */,
+				E164FBAD17F7A91600372B20 /* StarterViewController.m in Sources */,
 				E14E295E17F3F5B5007F9C36 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

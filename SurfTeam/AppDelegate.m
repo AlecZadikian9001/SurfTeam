@@ -46,6 +46,7 @@ NSURL *applicationSupportURL, *historyFileURL;
             NSLog(@"Error while making history file!!!");
     }
     [WebHistory setOptionalSharedHistory:history];
+    NSLog(@"All pages visited today: %@", [history orderedItemsLastVisitedOnDay:[NSDate date]]);
 }
 
 @end

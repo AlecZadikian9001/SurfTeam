@@ -1,47 +1,45 @@
 //
-//  Server.m
+//  ClientHandler.m
 //  SurfTeam
 //
-//  Created by Alec Zadikian on 9/26/13.
+//  Created by Alec Zadikian on 9/28/13.
 //  Copyright (c) 2013 AlecZ. All rights reserved.
 //
 
-#import "Server.h"
-#import "AsyncSocket.h"
 #import "ClientHandler.h"
 
-@implementation Server
-@synthesize clientSockets, password;
-
-NSError *error;
 NSData *inData, *outData;
-AsyncSocket* serverSocket;
+NSMutableData* buffer; NSString* bufferString;
+Server* server;
 
-int DEFAULT_PORT = 9000;
+@implementation ClientHandler
 
-- (id) initWithPassword: (NSString*) pw{
+- (id) initWithServer:(Server*) s{
     self = [super init];
-    if(self){
-        password = pw;
-    clientSockets = [[NSMutableArray alloc] init];
-    serverSocket = [[AsyncSocket alloc] initWithDelegate: self];
-    NSError *error;
-    [serverSocket acceptOnPort: DEFAULT_PORT error: &error];
+    if (self){
+        server = s;
+        inData = [[NSData alloc] init];
+        outData = [[NSData alloc] init];
+        buffer = [[NSMutableData alloc] init];
+        bufferString = [NSString alloc];
     }
     return self;
 }
 
-- (void)distributeData: (NSData*) data fromUser: (int) userID{
-
+- (void)disconnectGracefully: (AsyncSocket*) socket{
+	[socket setDelegate: nil];
+	[socket disconnectAfterReadingAndWriting];
 }
 
+- (void)disconnectForcibly: (AsyncSocket*) socket{
+	[socket setDelegate: nil];
+	[socket disconnect];
+}
 
 //AsyncSocketDelegate methods:
 
 - (void)onSocket:(AsyncSocket *)sock didAcceptNewSocket:(AsyncSocket *)newSocket{
 	NSLog(@"New socket %@ created by %@", newSocket, sock);
-    newSocket.delegate = [[ClientHandler alloc] init];
-    [clientSockets addObject: newSocket];
 }
 
 //- (NSRunLoop *)onSocket:(AsyncSocket *)sock wantsRunLoopForNewSocket:(AsyncSocket *)newSocket{ return nil; }
@@ -56,8 +54,14 @@ int DEFAULT_PORT = 9000;
     NSLog(@"Socket %@ disconnected.", sock);
 }
 
-- (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port{
+- (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port{ //will fire every time a client is connected
     NSLog(@"Socket %@ connected to host %@:%d", sock, host, port);
+    [sock readDataWithTimeout: -1 buffer: buffer bufferOffset: 0 tag: 0]; //tag 0 is for server negotation messages, no timeout
+    if (![[bufferString initWithData:buffer encoding:NSUTF8StringEncoding] isEqualToString: server.password]){ //if password is wrong
+        [self disconnectForcibly: sock]; //fatality
+    }
+    //if password is right:
+    //TODO
 }
 
 - (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag{

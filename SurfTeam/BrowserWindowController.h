@@ -7,11 +7,13 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "AsyncSocket.h"
 
 @interface BrowserWindowController : NSWindowController
 
+@property (strong, nonatomic) AsyncSocket* socket;
+
 - (void)saveCookies;
 - (void)loadCookies;
-- (void)handleQuit;
 
 @end
