@@ -3,7 +3,6 @@
     <dependencies>
         <deployment defaultVersion="1080" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4510"/>
-        <plugIn identifier="com.apple.WebKitIBPlugin" version="3336"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -72,27 +71,13 @@
                                     <action selector="newDocument:" target="-1" id="373"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Open…" keyEquivalent="o" id="72">
-                                <connections>
-                                    <action selector="takeStringURLFrom:" target="D13-YX-aNE" id="9uJ-Yk-88T"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Reload" keyEquivalent="r" id="6ye-L3-9HH">
-                                <connections>
-                                    <action selector="reload:" target="D13-YX-aNE" id="sBw-DO-MlZ"/>
-                                </connections>
-                            </menuItem>
+                            <menuItem title="Open…" keyEquivalent="o" id="72"/>
+                            <menuItem title="Reload" keyEquivalent="r" id="6ye-L3-9HH"/>
                             <menuItem title="Forward" keyEquivalent="" id="jBT-33-s8k">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="goForward:" target="D13-YX-aNE" id="cZ1-8b-KPt"/>
-                                </connections>
                             </menuItem>
                             <menuItem title="Back" keyEquivalent="" id="sJr-XE-MnV">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="goBack:" target="D13-YX-aNE" id="Zo5-9E-2ZA"/>
-                                </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="79">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
@@ -391,51 +376,7 @@
                 </menuItem>
             </items>
         </menu>
-        <window title="SurfTeam" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="371">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
-            <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
-            <rect key="contentRect" x="293" y="294" width="1234" height="756"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1058"/>
-            <view key="contentView" id="372">
-                <rect key="frame" x="0.0" y="0.0" width="1234" height="756"/>
-                <autoresizingMask key="autoresizingMask"/>
-                <subviews>
-                    <webView translatesAutoresizingMaskIntoConstraints="NO" id="D13-YX-aNE" customClass="IGIsolatedCookieWebView">
-                        <rect key="frame" x="0.0" y="0.0" width="1234" height="727"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12">
-                            <nil key="identifier"/>
-                        </webPreferences>
-                    </webView>
-                    <textField verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UaF-FD-SIK">
-                        <rect key="frame" x="0.0" y="728" width="1234" height="28"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" alignment="left" title="http://" drawsBackground="YES" id="Ue7-H7-Edp">
-                            <font key="font" size="22" name="LucidaGrande"/>
-                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                        <connections>
-                            <action selector="takeStringURLFrom:" target="D13-YX-aNE" id="SFn-yf-rHF"/>
-                        </connections>
-                    </textField>
-                </subviews>
-                <constraints>
-                    <constraint firstItem="D13-YX-aNE" firstAttribute="leading" secondItem="372" secondAttribute="leading" id="800-zT-xGI"/>
-                    <constraint firstItem="UaF-FD-SIK" firstAttribute="leading" secondItem="372" secondAttribute="leading" id="Oo0-Nu-rYs"/>
-                    <constraint firstItem="D13-YX-aNE" firstAttribute="top" secondItem="372" secondAttribute="top" constant="29" id="TnR-RF-tvv"/>
-                    <constraint firstAttribute="bottom" secondItem="D13-YX-aNE" secondAttribute="bottom" id="YU2-ja-4a2"/>
-                    <constraint firstAttribute="trailing" secondItem="D13-YX-aNE" secondAttribute="trailing" id="mjg-6e-gmT"/>
-                    <constraint firstAttribute="trailing" secondItem="UaF-FD-SIK" secondAttribute="trailing" id="xDQ-Fz-bqW"/>
-                </constraints>
-            </view>
-        </window>
-        <customObject id="494" customClass="AppDelegate">
-            <connections>
-                <outlet property="webView" destination="D13-YX-aNE" id="r0E-Iq-M6Z"/>
-                <outlet property="window" destination="371" id="532"/>
-            </connections>
-        </customObject>
+        <customObject id="494" customClass="AppDelegate"/>
         <customObject id="420" customClass="NSFontManager"/>
     </objects>
 </document>

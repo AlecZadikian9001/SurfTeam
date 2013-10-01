@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment defaultVersion="1080" identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4510"/>
+        <plugIn identifier="com.apple.WebKitIBPlugin" version="3336"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application"/>
+        <window title="SurfTeam" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="6Bt-AA-8nM">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
+            <rect key="contentRect" x="686" y="302" width="1234" height="756"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1058"/>
+            <view key="contentView" id="3UK-yE-nT1">
+                <rect key="frame" x="0.0" y="0.0" width="1234" height="756"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <webView translatesAutoresizingMaskIntoConstraints="NO" id="Buq-zr-A5o" customClass="IGIsolatedCookieWebView">
+                        <rect key="frame" x="0.0" y="0.0" width="1234" height="727"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12">
+                            <nil key="identifier"/>
+                        </webPreferences>
+                    </webView>
+                    <textField verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BFQ-4K-E2g">
+                        <rect key="frame" x="0.0" y="728" width="1234" height="28"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" alignment="left" title="http://" drawsBackground="YES" id="Spv-HG-4Vb">
+                            <font key="font" size="22" name="LucidaGrande"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                        <connections>
+                            <action selector="takeStringURLFrom:" target="Buq-zr-A5o" id="GZS-LM-31J"/>
+                        </connections>
+                    </textField>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Buq-zr-A5o" firstAttribute="top" secondItem="3UK-yE-nT1" secondAttribute="top" constant="29" id="0ct-UG-Lhz"/>
+                    <constraint firstAttribute="bottom" secondItem="Buq-zr-A5o" secondAttribute="bottom" id="2HU-pg-fVE"/>
+                    <constraint firstAttribute="trailing" secondItem="BFQ-4K-E2g" secondAttribute="trailing" id="aK4-Zn-Wdf"/>
+                    <constraint firstAttribute="trailing" secondItem="Buq-zr-A5o" secondAttribute="trailing" id="ga8-cR-CPB"/>
+                    <constraint firstItem="Buq-zr-A5o" firstAttribute="leading" secondItem="3UK-yE-nT1" secondAttribute="leading" id="kgy-NU-FjW"/>
+                    <constraint firstItem="BFQ-4K-E2g" firstAttribute="leading" secondItem="3UK-yE-nT1" secondAttribute="leading" id="n7x-kA-qJ4"/>
+                </constraints>
+            </view>
+        </window>
+    </objects>
+</document>

@@ -26,26 +26,26 @@ Server* server;
         bufferString = [NSString alloc];
 
 	//time to get login stuff
-	NSLog(@"Socket %@ connected to host %@:%d", sock, host, port);
-    [sock readDataWithTimeout: -1 buffer: buffer bufferOffset: 0 tag: 0]; //tag 0 is for server negotation messages, no timeout
+	NSLog(@"Socket %@ connected to host.", sock);
+    [sock readDataWithTimeout: negotiationTimeout buffer: buffer bufferOffset: 0 tag: negotiationTag];
     if (![[bufferString initWithData:buffer encoding:NSUTF8StringEncoding] isEqualToString: server.password]){ //if password is wrong
         [self disconnectSocketForcibly: sock]; //fatality
     }
     //if password is right:
-    //TODO
+    //nothing?
 
     }
     return self;
 }
 
-- (void)disconnectSocketGracefully: (AsyncSocket*) socket{
-	[socket setDelegate: nil];
-	[socket disconnectAfterReadingAndWriting];
+- (void)disconnectSocketGracefully: (AsyncSocket*) socket2{
+	[socket2 setDelegate: nil];
+	[socket2 disconnectAfterReadingAndWriting];
 }
 
-- (void)disconnectSocketForcibly: (AsyncSocket*) socket{
-	[socket setDelegate: nil];
-	[socket disconnect];
+- (void)disconnectSocketForcibly: (AsyncSocket*) socket2{
+	[socket2 setDelegate: nil];
+	[socket2 disconnect];
 }
 
 //AsyncSocketDelegate methods:
@@ -64,10 +64,14 @@ Server* server;
 
 - (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag{
     NSLog(@"Socket %@ read data.", sock);
+    if (tag==cookieTag || tag==pageSourceTag){
+        [server distributeData: data fromClient: self withTimeout: standardTimeout tag:tag];
+    }
+    else (NSLog(@"Socket %@ read data with an invalid tag! Tag is %ld", sock, tag));
 }
 
 - (void)onSocket:(AsyncSocket *)sock didWriteDataWithTag:(long)tag{
-    NSLog(@"Socket %@ wrote data.", sock);
+    NSLog(@"Socket %@ wrote data. Should not happen!", sock);
 }
 /*
 - (NSTimeInterval)onSocket:(AsyncSocket *)sock

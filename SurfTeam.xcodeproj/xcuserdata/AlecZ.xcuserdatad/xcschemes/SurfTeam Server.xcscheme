@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E14E294D17F3F5B5007F9C36"
-               BuildableName = "SurfTeam.app"
-               BlueprintName = "SurfTeam"
+               BlueprintIdentifier = "E115CE7817FA5A4F00AD850D"
+               BuildableName = "SurfTeam Server.app"
+               BlueprintName = "SurfTeam Server"
                ReferencedContainer = "container:SurfTeam.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,33 +28,13 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E14E296E17F3F5B6007F9C36"
-               BuildableName = "SurfTeamTests.xctest"
-               BlueprintName = "SurfTeamTests"
-               ReferencedContainer = "container:SurfTeam.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E115CE9217FA5A4F00AD850D"
-               BuildableName = "SurfTeam ServerTests.xctest"
-               BlueprintName = "SurfTeam ServerTests"
-               ReferencedContainer = "container:SurfTeam.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E14E294D17F3F5B5007F9C36"
-            BuildableName = "SurfTeam.app"
-            BlueprintName = "SurfTeam"
+            BlueprintIdentifier = "E115CE7817FA5A4F00AD850D"
+            BuildableName = "SurfTeam Server.app"
+            BlueprintName = "SurfTeam Server"
             ReferencedContainer = "container:SurfTeam.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -71,9 +51,9 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E14E294D17F3F5B5007F9C36"
-            BuildableName = "SurfTeam.app"
-            BlueprintName = "SurfTeam"
+            BlueprintIdentifier = "E115CE7817FA5A4F00AD850D"
+            BuildableName = "SurfTeam Server.app"
+            BlueprintName = "SurfTeam Server"
             ReferencedContainer = "container:SurfTeam.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -89,9 +69,9 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E14E294D17F3F5B5007F9C36"
-            BuildableName = "SurfTeam.app"
-            BlueprintName = "SurfTeam"
+            BlueprintIdentifier = "E115CE7817FA5A4F00AD850D"
+            BuildableName = "SurfTeam Server.app"
+            BlueprintName = "SurfTeam Server"
             ReferencedContainer = "container:SurfTeam.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

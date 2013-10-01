@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>SurfTeam Server.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>SurfTeam.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -12,6 +17,16 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>E115CE7817FA5A4F00AD850D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E115CE9217FA5A4F00AD850D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>E14E294D17F3F5B5007F9C36</key>
 		<dict>
 			<key>primary</key>

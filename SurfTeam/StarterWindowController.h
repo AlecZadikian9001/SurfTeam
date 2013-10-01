@@ -7,9 +7,12 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "AsyncSocket.h"
 
-@interface StarterViewController : NSViewController
+@interface StarterWindowController : NSWindowController
 
 //non-web UI for login and collab
+
+-(id) initWithWindowNibName:(NSString *)windowNibName;
 
 @end

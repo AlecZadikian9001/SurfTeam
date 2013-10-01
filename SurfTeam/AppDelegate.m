@@ -8,11 +8,14 @@
 
 #import "AppDelegate.h"
 #import "BrowserWindowController.h"
+#import "StarterWindowController.h"
 
 @implementation AppDelegate
 
 WebHistory* history;
 NSURL *applicationSupportURL, *historyFileURL;
+StarterWindowController* starter;
+BrowserWindowController* browser;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
@@ -22,6 +25,15 @@ NSURL *applicationSupportURL, *historyFileURL;
     NSLog(@"App support directory: '%@'", applicationSupportURL);
     NSLog(@"History file: '%@'", historyFileURL);
     [self initializeHistory];
+    
+    starter = [[StarterWindowController alloc] initWithWindowNibName:@"Server Connection"];
+    [starter showWindow:nil];
+    [starter.window makeKeyAndOrderFront:nil];
+
+    browser = [[BrowserWindowController alloc] initWithWindowNibName:@"Browser Window"];
+    [browser showWindow:nil];
+    [browser.window makeKeyAndOrderFront:nil];
+
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender{

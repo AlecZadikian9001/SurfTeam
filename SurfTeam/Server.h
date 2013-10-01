@@ -7,13 +7,18 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "ClientHandler.h"
+#import "AsyncSocket.h"
 
+@class ClientHandler;
 @interface Server : NSObject
 
 @property(strong, nonatomic) NSMutableArray* clientHandlers;
 @property(strong, nonatomic) NSString* password;
 
-- (id) initWithPassword: (NSString*) pw;
-- (void)distributeData: (NSData*) data fromUser: (int) userID;
+- (id) initWithPort: (int) port password: (NSString*) pw;
+- (void)distributeData: (NSData*) data fromClient: (ClientHandler*) client
+           withTimeout: (NSTimeInterval)timeout
+                   tag: (long) tag;
 
 @end

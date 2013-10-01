@@ -7,8 +7,7 @@
 //
 
 #import "Server.h"
-#import "AsyncSocket.h"
-#import "ClientHandler.h"
+#import "AppDelegate.h"
 
 @implementation Server
 @synthesize clientHandlers, password;
@@ -16,27 +15,28 @@
 NSError *error;
 NSData *inData, *outData;
 AsyncSocket* serverSocket;
+int port;
 
-int DEFAULT_PORT = 9000;
-
-- (id) initWithPassword: (NSString*) pw{
+- (id) initWithPort: (int) po password: (NSString*) pw{
     self = [super init];
     if(self){
+        NSLog(@"Server being initialized with port %d and password \"%@\"", po, pw);
         password = pw;
+        port = po;
     clientHandlers = [[NSMutableArray alloc] init];
     serverSocket = [[AsyncSocket alloc] initWithDelegate: self];
     NSError *error;
-    [serverSocket acceptOnPort: DEFAULT_PORT error: &error];
+        [serverSocket acceptOnPort: port error: &error];
     }
     return self;
 }
 
-- (void)distributeData: (NSData*) data 
+- (void)distributeData: (NSData*) data fromClient: (ClientHandler*) client
 	withTimeout: (NSTimeInterval)timeout
 	tag: (long) tag
 	{
-for (ClientHandler* client in clientHandlers{
-	[client.socket writeData: data withTimeout: timeout tag: tag];
+for (ClientHandler* client2 in clientHandlers){
+	if (client!=client2) [client2.socket writeData: data withTimeout: timeout tag: tag]; //don't send to the sender
 	}
 }
 
@@ -44,7 +44,7 @@ for (ClientHandler* client in clientHandlers{
 //AsyncSocketDelegate methods:
 
 - (void)onSocket:(AsyncSocket *)sock didAcceptNewSocket:(AsyncSocket *)newSocket{
-	NSLog(@"New socket %@ created by %@", newSocket, sock);
+	NSLog(@"New socket %@ accepted by %@", newSocket, sock);
     newSocket.delegate = [[ClientHandler alloc] initWithServer: self socket: newSocket];
     [clientHandlers addObject: newSocket];
 }
@@ -72,7 +72,7 @@ for (ClientHandler* client in clientHandlers{
 - (void)onSocket:(AsyncSocket *)sock didWriteDataWithTag:(long)tag{
     NSLog(@"Socket %@ wrote data.", sock);
 }
-
+/*
 - (NSTimeInterval)onSocket:(AsyncSocket *)sock
   shouldTimeoutReadWithTag:(long)tag
                    elapsed:(NSTimeInterval)elapsed
@@ -90,6 +90,6 @@ for (ClientHandler* client in clientHandlers{
     
     return 1;
 }
-
+*/
 
 @end
