@@ -16,6 +16,7 @@ NSError *error;
 NSData *inData, *outData;
 AsyncSocket* serverSocket;
 int port;
+NSTextField* label;
 
 - (id) initWithPort: (int) po password: (NSString*) pw{
     self = [super init];
@@ -29,6 +30,11 @@ int port;
         [serverSocket acceptOnPort: port error: &error];
     }
     return self;
+}
+
+-(void)addLabel: (NSTextField*) l{
+    label = l;
+    label.stringValue = [NSString stringWithFormat:@"%lu", (unsigned long)clientHandlers.count];
 }
 
 - (void)distributeData: (NSData*) data fromClient: (ClientHandler*) client
@@ -47,6 +53,7 @@ for (ClientHandler* client2 in clientHandlers){
 	NSLog(@"New socket %@ accepted by %@", newSocket, sock);
     newSocket.delegate = [[ClientHandler alloc] initWithServer: self socket: newSocket];
     [clientHandlers addObject: newSocket];
+    label.stringValue = [NSString stringWithFormat:@"%lu", (unsigned long)clientHandlers.count];
 }
 
 //- (NSRunLoop *)onSocket:(AsyncSocket *)sock wantsRunLoopForNewSocket:(AsyncSocket *)newSocket{ return nil; }

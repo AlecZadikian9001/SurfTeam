@@ -20,5 +20,6 @@
 - (void)distributeData: (NSData*) data fromClient: (ClientHandler*) client
            withTimeout: (NSTimeInterval)timeout
                    tag: (long) tag;
+-(void)addLabel: (NSTextField*) label;
 
 @end

@@ -17,6 +17,7 @@ typedef enum {
 } MessageTags;
 
 typedef enum {
+    defaultPort = 9000,
     standardTimeout = 30,
     negotiationTimeout = -1
 } Timeouts;

@@ -679,6 +679,7 @@
         </window>
         <customObject id="494" customClass="AppDelegate">
             <connections>
+                <outlet property="connectionsLabel" destination="mok-A7-UW8" id="07C-or-ARY"/>
                 <outlet property="numberConnectionsTitle" destination="mok-A7-UW8" id="wao-hA-sRB"/>
                 <outlet property="window" destination="371" id="532"/>
             </connections>

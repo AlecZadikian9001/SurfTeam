@@ -17,7 +17,7 @@
         NSLog(@"init called in StarterWindowController");
         //TESTING, REMOVE THIS
         AsyncSocket* socket = [[AsyncSocket alloc] initWithDelegate: self];
-        [socket connectToHost: @"localhost" onPort: 9000 error:nil];
+        [socket connectToHost: @"localhost" onPort: defaultPort error:nil];
     }
     return self;
 }

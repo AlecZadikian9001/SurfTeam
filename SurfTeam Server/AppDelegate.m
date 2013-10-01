@@ -10,17 +10,14 @@
 #import "Server.h"
 
 @implementation AppDelegate
-@synthesize numberConnectionsTitle;
+@synthesize connectionsLabel;
 
 Server* server;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    server = [[Server alloc] initWithPort: 9000 password: @"alpine"];
-}
-
-+ (void) setNumberConnections: (int) num{
-    numberConnectionsTitle.stringValue = [NSString stringWithFormat: @"%d", num];
+    server = [[Server alloc] initWithPort: defaultPort password: @"alpine"];
+    [server addLabel: connectionsLabel];
 }
 
 @end

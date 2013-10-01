@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "AsyncSocket.h"
+#import "Constants.h"
 
 @interface StarterWindowController : NSWindowController
 
