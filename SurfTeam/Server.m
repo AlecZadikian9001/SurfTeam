@@ -10,93 +10,96 @@
 #import "AppDelegate.h"
 
 @implementation Server
-@synthesize clientHandlers, password;
+@synthesize clientHandlers, delegate, password;
 
 NSError *error;
 NSData *inData, *outData;
-AsyncSocket* serverSocket;
+GCDAsyncSocket* serverSocket;
 int port;
-NSTextField* label;
 
-- (id) initWithPort: (int) po password: (NSString*) pw{
+- (id) initWithDelegate: (ServerAppDelegate*) del port: (int) po password: (NSString*) pw{
     self = [super init];
     if(self){
+        [delegate onServerBeginOpen];
         NSLog(@"Server being initialized with port %d and password \"%@\"", po, pw);
+        delegate = del;
         password = pw;
         port = po;
-    clientHandlers = [[NSMutableArray alloc] init];
-    serverSocket = [[AsyncSocket alloc] initWithDelegate: self];
-    NSError *error;
+        clientHandlers = [[NSMutableArray alloc] init];
+        serverSocket = [[GCDAsyncSocket alloc] initWithDelegate: self delegateQueue: dispatch_get_main_queue()];
+        NSError *error;
         [serverSocket acceptOnPort: port error: &error];
+        [delegate onServerFinishOpen];
     }
     return self;
 }
 
--(void)addLabel: (NSTextField*) l{
-    label = l;
-    label.stringValue = [NSString stringWithFormat:@"%lu", (unsigned long)clientHandlers.count];
+- (void)distributeData: (NSData*) data fromClient: (ClientHandler*) client
+           withTimeout: (NSTimeInterval)timeout
+                   tag: (long) tag
+{
+    for (ClientHandler* client2 in clientHandlers){
+        if (client!=client2) [client2.socket writeData: data withTimeout: timeout tag: tag]; //don't send to the sender
+	}
 }
 
-- (void)distributeData: (NSData*) data fromClient: (ClientHandler*) client
-	withTimeout: (NSTimeInterval)timeout
-	tag: (long) tag
-	{
-for (ClientHandler* client2 in clientHandlers){
-	if (client!=client2) [client2.socket writeData: data withTimeout: timeout tag: tag]; //don't send to the sender
-	}
+-(void) close{
+    [delegate onServerBeginClose];
+	[serverSocket disconnect];
+    [serverSocket setDelegate: nil];
+    [delegate onServerFinishClose];
 }
 
 
 //AsyncSocketDelegate methods:
 
-- (void)onSocket:(AsyncSocket *)sock didAcceptNewSocket:(AsyncSocket *)newSocket{
+- (void)socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket{
 	NSLog(@"New socket %@ accepted by %@", newSocket, sock);
-    newSocket.delegate = [[ClientHandler alloc] initWithServer: self socket: newSocket];
-    [clientHandlers addObject: newSocket];
-    label.stringValue = [NSString stringWithFormat:@"%lu", (unsigned long)clientHandlers.count];
+    ClientHandler* temp = [[ClientHandler alloc] initWithServer: self socket: newSocket];
+    newSocket.delegate = temp;
+    [clientHandlers addObject: temp];
+    [temp start]; //so it can check for login
+    [delegate onClientConnect];
 }
 
 //- (NSRunLoop *)onSocket:(AsyncSocket *)sock wantsRunLoopForNewSocket:(AsyncSocket *)newSocket{ return nil; }
 
-- (BOOL)onSocketWillConnect:(AsyncSocket *)sock{ return YES; }
+//- (BOOL)onSocketWillConnect:(AsyncSocket *)sock{ return YES; }
 
-- (void)onSocket:(AsyncSocket *)sock willDisconnectWithError:(NSError *)err{
+- (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err{
     NSLog(@"Socket %@ disconnecting with error %@", sock, err);
+    [delegate onClientDisconnect];
 }
 
-- (void)onSocketDidDisconnect:(AsyncSocket *)sock{
-    NSLog(@"Socket %@ disconnected.", sock);
-}
-
-- (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port{
+- (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port{
     NSLog(@"Socket %@ connected to host %@:%d", sock, host, port);
 }
 
-- (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag{
+- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag{
     NSLog(@"Socket %@ read data.", sock);
 }
 
-- (void)onSocket:(AsyncSocket *)sock didWriteDataWithTag:(long)tag{
+- (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag{
     NSLog(@"Socket %@ wrote data.", sock);
 }
 /*
-- (NSTimeInterval)onSocket:(AsyncSocket *)sock
-  shouldTimeoutReadWithTag:(long)tag
-                   elapsed:(NSTimeInterval)elapsed
-                 bytesDone:(NSUInteger)length{
-    NSLog(@"Error: %d", __LINE__);
-    
-    return 1;
-}
-
-- (NSTimeInterval)onSocket:(AsyncSocket*)sock
+ - (NSTimeInterval)onSocket:(AsyncSocket *)sock
+ shouldTimeoutReadWithTag:(long)tag
+ elapsed:(NSTimeInterval)elapsed
+ bytesDone:(NSUInteger)length{
+ NSLog(@"Error: %d", __LINE__);
+ 
+ return 1;
+ }
+ 
+ - (NSTimeInterval)onSocket:(AsyncSocket*)sock
  shouldTimeoutWriteWithTag:(long)tag
-                   elapsed:(NSTimeInterval)elapsed
-                 bytesDone:(NSUInteger)length{
-    NSLog(@"Error: %d", __LINE__);
-    
-    return 1;
-}
-*/
+ elapsed:(NSTimeInterval)elapsed
+ bytesDone:(NSUInteger)length{
+ NSLog(@"Error: %d", __LINE__);
+ 
+ return 1;
+ }
+ */
 
 @end

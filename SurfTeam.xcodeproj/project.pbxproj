@@ -7,12 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E10A070117F67E1D00087C59 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = E10A070017F67E1D00087C59 /* AsyncSocket.m */; };
 		E115CE7A17FA5A4F00AD850D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14E295117F3F5B5007F9C36 /* Cocoa.framework */; };
 		E115CE8017FA5A4F00AD850D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E115CE7E17FA5A4F00AD850D /* InfoPlist.strings */; };
 		E115CE8217FA5A4F00AD850D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E115CE8117FA5A4F00AD850D /* main.m */; };
 		E115CE8617FA5A4F00AD850D /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = E115CE8417FA5A4F00AD850D /* Credits.rtf */; };
-		E115CE8917FA5A4F00AD850D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E115CE8817FA5A4F00AD850D /* AppDelegate.m */; };
+		E115CE8917FA5A4F00AD850D /* ServerAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E115CE8817FA5A4F00AD850D /* ServerAppDelegate.m */; };
 		E115CE8C17FA5A4F00AD850D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = E115CE8A17FA5A4F00AD850D /* MainMenu.xib */; };
 		E115CE8E17FA5A4F00AD850D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E115CE8D17FA5A4F00AD850D /* Images.xcassets */; };
 		E115CE9417FA5A4F00AD850D /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14E297017F3F5B6007F9C36 /* XCTest.framework */; };
@@ -22,9 +21,12 @@
 		E115CEAB17FA5AA700AD850D /* Server.m in Sources */ = {isa = PBXBuildFile; fileRef = E10A070317F67E2400087C59 /* Server.m */; };
 		E115CEAC17FA5AAB00AD850D /* ClientHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = E161539817F7813B0097708F /* ClientHandler.m */; };
 		E115CEAD17FA5CF600AD850D /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14E298517F3F844007F9C36 /* WebKit.framework */; };
-		E115CEB217FA625200AD850D /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = E10A070017F67E1D00087C59 /* AsyncSocket.m */; };
 		E115CEB417FA639400AD850D /* Server Connection.xib in Resources */ = {isa = PBXBuildFile; fileRef = E115CEB317FA639400AD850D /* Server Connection.xib */; };
 		E115CEB617FA63AA00AD850D /* Browser Window.xib in Resources */ = {isa = PBXBuildFile; fileRef = E115CEB517FA63AA00AD850D /* Browser Window.xib */; };
+		E12CF46917FBACA200253242 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = E12CF46817FBACA200253242 /* GCDAsyncSocket.m */; };
+		E12CF46A17FBACA200253242 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = E12CF46817FBACA200253242 /* GCDAsyncSocket.m */; };
+		E12CF47017FBADE100253242 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E12CF46F17FBADE100253242 /* Security.framework */; };
+		E12CF47117FBADEE00253242 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E12CF46F17FBADE100253242 /* Security.framework */; };
 		E140E6BC17F4F4AB00A58831 /* BrowserWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = E140E6BB17F4F4AB00A58831 /* BrowserWindowController.m */; };
 		E14E295217F3F5B5007F9C36 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14E295117F3F5B5007F9C36 /* Cocoa.framework */; };
 		E14E295C17F3F5B5007F9C36 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E14E295A17F3F5B5007F9C36 /* InfoPlist.strings */; };
@@ -60,8 +62,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		E10A06FF17F67E1D00087C59 /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
-		E10A070017F67E1D00087C59 /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncSocket.m; sourceTree = "<group>"; };
 		E10A070217F67E2400087C59 /* Server.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Server.h; sourceTree = "<group>"; };
 		E10A070317F67E2400087C59 /* Server.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Server.m; sourceTree = "<group>"; };
 		E115CE7917FA5A4F00AD850D /* SurfTeam Server.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SurfTeam Server.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -70,8 +70,8 @@
 		E115CE8117FA5A4F00AD850D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E115CE8317FA5A4F00AD850D /* SurfTeam Server-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SurfTeam Server-Prefix.pch"; sourceTree = "<group>"; };
 		E115CE8517FA5A4F00AD850D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		E115CE8717FA5A4F00AD850D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		E115CE8817FA5A4F00AD850D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		E115CE8717FA5A4F00AD850D /* ServerAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerAppDelegate.h; sourceTree = "<group>"; };
+		E115CE8817FA5A4F00AD850D /* ServerAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServerAppDelegate.m; sourceTree = "<group>"; };
 		E115CE8B17FA5A4F00AD850D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		E115CE8D17FA5A4F00AD850D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E115CE9317FA5A4F00AD850D /* SurfTeam ServerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SurfTeam ServerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -81,6 +81,9 @@
 		E115CEAE17FA5DE700AD850D /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		E115CEB317FA639400AD850D /* Server Connection.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Server Connection.xib"; sourceTree = "<group>"; };
 		E115CEB517FA63AA00AD850D /* Browser Window.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Browser Window.xib"; sourceTree = "<group>"; };
+		E12CF46717FBACA200253242 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GCDAsyncSocket.h; path = CocoaAsyncSocket/GCD/GCDAsyncSocket.h; sourceTree = SOURCE_ROOT; };
+		E12CF46817FBACA200253242 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GCDAsyncSocket.m; path = CocoaAsyncSocket/GCD/GCDAsyncSocket.m; sourceTree = SOURCE_ROOT; };
+		E12CF46F17FBADE100253242 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		E140E6BA17F4F4AB00A58831 /* BrowserWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserWindowController.h; sourceTree = "<group>"; };
 		E140E6BB17F4F4AB00A58831 /* BrowserWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowserWindowController.m; sourceTree = "<group>"; };
 		E14E294E17F3F5B5007F9C36 /* SurfTeam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SurfTeam.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -116,6 +119,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E12CF47017FBADE100253242 /* Security.framework in Frameworks */,
 				E115CEAD17FA5CF600AD850D /* WebKit.framework in Frameworks */,
 				E115CE7A17FA5A4F00AD850D /* Cocoa.framework in Frameworks */,
 			);
@@ -134,6 +138,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E12CF47117FBADEE00253242 /* Security.framework in Frameworks */,
 				E14E298617F3F844007F9C36 /* WebKit.framework in Frameworks */,
 				E14E295217F3F5B5007F9C36 /* Cocoa.framework in Frameworks */,
 			);
@@ -164,8 +169,8 @@
 			isa = PBXGroup;
 			children = (
 				E10A06FE17F67DFA00087C59 /* Server */,
-				E115CE8717FA5A4F00AD850D /* AppDelegate.h */,
-				E115CE8817FA5A4F00AD850D /* AppDelegate.m */,
+				E115CE8717FA5A4F00AD850D /* ServerAppDelegate.h */,
+				E115CE8817FA5A4F00AD850D /* ServerAppDelegate.m */,
 				E115CE8A17FA5A4F00AD850D /* MainMenu.xib */,
 				E115CE8D17FA5A4F00AD850D /* Images.xcassets */,
 				E115CE7C17FA5A4F00AD850D /* Supporting Files */,
@@ -229,6 +234,7 @@
 		E14E295017F3F5B5007F9C36 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E12CF46F17FBADE100253242 /* Security.framework */,
 				E14E298517F3F844007F9C36 /* WebKit.framework */,
 				E14E295117F3F5B5007F9C36 /* Cocoa.framework */,
 				E14E297017F3F5B6007F9C36 /* XCTest.framework */,
@@ -252,8 +258,8 @@
 			children = (
 				E164FBAE17F7A92400372B20 /* Client */,
 				E115CEAE17FA5DE700AD850D /* Constants.h */,
-				E10A06FF17F67E1D00087C59 /* AsyncSocket.h */,
-				E10A070017F67E1D00087C59 /* AsyncSocket.m */,
+				E12CF46717FBACA200253242 /* GCDAsyncSocket.h */,
+				E12CF46817FBACA200253242 /* GCDAsyncSocket.m */,
 				E14E296317F3F5B5007F9C36 /* AppDelegate.h */,
 				E14E296417F3F5B5007F9C36 /* AppDelegate.m */,
 				E14E296917F3F5B5007F9C36 /* Images.xcassets */,
@@ -494,8 +500,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E115CE8917FA5A4F00AD850D /* AppDelegate.m in Sources */,
-				E115CEB217FA625200AD850D /* AsyncSocket.m in Sources */,
+				E115CE8917FA5A4F00AD850D /* ServerAppDelegate.m in Sources */,
+				E12CF46A17FBACA200253242 /* GCDAsyncSocket.m in Sources */,
 				E115CE8217FA5A4F00AD850D /* main.m in Sources */,
 				E115CEAB17FA5AA700AD850D /* Server.m in Sources */,
 				E115CEAC17FA5AAB00AD850D /* ClientHandler.m in Sources */,
@@ -514,7 +520,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E10A070117F67E1D00087C59 /* AsyncSocket.m in Sources */,
+				E12CF46917FBACA200253242 /* GCDAsyncSocket.m in Sources */,
 				E14E296517F3F5B5007F9C36 /* AppDelegate.m in Sources */,
 				E140E6BC17F4F4AB00A58831 /* BrowserWindowController.m in Sources */,
 				E164FBA717F7A86400372B20 /* IGIsolatedCookieWebView.m in Sources */,
@@ -828,6 +834,7 @@
 				E115CEA217FA5A4F00AD850D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E115CEA317FA5A4F00AD850D /* Build configuration list for PBXNativeTarget "SurfTeam ServerTests" */ = {
 			isa = XCConfigurationList;
@@ -836,6 +843,7 @@
 				E115CEA517FA5A4F00AD850D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E14E294917F3F5B5007F9C36 /* Build configuration list for PBXProject "SurfTeam" */ = {
 			isa = XCConfigurationList;

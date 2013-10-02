@@ -7,17 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AsyncSocket.h"
+#import "GCDAsyncSocket.h"
 #import "Server.h"
 #import "Constants.h"
 
 @class Server;
-@interface ClientHandler : NSObject //delegate for each connected client
+@interface ClientHandler : NSThread //multithreaded just for user login
 
-@property(strong, nonatomic) AsyncSocket* socket;
+@property(strong, nonatomic) GCDAsyncSocket* socket;
 
-- (id) initWithServer: (Server*) server socket: (AsyncSocket*) sock;
-- (void)disconnectForcibly: (AsyncSocket*) socket;
-- (void)disconnectGracefully: (AsyncSocket*) socket;
+- (id) initWithServer: (Server*) server socket: (GCDAsyncSocket*) sock;
+- (void)disconnectSocketForcibly: (GCDAsyncSocket*) socket;
+- (void)disconnectSocketGracefully: (GCDAsyncSocket*) socket;
 
 @end

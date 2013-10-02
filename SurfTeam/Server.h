@@ -8,18 +8,25 @@
 
 #import <Cocoa/Cocoa.h>
 #import "ClientHandler.h"
-#import "AsyncSocket.h"
+#import "GCDAsyncSocket.h"
+#import "ServerAppDelegate.h"
 
 @class ClientHandler;
 @interface Server : NSObject
 
 @property(strong, nonatomic) NSMutableArray* clientHandlers;
 @property(strong, nonatomic) NSString* password;
+@property(strong, nonatomic) ServerAppDelegate* delegate;
 
-- (id) initWithPort: (int) port password: (NSString*) pw;
+//initializes and starts a new server
+- (id) initWithDelegate: (ServerAppDelegate*) delegate port: (int) port password: (NSString*) pw;
+
+//dumb data distributer... just resends everything to all users except the sender
 - (void)distributeData: (NSData*) data fromClient: (ClientHandler*) client
            withTimeout: (NSTimeInterval)timeout
                    tag: (long) tag;
--(void)addLabel: (NSTextField*) label;
+
+//stop the server
+- (void)close;
 
 @end
