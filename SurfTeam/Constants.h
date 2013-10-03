@@ -13,7 +13,8 @@ typedef enum {
     clientMessageTag,
     pageSourceTag,
     cookieTag,
-    pulseTag
+    pulseTag,
+    nicknameTag
 } MessageTags;
 
 typedef enum {

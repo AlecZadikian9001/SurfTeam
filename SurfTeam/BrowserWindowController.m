@@ -7,21 +7,19 @@
 //
 
 #import "BrowserWindowController.h"
-#import "AsyncSocket.h"
 
 @implementation BrowserWindowController //also implements AsyncSocketDelegate. fix?
-@synthesize socket;
+@synthesize starter, owner;
 
 NSData *inData, *outData;
 NSMutableData* cookieBuffer;
+BOOL isControllable; //that is, if I own it
 
-int MAX_COOKIE_LENGTH_BYTES = 1000;
-int COOKIE_TIMEOUT = 10000;
-int COOKIE_TAG = 1;
-
-
-- (BrowserWindowController*) init{
-   socket = [[AsyncSocket alloc] initWithDelegate: self];
+- (BrowserWindowController*) initWithStarter: (StarterWindowController*) st{
+    self = [super init];
+    if (self){
+        starter = st;
+    }
     return self;
 }
 
@@ -36,69 +34,12 @@ int COOKIE_TAG = 1;
 
 - (void)loadCookies
 {
-[socket 
-    readDataToLength:MAX_COOKIE_LENGTH_BYTES
-             withTimeout:COOKIE_TIMEOUT
+[starter.socket
+    readDataWithTimeout:standardTimeout
                   buffer:cookieBuffer
-            bufferOffset:1 //?
-                     tag:COOKIE_TAG
+            bufferOffset:0
+                     tag:cookieTag
 ];
 }
-
-- (BOOL)connectToServer: (NSString*) address onPort: (int) port{
-    NSError* error;
-    if (![socket connectToHost: address onPort: port error: &error]) NSLog(@"Failed to connect to host %@: %@", address, error);
-    return YES;
-}
-
-- (void)disconnectGracefully{
-	[socket setDelegate: nil];
-	[socket disconnectAfterReadingAndWriting];
-}
-
-- (void)disconnectForcibly{
-	[socket setDelegate: nil];
-	[socket disconnect];
-}
-
-//AsyncSocketDelegate methods:
-
-- (void)onSocket:(AsyncSocket *)sock willDisconnectWithError:(NSError *)err{
-NSLog(@"Socket %@ disconnecting with error %@", sock, err);
-}
-
-- (void)onSocketDidDisconnect:(AsyncSocket *)sock{
-NSLog(@"Socket %@ disconnected.", sock);
-}
-
-- (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port{
-NSLog(@"Socket %@ connected to host %@:%d", sock, host, port);
-}
-
-- (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag{
-NSLog(@"Socket %@ read data.", sock);
-}
-
-- (void)onSocket:(AsyncSocket *)sock didWriteDataWithTag:(long)tag{
-NSLog(@"Socket %@ wrote data.", sock);
-}
-
-- (NSTimeInterval)onSocket:(AsyncSocket *)sock
-  shouldTimeoutReadWithTag:(long)tag
-                   elapsed:(NSTimeInterval)elapsed
-                 bytesDone:(NSUInteger)length{
-    return 1;
-}
-
-- (NSTimeInterval)onSocket:(AsyncSocket *)sock
- shouldTimeoutWriteWithTag:(long)tag
-                   elapsed:(NSTimeInterval)elapsed
-                 bytesDone:(NSUInteger)length{
-    return 1;
-    
-}
-
-
-
 
 @end

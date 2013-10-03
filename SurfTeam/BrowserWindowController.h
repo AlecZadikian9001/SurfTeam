@@ -7,11 +7,15 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "AsyncSocket.h"
+#import "GCDAsyncSocket.h"
+#import "Constants.h"
+#import "StarterWindowController.h"
 
 @interface BrowserWindowController : NSWindowController
+//just the web browser window, can be online or offline!
 
-@property (strong, nonatomic) AsyncSocket* socket;
+@property (strong, nonatomic) StarterWindowController* starter;
+@property (strong, nonatomic) NSString* owner;
 
 - (void)saveCookies;
 - (void)loadCookies;

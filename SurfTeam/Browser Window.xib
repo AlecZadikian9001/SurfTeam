@@ -12,21 +12,21 @@
         <window title="SurfTeam" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="6Bt-AA-8nM">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
-            <rect key="contentRect" x="686" y="302" width="1234" height="756"/>
+            <rect key="contentRect" x="686" y="302" width="1274" height="816"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1058"/>
             <view key="contentView" id="3UK-yE-nT1">
-                <rect key="frame" x="0.0" y="0.0" width="1234" height="756"/>
+                <rect key="frame" x="0.0" y="0.0" width="1274" height="816"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <webView translatesAutoresizingMaskIntoConstraints="NO" id="Buq-zr-A5o" customClass="IGIsolatedCookieWebView">
-                        <rect key="frame" x="0.0" y="0.0" width="1234" height="727"/>
+                    <webView misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Buq-zr-A5o" customClass="IGIsolatedCookieWebView">
+                        <rect key="frame" x="0.0" y="0.0" width="1274" height="789"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12">
                             <nil key="identifier"/>
                         </webPreferences>
                     </webView>
                     <textField verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BFQ-4K-E2g">
-                        <rect key="frame" x="0.0" y="728" width="1234" height="28"/>
+                        <rect key="frame" x="0.0" y="788" width="1040" height="28"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" alignment="left" title="http://" drawsBackground="YES" id="Spv-HG-4Vb">
                             <font key="font" size="22" name="LucidaGrande"/>
@@ -37,16 +37,36 @@
                             <action selector="takeStringURLFrom:" target="Buq-zr-A5o" id="GZS-LM-31J"/>
                         </connections>
                     </textField>
+                    <button verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q3d-gs-zoW">
+                        <rect key="frame" x="1202" y="787" width="72" height="30"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="smallSquare" title="Yours" bezelStyle="smallSquare" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="9nq-cZ-mEY">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" size="18" name="LucidaGrande"/>
+                        </buttonCell>
+                    </button>
+                    <button verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PRF-W5-TDG">
+                        <rect key="frame" x="1040" y="787" width="162" height="30"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="smallSquare" title="Local" bezelStyle="smallSquare" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fp4-r8-U7s">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" size="18" name="LucidaGrande"/>
+                        </buttonCell>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Buq-zr-A5o" firstAttribute="top" secondItem="3UK-yE-nT1" secondAttribute="top" constant="29" id="0ct-UG-Lhz"/>
                     <constraint firstAttribute="bottom" secondItem="Buq-zr-A5o" secondAttribute="bottom" id="2HU-pg-fVE"/>
-                    <constraint firstAttribute="trailing" secondItem="BFQ-4K-E2g" secondAttribute="trailing" id="aK4-Zn-Wdf"/>
                     <constraint firstAttribute="trailing" secondItem="Buq-zr-A5o" secondAttribute="trailing" id="ga8-cR-CPB"/>
+                    <constraint firstAttribute="trailing" secondItem="Q3d-gs-zoW" secondAttribute="trailing" id="jNn-kX-N9A"/>
+                    <constraint firstAttribute="trailing" secondItem="BFQ-4K-E2g" secondAttribute="trailing" constant="234" id="jUa-uH-NuJ"/>
                     <constraint firstItem="Buq-zr-A5o" firstAttribute="leading" secondItem="3UK-yE-nT1" secondAttribute="leading" id="kgy-NU-FjW"/>
                     <constraint firstItem="BFQ-4K-E2g" firstAttribute="leading" secondItem="3UK-yE-nT1" secondAttribute="leading" id="n7x-kA-qJ4"/>
+                    <constraint firstAttribute="trailing" secondItem="PRF-W5-TDG" secondAttribute="trailing" constant="93" id="q3F-FK-rVf"/>
+                    <constraint firstItem="Q3d-gs-zoW" firstAttribute="leading" secondItem="PRF-W5-TDG" secondAttribute="trailing" id="zml-n9-zuY"/>
                 </constraints>
             </view>
         </window>
+        <customObject id="16m-Qg-VRd" customClass="BrowserWindowController"/>
     </objects>
 </document>

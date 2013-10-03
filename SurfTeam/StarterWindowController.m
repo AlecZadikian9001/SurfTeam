@@ -9,56 +9,60 @@
 #import "StarterWindowController.h"
 
 @implementation StarterWindowController
+@synthesize serverIPField, serverPasswordField, serverPortField, nameField, socket;
 
 -(id)initWithWindowNibName: (NSString*) nibName;
 {
     self = [super initWithWindowNibName: nibName];
     if (self){
         NSLog(@"init called in StarterWindowController");
-        //TESTING, REMOVE THIS
-        AsyncSocket* socket = [[AsyncSocket alloc] initWithDelegate: self];
-        NSLog(@"About to attempt to connect to %@ on port %d", @"localhost", defaultPort);
-        [socket connectToHost: @"localhost" onPort: defaultPort error:nil];
     }
     return self;
 }
 
+- (IBAction)connectButton:(id)sender {
+    NSLog(@"About to connect to address %@ on port %@", serverIPField.stringValue, serverPortField.stringValue);
+    socket = [[GCDAsyncSocket alloc] initWithDelegate: self delegateQueue: dispatch_get_main_queue()];
+    NSError* error = [[NSError alloc] init];
+    if (![socket connectToHost: serverIPField.stringValue onPort: [serverPortField.stringValue integerValue] withTimeout:standardTimeout error:&error])
+        NSLog(@"Unable to connect to host; error: %@", error);
+    else{
+        [socket writeData: [serverPasswordField.stringValue dataUsingEncoding: NSUTF8StringEncoding] withTimeout: standardTimeout tag:negotiationTag];
+        [socket readDataWithTimeout: standardTimeout tag: nicknameTag];
+    }
+}
+
 //AsyncSocketDelegate methods:
 
-- (void)onSocket:(AsyncSocket *)sock willDisconnectWithError:(NSError *)err{
+- (void)socket:(GCDAsyncSocket *)sock willDisconnectWithError:(NSError *)err{
     NSLog(@"Socket %@ disconnecting with error %@", sock, err);
 }
 
-- (void)onSocketDidDisconnect:(AsyncSocket *)sock{
+- (void)socketDidDisconnect:(GCDAsyncSocket *)sock{
     NSLog(@"Socket %@ disconnected.", sock);
 }
 
-- (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port{
+- (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port{
     NSLog(@"Socket %@ connected to host %@:%d", sock, host, port);
 }
 
-- (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag{
+- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag{
     NSLog(@"Socket %@ read data.", sock);
+    if (tag==nicknameTag){
+        [socket writeData: [nameField.stringValue dataUsingEncoding: NSUTF8StringEncoding] withTimeout: standardTimeout tag:nicknameTag]; }
 }
 
-- (void)onSocket:(AsyncSocket *)sock didWriteDataWithTag:(long)tag{
+- (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag{
     NSLog(@"Socket %@ wrote data.", sock);
 }
-/*
-- (NSTimeInterval)onSocket:(AsyncSocket *)sock
-  shouldTimeoutReadWithTag:(long)tag
-                   elapsed:(NSTimeInterval)elapsed
-                 bytesDone:(NSUInteger)length{
-    return 1;
-}
 
-- (NSTimeInterval)onSocket:(AsyncSocket *)sock
- shouldTimeoutWriteWithTag:(long)tag
-                   elapsed:(NSTimeInterval)elapsed
-                 bytesDone:(NSUInteger)length{
-    return 1;
-    
+- (NSTimeInterval)socket:(GCDAsyncSocket *)sock shouldTimeoutWriteWithTag:(long)tag
+                 elapsed:(NSTimeInterval)elapsed
+               bytesDone:(NSUInteger)length{
+    NSLog(@"Error, read timeout!");
+    [socket disconnect];
+    [socket setDelegate: nil];
+    return 0;
 }
-*/
 
 @end

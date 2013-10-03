@@ -55,10 +55,11 @@ int port;
 
 - (void)socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket{
 	NSLog(@"New socket %@ accepted by %@", newSocket, sock);
-    ClientHandler* temp = [[ClientHandler alloc] initWithServer: self socket: newSocket];
-    newSocket.delegate = temp;
+    ClientHandler* temp = [ClientHandler alloc];
+    [newSocket setDelegate: temp];
+    [temp initWithServer: self socket: newSocket];
+    [newSocket synchronouslySetDelegateQueue: dispatch_queue_create(NULL, DISPATCH_QUEUE_CONCURRENT)];
     [clientHandlers addObject: temp];
-    [temp start]; //so it can check for login
     [delegate onClientConnect];
 }
 
@@ -76,7 +77,7 @@ int port;
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag{
-    NSLog(@"Socket %@ read data.", sock);
+    NSLog(@"Socket %@ in main server thread read data.", sock);
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag{

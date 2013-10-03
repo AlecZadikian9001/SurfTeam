@@ -12,9 +12,10 @@
 #import "Constants.h"
 
 @class Server;
-@interface ClientHandler : NSThread //multithreaded just for user login
+@interface ClientHandler : NSObject
 
 @property(strong, nonatomic) GCDAsyncSocket* socket;
+@property(strong, nonatomic) NSString* name;
 
 - (id) initWithServer: (Server*) server socket: (GCDAsyncSocket*) sock;
 - (void)disconnectSocketForcibly: (GCDAsyncSocket*) socket;

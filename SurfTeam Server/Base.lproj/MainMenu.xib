@@ -666,7 +666,7 @@
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mok-A7-UW8">
-                        <rect key="frame" x="135" y="323" width="38" height="17"/>
+                        <rect key="frame" x="135" y="323" width="210" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="QEv-fb-j4E">
                             <font key="font" metaFont="system"/>
@@ -674,6 +674,21 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KMg-cI-4o0">
+                        <rect key="frame" x="162" y="135" width="156" height="90"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="bevel" title="STOPPED" bezelStyle="regularSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" sound="Tink" inset="2" id="8U0-EM-H34">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" size="22" name="LucidaGrande"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="serverToggle:" target="494" id="Get-w5-Kvk"/>
+                        </connections>
+                    </button>
+                    <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="fXz-sD-fv4">
+                        <rect key="frame" x="224" y="139" width="32" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    </progressIndicator>
                 </subviews>
             </view>
         </window>
@@ -681,9 +696,15 @@
             <connections>
                 <outlet property="connectionsLabel" destination="mok-A7-UW8" id="07C-or-ARY"/>
                 <outlet property="numberConnectionsTitle" destination="mok-A7-UW8" id="wao-hA-sRB"/>
+                <outlet property="progressIndicator" destination="fXz-sD-fv4" id="Qcq-F0-ddY"/>
+                <outlet property="serverToggle" destination="KMg-cI-4o0" id="OGD-sY-pbw"/>
+                <outlet property="serverToggleButton" destination="KMg-cI-4o0" id="3Et-Qe-7PO"/>
                 <outlet property="window" destination="371" id="532"/>
             </connections>
         </customObject>
         <customObject id="420" customClass="NSFontManager"/>
     </objects>
+    <resources>
+        <sound name="Tink"/>
+    </resources>
 </document>

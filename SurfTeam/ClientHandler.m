@@ -12,9 +12,10 @@ NSData *inData, *outData;
 NSMutableData* buffer;
 Server* server;
 BOOL isLoggedIn;
+int userID;
 
 @implementation ClientHandler
-@synthesize socket;
+@synthesize socket, name;
 
 - (id) initWithServer:(Server*) s socket:(GCDAsyncSocket*) sock{
     self = [super init];
@@ -25,24 +26,14 @@ BOOL isLoggedIn;
         inData = [[NSData alloc] init];
         outData = [[NSData alloc] init];
         buffer = [[NSMutableData alloc] init];
+        userID = server.clientHandlers.count;
 
         //creator of this is going to run the thread to make sure client is valid
+        NSLog(@"Socket %@ given delegate.", socket);
+        [socket readDataWithTimeout:standardTimeout buffer: buffer bufferOffset: 0 tag: negotiationTag];
+        [socket readDataWithTimeout:standardTimeout buffer: buffer bufferOffset: 0 tag: nicknameTag];
     }
     return self;
-}
-
-- (void) main{
-    //time to get login stuff
-	NSLog(@"Socket %@ connected to host.", socket);
-    [socket readDataWithTimeout: negotiationTimeout buffer: buffer bufferOffset: 0 tag: negotiationTag];
-    while (buffer.length==0){[NSThread sleepForTimeInterval:.5]; DLog(@"Waiting...");} //wait for password
-    NSString* password = [[NSString alloc] initWithData:buffer encoding:NSUTF8StringEncoding];
-    password = [password substringToIndex: (password.length - 2)]; //TO BE REMOVED LATER
-    if (![password isEqualToString: server.password]){ //if password is wrong
-        NSLog(@"Wrong password! Password entered: \"%@\" instead of the server's password \"%@\".", password, server.password);
-        [self disconnectSocketForcibly: socket]; //fatality
-    }
-    else{ isLoggedIn = YES; NSLog(@"User successfully logged in."); }
 }
 
 - (void)disconnectSocketGracefully: (GCDAsyncSocket*) socket2{
@@ -67,17 +58,25 @@ BOOL isLoggedIn;
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag{
-    NSLog(@"Socket %@ read data.", sock);
+    NSLog(@"Socket %@ read data on thread %@.", sock, [NSThread currentThread]);
     
     //TO BE DELETED LATER:
     NSLog(@"Incoming message: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
 
-    
     if (!isLoggedIn && tag!=negotiationTag){ NSLog(@"Socket %@ tried to read non-negotation data, but user was not logged in!", sock); return; }
-    if (tag==negotiationTag) NSLog(@"User is trying to negotiate login: \"%@\"", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+    else if (!isLoggedIn && tag==negotiationTag){
+        NSLog(@"User is trying to negotiate login: \"%@\"", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+        NSString* password = [[NSString alloc] initWithData:buffer encoding:NSUTF8StringEncoding];
+        if (![password isEqualToString: server.password]){ //if password is wrong
+            NSLog(@"Wrong password! Password entered: \"%@\" instead of the server's password \"%@\".", password, server.password);
+            [self disconnectSocketForcibly: socket]; //fatality
+        }
+        else{ isLoggedIn = YES; name = [NSString stringWithFormat:@"User%d", userID]; NSLog(@"User successfully logged in."); [socket writeData: data withTimeout: standardTimeout tag: nicknameTag]; }
+    }
     else if (tag==cookieTag || tag==pageSourceTag){
         [server distributeData: data fromClient: self withTimeout: standardTimeout tag:tag];
     }
+    else if (tag==nicknameTag){ name = [[NSString alloc] initWithData:buffer encoding:NSUTF8StringEncoding]; NSLog(@"User changed nickname to %@", name); }
     else (NSLog(@"Socket %@ read data with an invalid tag! Tag is %ld", sock, tag));
 }
 

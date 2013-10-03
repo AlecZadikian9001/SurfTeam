@@ -42,6 +42,8 @@
 		E14E298617F3F844007F9C36 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14E298517F3F844007F9C36 /* WebKit.framework */; };
 		E164FBA717F7A86400372B20 /* IGIsolatedCookieWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = E164FBA617F7A86400372B20 /* IGIsolatedCookieWebView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		E164FBAD17F7A91600372B20 /* StarterWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = E164FBAC17F7A91600372B20 /* StarterWindowController.m */; };
+		E1AAA30E17FCCBA10016C886 /* ClientSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = E1AAA30D17FCCBA10016C886 /* ClientSocket.m */; };
+		E1AAA30F17FCCBA10016C886 /* ClientSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = E1AAA30D17FCCBA10016C886 /* ClientSocket.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,6 +114,8 @@
 		E164FBA617F7A86400372B20 /* IGIsolatedCookieWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGIsolatedCookieWebView.m; sourceTree = "<group>"; };
 		E164FBAB17F7A91600372B20 /* StarterWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarterWindowController.h; sourceTree = "<group>"; };
 		E164FBAC17F7A91600372B20 /* StarterWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarterWindowController.m; sourceTree = "<group>"; };
+		E1AAA30C17FCCBA10016C886 /* ClientSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClientSocket.h; sourceTree = "<group>"; };
+		E1AAA30D17FCCBA10016C886 /* ClientSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClientSocket.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -256,6 +260,7 @@
 		E14E295717F3F5B5007F9C36 /* SurfTeam */ = {
 			isa = PBXGroup;
 			children = (
+				E15A58E717FCFA6200569B96 /* Trash */,
 				E164FBAE17F7A92400372B20 /* Client */,
 				E115CEAE17FA5DE700AD850D /* Constants.h */,
 				E12CF46717FBACA200253242 /* GCDAsyncSocket.h */,
@@ -296,6 +301,23 @@
 				E14E297817F3F5B6007F9C36 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E15A58E617FCF27900569B96 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				E1AAA30C17FCCBA10016C886 /* ClientSocket.h */,
+				E1AAA30D17FCCBA10016C886 /* ClientSocket.m */,
+			);
+			name = Networking;
+			sourceTree = "<group>";
+		};
+		E15A58E717FCFA6200569B96 /* Trash */ = {
+			isa = PBXGroup;
+			children = (
+				E15A58E617FCF27900569B96 /* Networking */,
+			);
+			name = Trash;
 			sourceTree = "<group>";
 		};
 		E164FBAE17F7A92400372B20 /* Client */ = {
@@ -505,6 +527,7 @@
 				E115CE8217FA5A4F00AD850D /* main.m in Sources */,
 				E115CEAB17FA5AA700AD850D /* Server.m in Sources */,
 				E115CEAC17FA5AAB00AD850D /* ClientHandler.m in Sources */,
+				E1AAA30F17FCCBA10016C886 /* ClientSocket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -520,6 +543,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1AAA30E17FCCBA10016C886 /* ClientSocket.m in Sources */,
 				E12CF46917FBACA200253242 /* GCDAsyncSocket.m in Sources */,
 				E14E296517F3F5B5007F9C36 /* AppDelegate.m in Sources */,
 				E140E6BC17F4F4AB00A58831 /* BrowserWindowController.m in Sources */,

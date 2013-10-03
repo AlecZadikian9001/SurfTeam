@@ -12,6 +12,10 @@
 
 @property (assign) IBOutlet NSWindow *window;
 @property (weak) IBOutlet NSTextField *connectionsLabel;
+@property (weak) IBOutlet NSProgressIndicator *progressIndicator;
+@property (weak) IBOutlet NSButton *serverToggleButton;
+
+- (IBAction)serverToggle:(NSButton *)sender;
 
 - (void) onClientConnect; //called after client has connected
 - (void) onClientDisconnect; //called after client has disconnected
