@@ -32,10 +32,10 @@
                             <font key="font" size="22" name="LucidaGrande"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            <connections>
+                                <action selector="loadPage:" target="16m-Qg-VRd" id="XFK-lb-iKR"/>
+                            </connections>
                         </textFieldCell>
-                        <connections>
-                            <action selector="takeStringURLFrom:" target="Buq-zr-A5o" id="GZS-LM-31J"/>
-                        </connections>
                     </textField>
                     <button verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q3d-gs-zoW">
                         <rect key="frame" x="1202" y="787" width="72" height="30"/>
@@ -67,6 +67,10 @@
                 </constraints>
             </view>
         </window>
-        <customObject id="16m-Qg-VRd" customClass="BrowserWindowController"/>
+        <customObject id="16m-Qg-VRd" customClass="BrowserWindowController">
+            <connections>
+                <outlet property="webView" destination="Buq-zr-A5o" id="7iu-bi-2L0"/>
+            </connections>
+        </customObject>
     </objects>
 </document>

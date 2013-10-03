@@ -10,12 +10,17 @@
 #import "GCDAsyncSocket.h"
 #import "Constants.h"
 #import "StarterWindowController.h"
+#import "IGIsolatedCookieWebView.h"
 
 @interface BrowserWindowController : NSWindowController
 //just the web browser window, can be online or offline!
 
 @property (strong, nonatomic) StarterWindowController* starter;
 @property (strong, nonatomic) NSString* owner;
+@property (strong, nonatomic) NSString* url;
+@property (weak) IBOutlet IGIsolatedCookieWebView *webView;
+
+- (IBAction)loadPage:(NSTextFieldCell *)sender;
 
 - (void)saveCookies;
 - (void)loadCookies;

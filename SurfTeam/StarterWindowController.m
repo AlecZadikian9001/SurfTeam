@@ -29,6 +29,7 @@
     else{
         [socket writeData: [serverPasswordField.stringValue dataUsingEncoding: NSUTF8StringEncoding] withTimeout: standardTimeout tag:negotiationTag];
         [socket readDataWithTimeout: standardTimeout tag: nicknameTag];
+      //  [socket writeData: [nameField.stringValue dataUsingEncoding: NSUTF8StringEncoding] withTimeout: standardTimeout tag:nicknameTag];
     }
 }
 
@@ -56,10 +57,19 @@
     NSLog(@"Socket %@ wrote data.", sock);
 }
 
-- (NSTimeInterval)socket:(GCDAsyncSocket *)sock shouldTimeoutWriteWithTag:(long)tag
+- (NSTimeInterval)socket:(GCDAsyncSocket *)sock shouldTimeoutReadWithTag:(long)tag
                  elapsed:(NSTimeInterval)elapsed
                bytesDone:(NSUInteger)length{
     NSLog(@"Error, read timeout!");
+    [socket disconnect];
+    [socket setDelegate: nil];
+    return 0;
+}
+
+- (NSTimeInterval)socket:(GCDAsyncSocket *)sock shouldTimeoutWriteWithTag:(long)tag
+                 elapsed:(NSTimeInterval)elapsed
+               bytesDone:(NSUInteger)length{
+    NSLog(@"Error, write timeout!");
     [socket disconnect];
     [socket setDelegate: nil];
     return 0;

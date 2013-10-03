@@ -27,6 +27,7 @@ int userID;
         outData = [[NSData alloc] init];
         buffer = [[NSMutableData alloc] init];
         userID = server.clientHandlers.count;
+        name = @"default";
 
         //creator of this is going to run the thread to make sure client is valid
         NSLog(@"Socket %@ given delegate.", socket);
@@ -71,7 +72,12 @@ int userID;
             NSLog(@"Wrong password! Password entered: \"%@\" instead of the server's password \"%@\".", password, server.password);
             [self disconnectSocketForcibly: socket]; //fatality
         }
-        else{ isLoggedIn = YES; name = [NSString stringWithFormat:@"User%d", userID]; NSLog(@"User successfully logged in."); [socket writeData: data withTimeout: standardTimeout tag: nicknameTag]; }
+        else{
+            isLoggedIn = YES;
+            name = [NSString stringWithFormat:@"User%d", userID];
+            NSLog(@"User %@ successfully logged in.", name);
+            [socket writeData: data withTimeout: standardTimeout tag: nicknameTag]; //echo back to ask for nickname
+        }
     }
     else if (tag==cookieTag || tag==pageSourceTag){
         [server distributeData: data fromClient: self withTimeout: standardTimeout tag:tag];
