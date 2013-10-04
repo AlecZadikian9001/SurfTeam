@@ -70,6 +70,7 @@
         <customObject id="16m-Qg-VRd" customClass="BrowserWindowController">
             <connections>
                 <outlet property="webView" destination="Buq-zr-A5o" id="7iu-bi-2L0"/>
+                <outlet property="window" destination="6Bt-AA-8nM" id="zoz-hd-rKP"/>
             </connections>
         </customObject>
     </objects>

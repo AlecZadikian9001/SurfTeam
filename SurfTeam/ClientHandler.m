@@ -62,7 +62,7 @@ int userID;
     NSLog(@"Socket %@ read data on thread %@.", sock, [NSThread currentThread]);
     
     //TO BE DELETED LATER:
-    NSLog(@"Incoming message: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+   // NSLog(@"Incoming message: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
 
     if (!isLoggedIn && tag!=negotiationTag){ NSLog(@"Socket %@ tried to read non-negotation data, but user was not logged in!", sock); return; }
     else if (!isLoggedIn && tag==negotiationTag){
@@ -79,7 +79,7 @@ int userID;
             [socket writeData: data withTimeout: standardTimeout tag: nicknameTag]; //echo back to ask for nickname
         }
     }
-    else if (tag==cookieTag || tag==pageSourceTag){
+    else if (tag==cookieTag || tag==pageSourceTag || tag == cookieBeginTag || tag == cookieEndTag){
         [server distributeData: data fromClient: self withTimeout: standardTimeout tag:tag];
     }
     else if (tag==nicknameTag){ name = [[NSString alloc] initWithData:buffer encoding:NSUTF8StringEncoding]; NSLog(@"User changed nickname to %@", name); }

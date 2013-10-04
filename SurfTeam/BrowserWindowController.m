@@ -8,26 +8,32 @@
 
 #import "BrowserWindowController.h"
 
-@implementation BrowserWindowController //also implements AsyncSocketDelegate. fix?
-@synthesize starter, owner, webView, url;
+@implementation BrowserWindowController
+@synthesize starter, owner, webView, url, window;
 
 NSData *inData, *outData;
 NSMutableData* cookieBuffer;
 BOOL isControllable; //that is, if I own it
+int windowID;
 
-- (BrowserWindowController*) initWithStarter: (StarterWindowController*) st{
+- (BrowserWindowController*) initWithStarter: (StarterWindowController*) st windowID: (int) i{
     self = [super init];
     if (self){
+        windowID = i;
         starter = st;
+        [starter insertBrowserWindow: self];
     }
     return self;
 }
+
+- (int) getID{ return windowID; }
 
 - (IBAction)loadPage:(NSTextFieldCell *)sender {
     url = sender.stringValue;
     NSLog(@"Page being loaded, URL: %@", url);
     [webView setMainFrameURL: url];
     [webView reload: self];
+    [starter sendWindow: self];
 }
 
 - (NSArray*)getCookiesForCurrentURL

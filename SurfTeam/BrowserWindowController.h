@@ -12,6 +12,7 @@
 #import "StarterWindowController.h"
 #import "IGIsolatedCookieWebView.h"
 
+@class StarterWindowController;
 @interface BrowserWindowController : NSWindowController
 //just the web browser window, can be online or offline!
 
@@ -19,10 +20,15 @@
 @property (strong, nonatomic) NSString* owner;
 @property (strong, nonatomic) NSString* url;
 @property (weak) IBOutlet IGIsolatedCookieWebView *webView;
+@property (unsafe_unretained) IBOutlet NSWindow *window;
 
 - (IBAction)loadPage:(NSTextFieldCell *)sender;
 
 - (void)saveCookies;
 - (void)loadCookies;
+- (int) getID;
+
+- (NSArray*)getCookiesForCurrentURL;
+
 
 @end
