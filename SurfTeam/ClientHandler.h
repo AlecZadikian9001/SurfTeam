@@ -10,6 +10,7 @@
 #import "GCDAsyncSocket.h"
 #import "Server.h"
 #import "Constants.h"
+#import "TCPSender.h"
 
 @class Server;
 @interface ClientHandler : NSObject
@@ -18,6 +19,8 @@
 @property(strong, nonatomic) NSString* name;
 
 - (id) initWithServer: (Server*) server socket: (GCDAsyncSocket*) sock;
+
+- (void)askForWindows;
 - (void)disconnectSocketForcibly: (GCDAsyncSocket*) socket;
 - (void)disconnectSocketGracefully: (GCDAsyncSocket*) socket;
 

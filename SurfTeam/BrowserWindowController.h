@@ -24,9 +24,12 @@
 
 - (IBAction)loadPage:(NSTextFieldCell *)sender;
 
+- (id) initWithStarter: (StarterWindowController*) st windowID: (int) i;
+
 - (void)saveCookies;
 - (void)loadCookies;
 - (int) getID;
+- (BOOL) getIsControllable;
 
 - (NSArray*)getCookiesForCurrentURL;
 

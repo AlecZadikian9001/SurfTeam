@@ -9,19 +9,24 @@
 #import <Foundation/Foundation.h>
 
 typedef enum {
+    invalidTag, //should never be used, just here to make 0 not valid
     negotiationTag, //for sending password
     clientMessageTag, //not used yet, maybe useful for collaborative features
     pageSourceTag, //for sending page source
-    cookieBeginTag, //not used anymore?
+   // cookieBeginTag, //not used anymore?
     cookieTag, //for sending cookies
-    cookieEndTag, //not used anymore?
+   // cookieEndTag, //not used anymore?
     windowBeginTag, //sent before window info is sent, which should be every time a page is loaded
     windowEndTag, //sent after window info is sent
     urlTag, //for sending URL of page
     scrollPositionTag, //sending scroll position, should it change
     pulseTag, //not used yet, sent occasionally to keep TCP stream alive
     nicknameTag, //when client is sending nickname to server or server is asking for nickname
-    windowQueryTag //when client is asking server to ask other clients for windows or server is asking clients for windows
+    windowQueryTag, //when client is asking server to ask other clients for windows or server is asking clients for windows
+    separatorTag, //sending a packet in between each message to separate them
+    
+    firstTag, //not used like other tags, only used to identify within the server what kind of data is being listened for
+    connectedTag //same here
 } MessageTags;
 
 typedef enum {

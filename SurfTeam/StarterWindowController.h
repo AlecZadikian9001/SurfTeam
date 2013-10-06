@@ -10,6 +10,7 @@
 #import "GCDAsyncSocket.h"
 #import "Constants.h"
 #import "BrowserWindowController.h"
+#import "TCPSender.h"
 
 @class BrowserWindowController;
 @interface StarterWindowController : NSWindowController

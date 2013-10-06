@@ -21,10 +21,14 @@
 //initializes and starts a new server
 - (id) initWithDelegate: (ServerAppDelegate*) delegate port: (int) port password: (NSString*) pw;
 
-//dumb data distributer... just resends everything to all users except the sender
+//simple, dumb, low-level data distributer, passing everything through without any calculation
 - (void)distributeData: (NSData*) data fromClient: (ClientHandler*) client
            withTimeout: (NSTimeInterval)timeout
                    tag: (long) tag;
+
+//ask every client to send its windows over, telling the client handlers to be prepared for the information, sending the data to the source userID
+- (void) askForWindows: (ClientHandler*) sourceClient;
+
 
 //stop the server
 - (void)close;

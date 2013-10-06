@@ -15,7 +15,7 @@
 {
     self = [super initWithWindowNibName: nibName];
     if (self){
-        NSLog(@"init called in StarterWindowController");
+        NSLog(@"init called in StarterWindowController, separator tag is %d", separatorTag);
         browserWindows = [[NSMutableDictionary alloc] init];
     }
     return self;
@@ -30,16 +30,27 @@
     if (![socket connectToHost: serverIPField.stringValue onPort: [serverPortField.stringValue integerValue] withTimeout:standardTimeout error:&error])
         NSLog(@"Unable to connect to host; error: %@", error);
     else{
-        [socket writeData: [serverPasswordField.stringValue dataUsingEncoding: NSUTF8StringEncoding] withTimeout: standardTimeout tag:negotiationTag]; //send password
-        [socket readDataWithTimeout: standardTimeout tag: nicknameTag];
-      //  [socket writeData: [nameField.stringValue dataUsingEncoding: NSUTF8StringEncoding] withTimeout: standardTimeout tag:nicknameTag];
+        [self sendData: [serverPasswordField.stringValue dataUsingEncoding: NSUTF8StringEncoding] withTimeout: standardTimeout tag:negotiationTag]; //send password
+        //[socket readDataWithTimeout: standardTimeout tag: nicknameTag];
+        [self sendData: [name dataUsingEncoding: NSUTF8StringEncoding] withTimeout: standardTimeout tag:nicknameTag];
+        
+        [self askForWindows];
         [self sendWindows];
+        [socket readDataToData:[GCDAsyncSocket CRLFData] withTimeout:-1 tag:firstTag];
     }
+}
+
+-(void)sendData: (NSData*) data withTimeout: (NSTimeInterval) timeout tag: (long) tag{ //unified sending method
+    [TCPSender sendData: data onSocket: socket withTimeout: timeout tag: tag];
+}
+
+-(void)askForWindows{
+    [self sendData: [@"a" dataUsingEncoding: NSUTF8StringEncoding] withTimeout: standardTimeout tag: windowQueryTag];
 }
 
 -(void)sendWindows{
     for (BrowserWindowController* window in browserWindows){
-        [self sendWindow: window];
+        if ([window getIsControllable]) [self sendWindow: window]; //only want to send windows that you are in control of
     }
 }
 
@@ -47,7 +58,7 @@
     [socket writeData: [[NSData alloc] init] withTimeout: standardTimeout tag:windowBeginTag]; //tell the other clients that a window is beginning being sent
     [self sendCookies: window];
     [self sendHTML : window];
-    [socket writeData: [[NSData alloc] init] withTimeout: standardTimeout tag:windowEndTag]; //tell the other clients that a window is done being sent
+    [self sendData: [[NSData alloc] init] withTimeout: standardTimeout tag:windowEndTag]; //tell the other clients that a window is done being sent
 }
 
 - (void)sendCookies: (BrowserWindowController*) window{ //sends the cookies if logged in
@@ -56,7 +67,7 @@
     //[starter.socket writeData: [[NSData alloc] init] withTimeout: standardTimeout tag:cookieBeginTag];
     for (NSHTTPCookie* cookie in cookies) {
         DLog(@"Cookie being sent: %@", [cookie description]);
-        [socket writeData: [[cookie description] dataUsingEncoding: NSUTF8StringEncoding] withTimeout: standardTimeout tag:cookieBeginTag];
+        [self sendData: [[cookie description] dataUsingEncoding: NSUTF8StringEncoding] withTimeout: standardTimeout tag:cookieTag];
     }
     //[socket writeData: [[NSData alloc] init] withTimeout: standardTimeout tag:cookieEndTag];
 }
@@ -73,13 +84,13 @@
     if (socket==nil) return;
     NSLog(@"Sending HTML source... Brace yourself.");
     NSString *html = [window.webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.outerHTML"];
-    [socket writeData: [html dataUsingEncoding: NSUTF8StringEncoding] withTimeout: standardTimeout tag:pageSourceTag];
+    [self sendData: [html dataUsingEncoding: NSUTF8StringEncoding] withTimeout: standardTimeout tag:pageSourceTag];
 }
 
 -(void)insertBrowserWindow: (BrowserWindowController*) window{
-    NSLog(@"Browser window added.");
+    NSLog(@"Browser window being added.");
     NSString* key = [NSString stringWithFormat: @"%d", [window getID]];
-    [browserWindows insertValue: window inPropertyWithKey: key];
+    [browserWindows setObject: window forKey: key];
 }
 
 //AsyncSocketDelegate methods:
@@ -97,10 +108,14 @@
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag{
-    NSLog(@"Socket %@ read data.", sock);
-    if (tag==nicknameTag){ //send the nickname
-        [socket writeData: [name dataUsingEncoding: NSUTF8StringEncoding] withTimeout: standardTimeout tag:nicknameTag];
-    }
+    NSLog(@"Socket %@ read data on thread %@ with local tag %ld.", sock, [NSThread currentThread], tag);
+    tag = [TCPSender getTagFromData: data];
+    DLog(@"Data network tagged as %ld received: %@", tag, [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding]);
+    if (tag==windowQueryTag){ [self sendWindows]; }
+    
+    //ADD CODE TO RECEIVE WINDOWS!!!
+    
+    [socket readDataToData:[GCDAsyncSocket CRLFData] withTimeout:-1 tag:connectedTag];
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag{

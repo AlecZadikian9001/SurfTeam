@@ -16,17 +16,20 @@ NSMutableData* cookieBuffer;
 BOOL isControllable; //that is, if I own it
 int windowID;
 
-- (BrowserWindowController*) initWithStarter: (StarterWindowController*) st windowID: (int) i{
-    self = [super init];
+- (id) initWithStarter: (StarterWindowController*) st windowID: (int) i{
+    self = [super initWithWindowNibName:@"Browser Window"];
     if (self){
         windowID = i;
         starter = st;
+        [self showWindow:nil];
+        [self.window makeKeyAndOrderFront:nil]; //?????????? WHY WON'T THE WINDOW WORK?!
         [starter insertBrowserWindow: self];
     }
     return self;
 }
 
 - (int) getID{ return windowID; }
+- (BOOL) getIsControllable{ return isControllable; }
 
 - (IBAction)loadPage:(NSTextFieldCell *)sender {
     url = sender.stringValue;

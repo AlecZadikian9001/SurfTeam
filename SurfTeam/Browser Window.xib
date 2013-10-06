@@ -9,7 +9,7 @@
         <customObject id="-2" userLabel="File's Owner"/>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application"/>
-        <window title="SurfTeam" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="6Bt-AA-8nM">
+        <window title="Browser Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="6Bt-AA-8nM">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
             <rect key="contentRect" x="686" y="302" width="1274" height="816"/>
@@ -66,6 +66,9 @@
                     <constraint firstItem="Q3d-gs-zoW" firstAttribute="leading" secondItem="PRF-W5-TDG" secondAttribute="trailing" id="zml-n9-zuY"/>
                 </constraints>
             </view>
+            <connections>
+                <outlet property="delegate" destination="16m-Qg-VRd" id="Fyj-ss-hCu"/>
+            </connections>
         </window>
         <customObject id="16m-Qg-VRd" customClass="BrowserWindowController">
             <connections>

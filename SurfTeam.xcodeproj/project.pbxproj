@@ -41,6 +41,8 @@
 		E14E297C17F3F5B6007F9C36 /* SurfTeamTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E14E297B17F3F5B6007F9C36 /* SurfTeamTests.m */; };
 		E14E298617F3F844007F9C36 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14E298517F3F844007F9C36 /* WebKit.framework */; };
 		E15BF75C17FD3A9C00AD79A1 /* SurfTeam.icns in Resources */ = {isa = PBXBuildFile; fileRef = E15BF75B17FD3A9C00AD79A1 /* SurfTeam.icns */; };
+		E15EB29C1801219A0028F5DA /* TCPSender.m in Sources */ = {isa = PBXBuildFile; fileRef = E15EB29B1801219A0028F5DA /* TCPSender.m */; };
+		E15EB29D1801219A0028F5DA /* TCPSender.m in Sources */ = {isa = PBXBuildFile; fileRef = E15EB29B1801219A0028F5DA /* TCPSender.m */; };
 		E164FBA717F7A86400372B20 /* IGIsolatedCookieWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = E164FBA617F7A86400372B20 /* IGIsolatedCookieWebView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		E164FBAD17F7A91600372B20 /* StarterWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = E164FBAC17F7A91600372B20 /* StarterWindowController.m */; };
 		E1AAA30E17FCCBA10016C886 /* ClientSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = E1AAA30D17FCCBA10016C886 /* ClientSocket.m */; };
@@ -110,6 +112,8 @@
 		E14E297B17F3F5B6007F9C36 /* SurfTeamTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SurfTeamTests.m; sourceTree = "<group>"; };
 		E14E298517F3F844007F9C36 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		E15BF75B17FD3A9C00AD79A1 /* SurfTeam.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = SurfTeam.icns; sourceTree = "<group>"; };
+		E15EB29A1801219A0028F5DA /* TCPSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPSender.h; sourceTree = "<group>"; };
+		E15EB29B1801219A0028F5DA /* TCPSender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCPSender.m; sourceTree = "<group>"; };
 		E161539717F7813B0097708F /* ClientHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClientHandler.h; sourceTree = "<group>"; };
 		E161539817F7813B0097708F /* ClientHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClientHandler.m; sourceTree = "<group>"; };
 		E164FBA517F7A86400372B20 /* IGIsolatedCookieWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGIsolatedCookieWebView.h; sourceTree = "<group>"; };
@@ -262,13 +266,13 @@
 		E14E295717F3F5B5007F9C36 /* SurfTeam */ = {
 			isa = PBXGroup;
 			children = (
+				E115CEAE17FA5DE700AD850D /* Constants.h */,
 				E15A58E717FCFA6200569B96 /* Trash */,
 				E164FBAE17F7A92400372B20 /* Client */,
-				E115CEAE17FA5DE700AD850D /* Constants.h */,
 				E12CF46717FBACA200253242 /* GCDAsyncSocket.h */,
 				E12CF46817FBACA200253242 /* GCDAsyncSocket.m */,
-				E14E296317F3F5B5007F9C36 /* AppDelegate.h */,
-				E14E296417F3F5B5007F9C36 /* AppDelegate.m */,
+				E15EB29A1801219A0028F5DA /* TCPSender.h */,
+				E15EB29B1801219A0028F5DA /* TCPSender.m */,
 				E14E296917F3F5B5007F9C36 /* Images.xcassets */,
 				E14E295817F3F5B5007F9C36 /* Supporting Files */,
 			);
@@ -347,6 +351,8 @@
 		E164FBB017F7A93E00372B20 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E14E296317F3F5B5007F9C36 /* AppDelegate.h */,
+				E14E296417F3F5B5007F9C36 /* AppDelegate.m */,
 				E140E6BA17F4F4AB00A58831 /* BrowserWindowController.h */,
 				E140E6BB17F4F4AB00A58831 /* BrowserWindowController.m */,
 				E164FBAB17F7A91600372B20 /* StarterWindowController.h */,
@@ -531,6 +537,7 @@
 				E115CE8217FA5A4F00AD850D /* main.m in Sources */,
 				E115CEAB17FA5AA700AD850D /* Server.m in Sources */,
 				E115CEAC17FA5AAB00AD850D /* ClientHandler.m in Sources */,
+				E15EB29D1801219A0028F5DA /* TCPSender.m in Sources */,
 				E1AAA30F17FCCBA10016C886 /* ClientSocket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -553,6 +560,7 @@
 				E140E6BC17F4F4AB00A58831 /* BrowserWindowController.m in Sources */,
 				E164FBA717F7A86400372B20 /* IGIsolatedCookieWebView.m in Sources */,
 				E164FBAD17F7A91600372B20 /* StarterWindowController.m in Sources */,
+				E15EB29C1801219A0028F5DA /* TCPSender.m in Sources */,
 				E14E295E17F3F5B5007F9C36 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

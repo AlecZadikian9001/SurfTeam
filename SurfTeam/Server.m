@@ -21,6 +21,7 @@ int port;
     self = [super init];
     if(self){
         [delegate onServerBeginOpen];
+        NSLog(@"Separator tag is %d", separatorTag);
         NSLog(@"Server being initialized with port %d and password \"%@\"", po, pw);
         delegate = del;
         password = pw;
@@ -38,9 +39,21 @@ int port;
            withTimeout: (NSTimeInterval)timeout
                    tag: (long) tag
 {
+    @synchronized(self){ //that's right, only one client at a time!
     for (ClientHandler* client2 in clientHandlers){
         if (client!=client2) [client2.socket writeData: data withTimeout: timeout tag: tag]; //don't send to the sender
 	}
+    }
+}
+
+- (void) askForWindows: (ClientHandler*) sourceClient{
+    @synchronized(self){
+    for (ClientHandler* client in clientHandlers){
+        if (client!=sourceClient){
+            [client askForWindows];
+        }
+    }
+    }
 }
 
 -(void) close{
