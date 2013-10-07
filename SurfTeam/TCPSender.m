@@ -11,14 +11,15 @@
 @implementation TCPSender
 
 +(void)sendData: (NSMutableData*) data onSocket: (GCDAsyncSocket*) socket withTimeout: (NSTimeInterval) timeout tag: (long) tag{ //encapsulated/abstract sending mechanism
-    //NSMutableData* tagData = [NSMutableData dataWithData: [[NSString stringWithFormat: @"%ld", tag] dataUsingEncoding: NSUTF8StringEncoding]]; //just a number is sent first to indicate the type of data about to be sent
-   // [tagData appendData:[GCDAsyncSocket CRLFData]];
-   // [socket writeData: tagData withTimeout: timeout tag: tag];
-    NSData* tagData = [[NSString stringWithFormat: @"\t%ld\t", tag] dataUsingEncoding: NSUTF8StringEncoding]; //the "tab" symbol surrounds the tag
+    [[self class] wrapData: data withTag: tag];
+ //   DLog(@"TCPSender sending, with tag %ld, data: %@", tag, [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding]);
+    [socket writeData: data withTimeout: timeout tag: tag];
+}
+
++(void)wrapData: (NSMutableData*) data withTag: (int) tag{ //mutates the data passed in
+    NSData* tagData = [[NSString stringWithFormat: @"\t%d\t", tag] dataUsingEncoding: NSUTF8StringEncoding]; //the "tab" symbol surrounds the tag
     [data appendData: tagData];
     [data appendData:[GCDAsyncSocket CRLFData]];
-    DLog(@"TCPSender sending, with tag %ld, data: %@", tag, [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding]);
-    [socket writeData: data withTimeout: timeout tag: tag];
 }
 
 +(int)getTagFromData: (NSMutableData*) data{ //MUTATES THE INPUT!

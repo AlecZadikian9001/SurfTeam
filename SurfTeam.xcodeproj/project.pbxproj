@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E10CA7351801D015007D713E /* BrowserWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = E10CA7331801D015007D713E /* BrowserWindowController.m */; };
+		E10CA7361801D015007D713E /* BrowserWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = E10CA7341801D015007D713E /* BrowserWindow.xib */; };
+		E10CA73A1801F64F007D713E /* ServerConnectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E10CA7381801F64F007D713E /* ServerConnectionViewController.m */; };
+		E10CA73B1801F64F007D713E /* ServerConnection.xib in Resources */ = {isa = PBXBuildFile; fileRef = E10CA7391801F64F007D713E /* ServerConnection.xib */; };
+		E10CA73E18022998007D713E /* BrowserWindowEssence.m in Sources */ = {isa = PBXBuildFile; fileRef = E10CA73D18022998007D713E /* BrowserWindowEssence.m */; };
 		E115CE7A17FA5A4F00AD850D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14E295117F3F5B5007F9C36 /* Cocoa.framework */; };
 		E115CE8017FA5A4F00AD850D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E115CE7E17FA5A4F00AD850D /* InfoPlist.strings */; };
 		E115CE8217FA5A4F00AD850D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E115CE8117FA5A4F00AD850D /* main.m */; };
@@ -21,13 +26,10 @@
 		E115CEAB17FA5AA700AD850D /* Server.m in Sources */ = {isa = PBXBuildFile; fileRef = E10A070317F67E2400087C59 /* Server.m */; };
 		E115CEAC17FA5AAB00AD850D /* ClientHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = E161539817F7813B0097708F /* ClientHandler.m */; };
 		E115CEAD17FA5CF600AD850D /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14E298517F3F844007F9C36 /* WebKit.framework */; };
-		E115CEB417FA639400AD850D /* Server Connection.xib in Resources */ = {isa = PBXBuildFile; fileRef = E115CEB317FA639400AD850D /* Server Connection.xib */; };
-		E115CEB617FA63AA00AD850D /* Browser Window.xib in Resources */ = {isa = PBXBuildFile; fileRef = E115CEB517FA63AA00AD850D /* Browser Window.xib */; };
 		E12CF46917FBACA200253242 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = E12CF46817FBACA200253242 /* GCDAsyncSocket.m */; };
 		E12CF46A17FBACA200253242 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = E12CF46817FBACA200253242 /* GCDAsyncSocket.m */; };
 		E12CF47017FBADE100253242 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E12CF46F17FBADE100253242 /* Security.framework */; };
 		E12CF47117FBADEE00253242 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E12CF46F17FBADE100253242 /* Security.framework */; };
-		E140E6BC17F4F4AB00A58831 /* BrowserWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = E140E6BB17F4F4AB00A58831 /* BrowserWindowController.m */; };
 		E14E295217F3F5B5007F9C36 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14E295117F3F5B5007F9C36 /* Cocoa.framework */; };
 		E14E295C17F3F5B5007F9C36 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E14E295A17F3F5B5007F9C36 /* InfoPlist.strings */; };
 		E14E295E17F3F5B5007F9C36 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E14E295D17F3F5B5007F9C36 /* main.m */; };
@@ -44,7 +46,6 @@
 		E15EB29C1801219A0028F5DA /* TCPSender.m in Sources */ = {isa = PBXBuildFile; fileRef = E15EB29B1801219A0028F5DA /* TCPSender.m */; };
 		E15EB29D1801219A0028F5DA /* TCPSender.m in Sources */ = {isa = PBXBuildFile; fileRef = E15EB29B1801219A0028F5DA /* TCPSender.m */; };
 		E164FBA717F7A86400372B20 /* IGIsolatedCookieWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = E164FBA617F7A86400372B20 /* IGIsolatedCookieWebView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		E164FBAD17F7A91600372B20 /* StarterWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = E164FBAC17F7A91600372B20 /* StarterWindowController.m */; };
 		E1AAA30E17FCCBA10016C886 /* ClientSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = E1AAA30D17FCCBA10016C886 /* ClientSocket.m */; };
 		E1AAA30F17FCCBA10016C886 /* ClientSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = E1AAA30D17FCCBA10016C886 /* ClientSocket.m */; };
 /* End PBXBuildFile section */
@@ -69,6 +70,16 @@
 /* Begin PBXFileReference section */
 		E10A070217F67E2400087C59 /* Server.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Server.h; sourceTree = "<group>"; };
 		E10A070317F67E2400087C59 /* Server.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Server.m; sourceTree = "<group>"; };
+		E10CA72F1801CD51007D713E /* BrowserWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserWindow.h; sourceTree = "<group>"; };
+		E10CA7301801CD51007D713E /* BrowserWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowserWindow.m; sourceTree = "<group>"; };
+		E10CA7321801D015007D713E /* BrowserWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserWindowController.h; sourceTree = "<group>"; };
+		E10CA7331801D015007D713E /* BrowserWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowserWindowController.m; sourceTree = "<group>"; };
+		E10CA7341801D015007D713E /* BrowserWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BrowserWindow.xib; sourceTree = "<group>"; };
+		E10CA7371801F64F007D713E /* ServerConnectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerConnectionViewController.h; sourceTree = "<group>"; };
+		E10CA7381801F64F007D713E /* ServerConnectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerConnectionViewController.m; sourceTree = "<group>"; };
+		E10CA7391801F64F007D713E /* ServerConnection.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ServerConnection.xib; sourceTree = "<group>"; };
+		E10CA73C18022998007D713E /* BrowserWindowEssence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserWindowEssence.h; sourceTree = "<group>"; };
+		E10CA73D18022998007D713E /* BrowserWindowEssence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowserWindowEssence.m; sourceTree = "<group>"; };
 		E115CE7917FA5A4F00AD850D /* SurfTeam Server.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SurfTeam Server.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E115CE7D17FA5A4F00AD850D /* SurfTeam Server-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SurfTeam Server-Info.plist"; sourceTree = "<group>"; };
 		E115CE7F17FA5A4F00AD850D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -84,13 +95,12 @@
 		E115CE9C17FA5A4F00AD850D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E115CE9E17FA5A4F00AD850D /* SurfTeam_ServerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SurfTeam_ServerTests.m; sourceTree = "<group>"; };
 		E115CEAE17FA5DE700AD850D /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
-		E115CEB317FA639400AD850D /* Server Connection.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Server Connection.xib"; sourceTree = "<group>"; };
-		E115CEB517FA63AA00AD850D /* Browser Window.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Browser Window.xib"; sourceTree = "<group>"; };
+		E115CEB517FA63AA00AD850D /* Old Browser Window.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Old Browser Window.xib"; sourceTree = "<group>"; };
 		E12CF46717FBACA200253242 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GCDAsyncSocket.h; path = CocoaAsyncSocket/GCD/GCDAsyncSocket.h; sourceTree = SOURCE_ROOT; };
 		E12CF46817FBACA200253242 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GCDAsyncSocket.m; path = CocoaAsyncSocket/GCD/GCDAsyncSocket.m; sourceTree = SOURCE_ROOT; };
 		E12CF46F17FBADE100253242 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		E140E6BA17F4F4AB00A58831 /* BrowserWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserWindowController.h; sourceTree = "<group>"; };
-		E140E6BB17F4F4AB00A58831 /* BrowserWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowserWindowController.m; sourceTree = "<group>"; };
+		E140E6BA17F4F4AB00A58831 /* OldBrowserWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldBrowserWindowController.h; sourceTree = "<group>"; };
+		E140E6BB17F4F4AB00A58831 /* OldBrowserWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldBrowserWindowController.m; sourceTree = "<group>"; };
 		E14E294E17F3F5B5007F9C36 /* SurfTeam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SurfTeam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E14E295117F3F5B5007F9C36 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		E14E295417F3F5B5007F9C36 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -322,6 +332,13 @@
 		E15A58E717FCFA6200569B96 /* Trash */ = {
 			isa = PBXGroup;
 			children = (
+				E164FBAB17F7A91600372B20 /* StarterWindowController.h */,
+				E164FBAC17F7A91600372B20 /* StarterWindowController.m */,
+				E140E6BA17F4F4AB00A58831 /* OldBrowserWindowController.h */,
+				E140E6BB17F4F4AB00A58831 /* OldBrowserWindowController.m */,
+				E115CEB517FA63AA00AD850D /* Old Browser Window.xib */,
+				E10CA72F1801CD51007D713E /* BrowserWindow.h */,
+				E10CA7301801CD51007D713E /* BrowserWindow.m */,
 				E15A58E617FCF27900569B96 /* Networking */,
 			);
 			name = Trash;
@@ -339,9 +356,9 @@
 		E164FBAF17F7A93300372B20 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E10CA7391801F64F007D713E /* ServerConnection.xib */,
+				E10CA7341801D015007D713E /* BrowserWindow.xib */,
 				E14E296617F3F5B5007F9C36 /* MainMenu.xib */,
-				E115CEB517FA63AA00AD850D /* Browser Window.xib */,
-				E115CEB317FA639400AD850D /* Server Connection.xib */,
 				E164FBA517F7A86400372B20 /* IGIsolatedCookieWebView.h */,
 				E164FBA617F7A86400372B20 /* IGIsolatedCookieWebView.m */,
 			);
@@ -353,10 +370,10 @@
 			children = (
 				E14E296317F3F5B5007F9C36 /* AppDelegate.h */,
 				E14E296417F3F5B5007F9C36 /* AppDelegate.m */,
-				E140E6BA17F4F4AB00A58831 /* BrowserWindowController.h */,
-				E140E6BB17F4F4AB00A58831 /* BrowserWindowController.m */,
-				E164FBAB17F7A91600372B20 /* StarterWindowController.h */,
-				E164FBAC17F7A91600372B20 /* StarterWindowController.m */,
+				E10CA7371801F64F007D713E /* ServerConnectionViewController.h */,
+				E10CA7381801F64F007D713E /* ServerConnectionViewController.m */,
+				E10CA7321801D015007D713E /* BrowserWindowController.h */,
+				E10CA7331801D015007D713E /* BrowserWindowController.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -368,6 +385,8 @@
 				E10A070317F67E2400087C59 /* Server.m */,
 				E161539717F7813B0097708F /* ClientHandler.h */,
 				E161539817F7813B0097708F /* ClientHandler.m */,
+				E10CA73C18022998007D713E /* BrowserWindowEssence.h */,
+				E10CA73D18022998007D713E /* BrowserWindowEssence.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -508,12 +527,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				E14E295C17F3F5B5007F9C36 /* InfoPlist.strings in Resources */,
+				E10CA7361801D015007D713E /* BrowserWindow.xib in Resources */,
 				E14E296A17F3F5B5007F9C36 /* Images.xcassets in Resources */,
 				E15BF75C17FD3A9C00AD79A1 /* SurfTeam.icns in Resources */,
-				E115CEB417FA639400AD850D /* Server Connection.xib in Resources */,
 				E14E296217F3F5B5007F9C36 /* Credits.rtf in Resources */,
 				E14E296817F3F5B5007F9C36 /* MainMenu.xib in Resources */,
-				E115CEB617FA63AA00AD850D /* Browser Window.xib in Resources */,
+				E10CA73B1801F64F007D713E /* ServerConnection.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -535,6 +554,7 @@
 				E115CE8917FA5A4F00AD850D /* ServerAppDelegate.m in Sources */,
 				E12CF46A17FBACA200253242 /* GCDAsyncSocket.m in Sources */,
 				E115CE8217FA5A4F00AD850D /* main.m in Sources */,
+				E10CA73E18022998007D713E /* BrowserWindowEssence.m in Sources */,
 				E115CEAB17FA5AA700AD850D /* Server.m in Sources */,
 				E115CEAC17FA5AAB00AD850D /* ClientHandler.m in Sources */,
 				E15EB29D1801219A0028F5DA /* TCPSender.m in Sources */,
@@ -557,9 +577,9 @@
 				E1AAA30E17FCCBA10016C886 /* ClientSocket.m in Sources */,
 				E12CF46917FBACA200253242 /* GCDAsyncSocket.m in Sources */,
 				E14E296517F3F5B5007F9C36 /* AppDelegate.m in Sources */,
-				E140E6BC17F4F4AB00A58831 /* BrowserWindowController.m in Sources */,
 				E164FBA717F7A86400372B20 /* IGIsolatedCookieWebView.m in Sources */,
-				E164FBAD17F7A91600372B20 /* StarterWindowController.m in Sources */,
+				E10CA7351801D015007D713E /* BrowserWindowController.m in Sources */,
+				E10CA73A1801F64F007D713E /* ServerConnectionViewController.m in Sources */,
 				E15EB29C1801219A0028F5DA /* TCPSender.m in Sources */,
 				E14E295E17F3F5B5007F9C36 /* main.m in Sources */,
 			);

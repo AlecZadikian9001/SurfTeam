@@ -11,12 +11,15 @@
 #import "Server.h"
 #import "Constants.h"
 #import "TCPSender.h"
+#import "BrowserWindowEssence.h"
 
 @class Server;
 @interface ClientHandler : NSObject
 
 @property(strong, nonatomic) GCDAsyncSocket* socket;
 @property(strong, nonatomic) NSString* name;
+@property(strong, nonatomic) NSMutableArray* windows; //array of BrowserWindowEssence objects
+@property(strong, nonatomic) NSMutableArray* cookies;
 
 - (id) initWithServer: (Server*) server socket: (GCDAsyncSocket*) sock;
 

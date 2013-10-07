@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "-[StarterWindowController connectButton:]:StarterWindowController.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[AppDelegate applicationDidFinishLaunching:]:AppDelegate.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "0">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[StarterWindowController insertBrowserWindow:]:StarterWindowController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

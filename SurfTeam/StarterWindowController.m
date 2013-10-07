@@ -16,13 +16,13 @@
     self = [super initWithWindowNibName: nibName];
     if (self){
         NSLog(@"init called in StarterWindowController, separator tag is %d", separatorTag);
-        browserWindows = [[NSMutableDictionary alloc] init];
+        browserWindows = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
 - (IBAction)connectButton:(id)sender {
-    NSLog(@"About to connect to address %@ on port %@", serverIPField.stringValue, serverPortField.stringValue);
+    NSLog(@"About to connect to address %@ on port %@ with %d local windows open.", serverIPField.stringValue, serverPortField.stringValue, browserWindows.count);
     socket = [[GCDAsyncSocket alloc] initWithDelegate: self delegateQueue: dispatch_get_main_queue()];
     name = nameField.stringValue;
     NSLog(@"Name set to %@", name);
@@ -49,13 +49,15 @@
 }
 
 -(void)sendWindows{
+    NSLog(@"Sending %d windows...", browserWindows.count);
     for (BrowserWindowController* window in browserWindows){
+        NSLog(@"Sending a window.");
         if ([window getIsControllable]) [self sendWindow: window]; //only want to send windows that you are in control of
     }
 }
 
 -(void) sendWindow: (BrowserWindowController*) window{
-    [socket writeData: [[NSData alloc] init] withTimeout: standardTimeout tag:windowBeginTag]; //tell the other clients that a window is beginning being sent
+    [self sendData: [[NSData alloc] init] withTimeout: standardTimeout tag:windowBeginTag]; //tell the other clients that a window is beginning being sent
     [self sendCookies: window];
     [self sendHTML : window];
     [self sendData: [[NSData alloc] init] withTimeout: standardTimeout tag:windowEndTag]; //tell the other clients that a window is done being sent
@@ -88,9 +90,11 @@
 }
 
 -(void)insertBrowserWindow: (BrowserWindowController*) window{
-    NSLog(@"Browser window being added.");
-    NSString* key = [NSString stringWithFormat: @"%d", [window getID]];
-    [browserWindows setObject: window forKey: key];
+    int i = browserWindows.count;
+    [window setID: i];
+    NSLog(@"Browser window being added with index %d.", i);
+    [browserWindows addObject:window];
+    DLog(@"Number of browserWindows now: %d", browserWindows.count);
 }
 
 //AsyncSocketDelegate methods:

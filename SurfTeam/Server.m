@@ -40,19 +40,23 @@ int port;
                    tag: (long) tag
 {
     @synchronized(self){ //that's right, only one client at a time!
-    for (ClientHandler* client2 in clientHandlers){
-        if (client!=client2) [client2.socket writeData: data withTimeout: timeout tag: tag]; //don't send to the sender
-	}
+        for (ClientHandler* client2 in clientHandlers){
+            if (client!=client2) [client2.socket writeData: data withTimeout: timeout tag: tag]; //don't send to the sender
+        }
     }
 }
 
 - (void) askForWindows: (ClientHandler*) sourceClient{
     @synchronized(self){
-    for (ClientHandler* client in clientHandlers){
-        if (client!=sourceClient){
-            [client askForWindows];
+        for (ClientHandler* client in clientHandlers){
+            if (client!=sourceClient){
+                for (BrowserWindowEssence* window in client.windows){
+                    [TCPSender sendData: window.owner   onSocket: sourceClient.socket withTimeout: standardTimeout tag: ownerTag];
+                    [TCPSender sendData: window.url     onSocket: sourceClient.socket withTimeout: standardTimeout tag: urlTag];
+                    [TCPSender sendData: window.html    onSocket: sourceClient.socket withTimeout: standardTimeout tag: pageSourceTag];
+                }
+            }
         }
-    }
     }
 }
 

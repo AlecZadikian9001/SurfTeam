@@ -1,55 +1,38 @@
 //
-//  WindowController.m
+//  BrowserWindowController.m
 //  SurfTeam
 //
-//  Created by Alec Zadikian on 10/6/13.
+//  Created by Alec Zadikian on 9/26/13.
 //  Copyright (c) 2013 AlecZ. All rights reserved.
 //
 
 #import "BrowserWindowController.h"
 
-@interface BrowserWindowController ()
-
-@end
-
 @implementation BrowserWindowController
-
-- (id)initWithWindow:(NSWindow *)window
-{
-    self = [super initWithWindow:window];
-    if (self) {
-        NSLog(@"BrowserWindowController being initialized.");
-    }
-    return self;
-}
-
-- (void)windowDidLoad
-{
-    [super windowDidLoad];
-    
-    // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
-}
-
-@synthesize starter, owner, webView, url;
+@synthesize starter, owner, webView, url, window;
 
 NSData *inData, *outData;
 NSMutableData* cookieBuffer;
 BOOL isControllable; //that is, if I own it
 int windowID;
 
-- (void) addStarter: (ServerConnectionViewController*) st overNetwork: (BOOL) net{
-    NSLog(@"Starter being added to browser window.");
+- (id) initWithStarter: (StarterWindowController*) st windowID: (int) i{
+    self = [super init];
+    // self = [super initWithWindowNibName:@"Browser Window"];
+    if (self){
+        windowID = i;
         starter = st;
-        url = @"no url";
-        isControllable = !net;
+        [self showWindow:nil];
+        [self.window makeKeyAndOrderFront:nil]; //?????????? WHY WON'T THE WINDOW WORK?!
         [starter insertBrowserWindow: self];
+    }
+    return self;
 }
 
-- (int)     getID{ return windowID; }
-- (void)    setID: (int) i{ windowID = i; }
-- (BOOL)    getIsControllable{ return isControllable; }
+- (int) getID{ return windowID; }
+- (BOOL) getIsControllable{ return isControllable; }
 
-- (IBAction)loadPage:(NSTextField *)sender {
+- (IBAction)loadPage:(NSTextFieldCell *)sender {
     url = sender.stringValue;
     NSLog(@"Page being loaded, URL: %@", url);
     [webView setMainFrameURL: url];
@@ -59,18 +42,17 @@ int windowID;
 
 - (NSArray*)getCookiesForCurrentURL
 {
-    if (!url) return [[NSArray alloc] init];
     return [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL: [NSURL URLWithString:url]];
 }
 
 - (void)loadCookies
 {
-    [starter.socket
-     readDataWithTimeout:standardTimeout
-     buffer:cookieBuffer
-     bufferOffset:0
-     tag:cookieTag
-     ];
+[starter.socket
+    readDataWithTimeout:standardTimeout
+                  buffer:cookieBuffer
+            bufferOffset:0
+                     tag:cookieTag
+];
 }
 
 //AsyncSocketDelegate methods:

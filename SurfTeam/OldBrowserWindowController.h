@@ -1,37 +1,37 @@
 //
-//  WindowController.h
+//  BrowserWindowController.h
 //  SurfTeam
 //
-//  Created by Alec Zadikian on 10/6/13.
+//  Created by Alec Zadikian on 9/26/13.
 //  Copyright (c) 2013 AlecZ. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
-#import <Cocoa/Cocoa.h>
 #import "GCDAsyncSocket.h"
 #import "Constants.h"
-#import "ServerConnectionViewController.h"
+#import "StarterWindowController.h"
 #import "IGIsolatedCookieWebView.h"
 
-@class ServerConnectionViewController;
+@class StarterWindowController;
 @interface BrowserWindowController : NSWindowController
+//just the web browser window, can be online or offline!
 
-@property (strong, nonatomic) ServerConnectionViewController* starter;
+@property (strong, nonatomic) StarterWindowController* starter;
 @property (strong, nonatomic) NSString* owner;
 @property (strong, nonatomic) NSString* url;
 @property (weak) IBOutlet IGIsolatedCookieWebView *webView;
-//@property (unsafe_unretained) IBOutlet NSWindow *window;
+@property (unsafe_unretained) IBOutlet NSWindow *window;
 
-- (IBAction)loadPage:(NSTextField *)sender;
+- (IBAction)loadPage:(NSTextFieldCell *)sender;
 
-- (void) addStarter: (ServerConnectionViewController*) st overNetwork: (BOOL) net;
+- (id) initWithStarter: (StarterWindowController*) st windowID: (int) i;
 
 - (void)saveCookies;
 - (void)loadCookies;
 - (int) getID;
-- (void) setID: (int) i;
 - (BOOL) getIsControllable;
 
 - (NSArray*)getCookiesForCurrentURL;
+
 
 @end

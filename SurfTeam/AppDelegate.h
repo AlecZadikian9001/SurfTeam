@@ -8,7 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
-#import "BrowserWindowController.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 

@@ -10,6 +10,7 @@
 #import "ClientHandler.h"
 #import "GCDAsyncSocket.h"
 #import "ServerAppDelegate.h"
+#import "BrowserWindowEssence.h"
 
 @class ClientHandler;
 @interface Server : NSObject

@@ -1,8 +1,8 @@
 //
-//  StarterViewController.h
+//  ServerConnectionViewController.h
 //  SurfTeam
 //
-//  Created by Alec Zadikian on 9/28/13.
+//  Created by Alec Zadikian on 10/6/13.
 //  Copyright (c) 2013 AlecZ. All rights reserved.
 //
 
@@ -13,9 +13,7 @@
 #import "TCPSender.h"
 
 @class BrowserWindowController;
-@interface StarterWindowController : NSWindowController
-
-//non-web UI for login and collab
+@interface ServerConnectionViewController : NSWindowController
 
 @property (weak) IBOutlet NSTextField *serverIPField;
 @property (weak) IBOutlet NSTextField *serverPortField;
