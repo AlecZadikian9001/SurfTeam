@@ -45,17 +45,18 @@ BrowserWindowController* receivingWindow;
 -(void)sendWindows{
     NSLog(@"Sending %d windows...", browserWindows.count);
     for (BrowserWindowController* window in browserWindows){
-        NSLog(@"Sending a window.");
         if ([window getIsControllable]) [self sendWindow: window]; //only want to send windows that you are in control of
     }
 }
 
 -(void) sendWindow: (BrowserWindowController*) window{
+    NSLog(@"Began sending window with URL \"%@\"", window.url);
     [self sendData:     [@"a" dataUsingEncoding: NSUTF8StringEncoding] withTimeout: standardTimeout tag:windowBeginTag]; //tell the other clients that a window is beginning being sent
     [self sendCookies:  window];
     [self sendURL:      window];
     [self sendHTML:     window];
     [self sendData:     [@"a" dataUsingEncoding: NSUTF8StringEncoding] withTimeout: standardTimeout tag:windowEndTag]; //tell the other clients that a window is done being sent
+    NSLog(@"Finished sending window URL \"%@\"", window.url);
 }
 
 - (void)sendCookies: (BrowserWindowController*) window{ //sends the cookies if logged in
@@ -80,14 +81,12 @@ BrowserWindowController* receivingWindow;
 
 - (void)sendHTML: (BrowserWindowController*) window{
     if (socket==nil) return;
-    NSLog(@"Sending HTML source... Brace yourself.");
     NSString *html = [window.webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.outerHTML"];
     [self sendData: [html dataUsingEncoding: NSUTF8StringEncoding] withTimeout: standardTimeout tag:pageSourceTag];
 }
 
 - (void)sendURL: (BrowserWindowController*) window{
     if (socket==nil) return;
-    NSLog(@"Sending window URL \"%@\"", window.url);
     [self sendData: [window.url dataUsingEncoding: NSUTF8StringEncoding] withTimeout: standardTimeout tag:pageSourceTag];
 }
 
@@ -134,19 +133,15 @@ BrowserWindowController* receivingWindow;
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag{
-    NSLog(@"Socket %@ read data on thread %@ with local tag %ld.", sock, [NSThread currentThread], tag);
+    //NSLog(@"Socket %@ read data on thread %@ with local tag %ld.", sock, [NSThread currentThread], tag);
     tag = [TCPSender getTagFromData: data];
-    DLog(@"Data network tagged as %ld received: %@", tag, [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding]);
+   // DLog(@"Data network tagged as %ld received: %@", tag, [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding]);
     if (tag==windowQueryTag){ [self sendWindows]; }
     
     //ADD CODE TO RECEIVE WINDOWS!!!
     
     else if (tag==windowBeginTag){
-        receivingWindow = [[BrowserWindowController alloc] initWithWindowNibName:@"BrowserWindow"];
-        [receivingWindow addStarter: self overNetwork: YES];
-        [receivingWindow showWindow:nil];
-        [receivingWindow.window makeKeyAndOrderFront:nil];
-        
+        NSLog(@"About to receive window data.");
     }
     else if (tag==urlTag && receivingWindow){
         receivingWindow.url = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
@@ -154,7 +149,14 @@ BrowserWindowController* receivingWindow;
     else if (tag==pageSourceTag && receivingWindow){
         [[receivingWindow.webView mainFrame] loadHTMLString: [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] baseURL: [NSURL URLWithString: receivingWindow.url]];
     }
-    else if (tag==windowEndTag) receivingWindow = nil;
+    else if (tag==windowEndTag){
+        NSLog(@"A window has been receieved and should now appear onscreen.");
+        receivingWindow = [[BrowserWindowController alloc] initWithWindowNibName:@"BrowserWindow"];
+        [receivingWindow addStarter: self overNetwork: YES];
+        [receivingWindow showWindow:nil];
+        [receivingWindow.window makeKeyAndOrderFront:nil];
+        receivingWindow = nil;
+    }
     
     else if (tag==cookieTag){
         if (!receivingWindow){ NSLog(@"Error! Received window data when not listening for a window!"); }

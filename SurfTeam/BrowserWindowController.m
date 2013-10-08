@@ -18,7 +18,8 @@
 {
     self = [super initWithWindow:window];
     if (self) {
-        NSLog(@"BrowserWindowController being initialized.");
+        url = @"post-initialized URL, unused";
+        NSLog(@"BrowserWindowController %p being initialized.", self);
     }
     return self;
 }

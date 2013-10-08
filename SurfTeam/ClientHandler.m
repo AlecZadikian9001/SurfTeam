@@ -80,7 +80,7 @@ int userID;
                     }
     }
     else if (tag == windowBeginTag){
-        NSLog(@"A window is about to be sent.");
+        NSLog(@"A window is about to be received.");
         if (receivingWindow) NSLog(@"Client handler read a window receive tag when it was already receiving one! Error!");
         receivingWindow = [[BrowserWindowEssence alloc] init];
         receivingWindow.owner = [name dataUsingEncoding: NSUTF8StringEncoding];
@@ -89,16 +89,22 @@ int userID;
         if (!receivingWindow) NSLog(@"Client handler read a window end tag when it was not already receiving one! Error!");
         [windows addObject: receivingWindow];
         
-        NSLog(@"Window has finished being received, now sending it to others.");
+        NSLog(@"Window %@ has finished being received, now sending it to others.", receivingWindow.url);
+        NSMutableData* tempBegin =  [NSMutableData dataWithData:[@"a" dataUsingEncoding: NSUTF8StringEncoding]];
         NSMutableData* tempOwner =  [NSMutableData dataWithData: receivingWindow.owner];
         NSMutableData* tempURL =    [NSMutableData dataWithData: receivingWindow.url];
         NSMutableData* tempHTML =   [NSMutableData dataWithData: receivingWindow.html];
+        NSMutableData* tempFinish = [NSMutableData dataWithData:[@"a" dataUsingEncoding: NSUTF8StringEncoding]];
+        [TCPSender wrapData: tempBegin  withTag: windowBeginTag];
         [TCPSender wrapData: tempOwner  withTag: ownerTag];
         [TCPSender wrapData: tempURL    withTag: urlTag];
         [TCPSender wrapData: tempHTML   withTag: pageSourceTag];
-        [server distributeData: receivingWindow.owner   fromClient: self withTimeout: standardTimeout tag:ownerTag];
-        [server distributeData: receivingWindow.url     fromClient: self withTimeout: standardTimeout tag:urlTag];
-        [server distributeData: receivingWindow.html    fromClient: self withTimeout: standardTimeout tag:pageSourceTag];
+        [TCPSender wrapData: tempFinish withTag: windowEndTag];
+        [server distributeData: tempBegin   fromClient: self withTimeout: standardTimeout tag:windowBeginTag];
+        [server distributeData: tempOwner   fromClient: self withTimeout: standardTimeout tag:ownerTag];
+        [server distributeData: tempURL     fromClient: self withTimeout: standardTimeout tag:urlTag];
+        [server distributeData: tempHTML    fromClient: self withTimeout: standardTimeout tag:pageSourceTag];
+        [server distributeData: tempFinish  fromClient: self withTimeout: standardTimeout tag:windowEndTag];
         NSLog(@"Finished sending data for page at URL %@", receivingWindow.url);
         
         receivingWindow = nil;

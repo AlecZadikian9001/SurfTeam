@@ -29,12 +29,12 @@ BrowserWindowController* browser;
     starter = [[ServerConnectionViewController alloc] initWithWindowNibName:@"ServerConnection"];
     [starter showWindow:nil];
     [starter.window makeKeyAndOrderFront:nil];
-
-    browser = [[BrowserWindowController alloc] initWithWindowNibName:@"BrowserWindow"];
-    [browser addStarter: starter overNetwork: NO];
-    [browser showWindow:nil]; 
-    [browser.window makeKeyAndOrderFront:nil];
     
+    //browser = [[BrowserWindowController alloc] init];
+    browser = [[BrowserWindowController alloc] initWithWindowNibName:@"BrowserWindow"];
+    [browser showWindow:nil];
+    [browser.window makeKeyAndOrderFront:nil];
+    [browser addStarter: starter overNetwork: NO];
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender{
