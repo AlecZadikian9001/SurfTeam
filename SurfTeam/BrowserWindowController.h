@@ -17,6 +17,7 @@
 @interface BrowserWindowController : NSWindowController
 
 @property (strong, nonatomic) ServerConnectionViewController* starter;
+@property (strong, nonatomic) NSData* primeTag;
 @property (strong, nonatomic) NSString* owner;
 @property (strong, nonatomic) NSString* url;
 @property (weak) IBOutlet IGIsolatedCookieWebView *webView;

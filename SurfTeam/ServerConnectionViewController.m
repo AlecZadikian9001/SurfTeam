@@ -51,12 +51,36 @@ BrowserWindowController* receivingWindow;
 
 -(void) sendWindow: (BrowserWindowController*) window{
     NSLog(@"Began sending window with URL \"%@\"", window.url);
-    [self sendData:     [@"a" dataUsingEncoding: NSUTF8StringEncoding] withTimeout: standardTimeout tag:windowBeginTag]; //tell the other clients that a window is beginning being sent
-    [self sendCookies:  window];
-    [self sendURL:      window];
-    [self sendHTML:     window];
-    [self sendData:     [@"a" dataUsingEncoding: NSUTF8StringEncoding] withTimeout: standardTimeout tag:windowEndTag]; //tell the other clients that a window is done being sent
-    NSLog(@"Finished sending window URL \"%@\"", window.url);
+    [self sendHeader:       window  isUpdate: NO isStart: YES]; //tell the other clients that a window is beginning being sent and what local ID it has
+    [self sendCookies:      window];
+    [self sendDimensions:   window];
+    [self sendURL:          window];
+    [self sendHTML:         window];
+    [self sendHeader:       window  isStart: NO]; //tell the other clients that a window is done being sent
+    NSLog(@"Finished sending window with URL \"%@\"", window.url);
+}
+
+-(void) sendWindowUpdate:(BrowserWindowController*) window{
+    NSLog(@"Began sending window update with URL \"%@\"", window.url);
+    [self sendHeader:       window  isUpdate: YES isStart: YES]; //tell the other clients that a window is beginning being sent and what local ID it has
+    [self sendCookies:      window];
+    [self sendDimensions:   window];
+    [self sendURL:          window];
+    [self sendHTML:         window];
+    [self sendHeader:       window  isStart: NO]; //tell the other clients that a window is done being sent
+    NSLog(@"Finished sending window update with URL \"%@\"", window.url);
+}
+
+- (void)sendHeader: (BrowserWindowController*) window isUpdate: (BOOL) update isStart: (BOOL) isStart{
+    NSData* headerData = [[NSString stringWithFormat: @"%d", window.getID] dataUsingEncoding: NSUTF8StringEncoding];
+    if (!update){
+    if (isStart)    [self sendData: headerData withTimeout: standardTimeout tag: windowBeginTag];
+    else            [self sendData: headerData withTimeout: standardTimeout tag: windowEndTag];
+    }
+    else{
+        if (isStart)    [self sendData: headerData withTimeout: standardTimeout tag: windowBeginUpdateTag];
+        else            [self sendData: headerData withTimeout: standardTimeout tag: windowEndTag];
+    }
 }
 
 - (void)sendCookies: (BrowserWindowController*) window{ //sends the cookies if logged in
@@ -92,8 +116,8 @@ BrowserWindowController* receivingWindow;
 
 -(void)insertBrowserWindow: (BrowserWindowController*) window{
     int i = browserWindows.count;
-    [window setID: i];
-    NSLog(@"Browser window being added with index %d.", i);
+    [window setID: i+1];
+    NSLog(@"Browser window being added with index %d and id %d.", i, i+1);
     [browserWindows addObject:window];
     DLog(@"Number of browserWindows now: %d", browserWindows.count);
 }

@@ -10,7 +10,7 @@
 
 Server* server;
 BOOL isLoggedIn;
-BrowserWindowEssence* receivingWindow;
+BrowserWindowEssence* receivingWindow, *receivingWindowUpdate;
 int userID;
 
 @implementation ClientHandler
@@ -23,7 +23,7 @@ int userID;
         server = s;
         socket = sock;
         windows = [[NSMutableArray alloc] init];
-        userID = server.clientHandlers.count;
+        userID = server.clientHandlers.count+1;
         name = @"default";
 
         //creator of this is going to run the thread to make sure client is valid
@@ -84,17 +84,21 @@ int userID;
         if (receivingWindow) NSLog(@"Client handler read a window receive tag when it was already receiving one! Error!");
         receivingWindow = [[BrowserWindowEssence alloc] init];
         receivingWindow.owner = [name dataUsingEncoding: NSUTF8StringEncoding];
+        int localID = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] integerValue]; //bad efficiency alert! :(
+        int primeTag = pow(2, localID)*pow(3, userID);
+        receivingWindow.primeTag = [[NSString stringWithFormat:@"%d", primeTag] dataUsingEncoding: NSUTF8StringEncoding]; //ugh, bad again
+        NSLog(@"Received local ID from %@ and used it to make prime tag %d", name, primeTag);
     }
     else if (tag == windowEndTag){
         if (!receivingWindow) NSLog(@"Client handler read a window end tag when it was not already receiving one! Error!");
         [windows addObject: receivingWindow];
         
         NSLog(@"Window %@ has finished being received, now sending it to others.", receivingWindow.url);
-        NSMutableData* tempBegin =  [NSMutableData dataWithData:[@"a" dataUsingEncoding: NSUTF8StringEncoding]];
+        NSMutableData* tempBegin =  [NSMutableData dataWithData: receivingWindow.primeTag];
         NSMutableData* tempOwner =  [NSMutableData dataWithData: receivingWindow.owner];
         NSMutableData* tempURL =    [NSMutableData dataWithData: receivingWindow.url];
         NSMutableData* tempHTML =   [NSMutableData dataWithData: receivingWindow.html];
-        NSMutableData* tempFinish = [NSMutableData dataWithData:[@"a" dataUsingEncoding: NSUTF8StringEncoding]];
+        NSMutableData* tempFinish = [NSMutableData dataWithData: receivingWindow.primeTag];
         [TCPSender wrapData: tempBegin  withTag: windowBeginTag];
         [TCPSender wrapData: tempOwner  withTag: ownerTag];
         [TCPSender wrapData: tempURL    withTag: urlTag];
@@ -109,21 +113,31 @@ int userID;
         
         receivingWindow = nil;
     }
+    else if (tag == windowBeginUpdateTag){
+        if (receivingWindow) NSLog(@"Client handler read a window update receive tag when it was already receiving one! Error!");
+        int localID = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] integerValue]; //bad efficiency alert! :(
+        int primeTag = pow(2, localID)*pow(3, userID);
+        NSData* primeTagData = [[NSString stringWithFormat:@"%d", primeTag] dataUsingEncoding: NSUTF8StringEncoding];
+        for (BrowserWindowEssence* window in windows){
+            if ([window.primeTag isEqualToData: primeTagData]){
+                receivingWindow = window; return;
+            }
+        }
+        NSLog(@"Received a window update tag... but no window to update!");
+    }
     else if (receivingWindow){
-        if (tag==urlTag){ receivingWindow.url = data; NSLog(@"Received URL data."); }
-        else if (tag==pageSourceTag){ receivingWindow.html = data; NSLog(@"Received HTML data."); }
+        if      (tag==urlTag)           { receivingWindow.url = data; NSLog(@"Received URL data."); }
+        else if (tag==pageSourceTag)    { receivingWindow.html = data; NSLog(@"Received HTML data."); }
+        else if (tag==scrollPositionTag){ receivingWindow.scrollPosition = data; NSLog(@"Received scroll position data."); }
     } //everything after this is called only when a window is not already being received!
+    
     else if (tag == cookieTag){
         NSLog(@"Data received that must be distributed.");
         //DLog(@"Data tagged with %ld, contains %@", tag, [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding], tag);
         [server distributeData: data fromClient: self withTimeout: standardTimeout tag:tag];
      //   [cookies addObject:[[NSHTTPCookie alloc] init];
     }
-    else if (tag == scrollPositionTag || tag == urlTag || tag==pageSourceTag){
-        NSLog(@"Data received that must be distributed.");
-        //DLog(@"Data tagged with %ld, contains %@", tag, [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding], tag);
-        [server distributeData: data fromClient: self withTimeout: standardTimeout tag:tag];
-    }
+    
     else if (tag == windowQueryTag) [server askForWindows: self];
     else if (tag==nicknameTag){ name = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]; NSLog(@"User changed nickname to %@", name); }
     else (NSLog(@"Socket %@ read data with an invalid tag! Tag is %ld", sock, tag));

@@ -29,5 +29,6 @@
 -(id) initWithWindowNibName:(NSString *)windowNibName;
 -(void)insertBrowserWindow: (BrowserWindowController*) window;
 -(void) sendWindow: (BrowserWindowController*) window;
+-(void) sendWindowUpdate:(BrowserWindowController*) window;
 
 @end

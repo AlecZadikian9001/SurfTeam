@@ -19,12 +19,19 @@ typedef enum {
     windowBeginTag, //sent before window info is sent, which should be every time a page is loaded
     windowEndTag, //sent after window info is sent
     urlTag, //for sending URL of page
+    primeIDTag, //the prime ID
     ownerTag, //for sending the owner of a window
     scrollPositionTag, //sending scroll position, should it change
     pulseTag, //not used yet, sent occasionally to keep TCP stream alive
     nicknameTag, //when client is sending nickname to server or server is asking for nickname
     windowQueryTag, //when client is asking server to ask other clients for windows or server is asking clients for windows
     separatorTag, //to make sure server and client are in sync (not very useful)
+    
+    windowBeginUpdateTag, //Similar to above but only when a window is being changed, not when a new one is created. The data for this contains the window's primetag
+  //  urlUpdateTag,
+   // pageSourceUpdateTag,
+   // scrollPositionUpdateTag,
+   // windowEndUpdateTag,
     
     firstTag, //not used like other tags, only used to identify within the server what kind of data is being listened for
     connectedTag //same here

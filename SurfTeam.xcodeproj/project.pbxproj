@@ -45,6 +45,7 @@
 		E15BF75C17FD3A9C00AD79A1 /* SurfTeam.icns in Resources */ = {isa = PBXBuildFile; fileRef = E15BF75B17FD3A9C00AD79A1 /* SurfTeam.icns */; };
 		E15EB29C1801219A0028F5DA /* TCPSender.m in Sources */ = {isa = PBXBuildFile; fileRef = E15EB29B1801219A0028F5DA /* TCPSender.m */; };
 		E15EB29D1801219A0028F5DA /* TCPSender.m in Sources */ = {isa = PBXBuildFile; fileRef = E15EB29B1801219A0028F5DA /* TCPSender.m */; };
+		E16284311803937F0093E1C9 /* BrowserWindowEssence.m in Sources */ = {isa = PBXBuildFile; fileRef = E10CA73D18022998007D713E /* BrowserWindowEssence.m */; };
 		E164FBA717F7A86400372B20 /* IGIsolatedCookieWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = E164FBA617F7A86400372B20 /* IGIsolatedCookieWebView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		E1AAA30E17FCCBA10016C886 /* ClientSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = E1AAA30D17FCCBA10016C886 /* ClientSocket.m */; };
 		E1AAA30F17FCCBA10016C886 /* ClientSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = E1AAA30D17FCCBA10016C886 /* ClientSocket.m */; };
@@ -580,6 +581,7 @@
 				E164FBA717F7A86400372B20 /* IGIsolatedCookieWebView.m in Sources */,
 				E10CA7351801D015007D713E /* BrowserWindowController.m in Sources */,
 				E10CA73A1801F64F007D713E /* ServerConnectionViewController.m in Sources */,
+				E16284311803937F0093E1C9 /* BrowserWindowEssence.m in Sources */,
 				E15EB29C1801219A0028F5DA /* TCPSender.m in Sources */,
 				E14E295E17F3F5B5007F9C36 /* main.m in Sources */,
 			);
