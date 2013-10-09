@@ -11,6 +11,7 @@
 #import "Constants.h"
 #import "BrowserWindowController.h"
 #import "TCPSender.h"
+#import "BrowserWindowEssence.h"
 
 @class BrowserWindowController;
 @interface ServerConnectionViewController : NSWindowController

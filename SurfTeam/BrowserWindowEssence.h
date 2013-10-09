@@ -17,4 +17,7 @@
 @property (strong, nonatomic) NSData* scrollPosition;
 //need to add scroll position to this
 
+-(void) clear; //resets every variable except primeTag and owner
++(NSString*) stringFromData: (NSData*) data; //gets string from data
+
 @end

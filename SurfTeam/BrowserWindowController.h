@@ -12,8 +12,9 @@
 #import "Constants.h"
 #import "ServerConnectionViewController.h"
 #import "IGIsolatedCookieWebView.h"
+#import "BrowserWindowEssence.h"
 
-@class ServerConnectionViewController;
+@class ServerConnectionViewController, BrowserWindowEssence;
 @interface BrowserWindowController : NSWindowController
 
 @property (strong, nonatomic) ServerConnectionViewController* starter;
@@ -25,6 +26,9 @@
 
 - (IBAction)loadPage:(NSTextField *)sender;
 
+- (id) initWithDefaultNib;
+- (id) initWithEssence: (BrowserWindowEssence*) essence;
+- (void) updateFromEssence: (BrowserWindowEssence*) essence;
 - (void) addStarter: (ServerConnectionViewController*) st overNetwork: (BOOL) net;
 
 - (void)saveCookies;

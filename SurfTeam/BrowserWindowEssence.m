@@ -9,5 +9,17 @@
 #import "BrowserWindowEssence.h"
 
 @implementation BrowserWindowEssence
+@synthesize owner, url, scrollPosition, html, primeTag;
+
+-(void) clear{
+    url = nil;
+    html = nil;
+    scrollPosition = nil;
+}
+
++(NSString*) stringFromData: (NSData*) data{
+    if (!data) return nil;
+    return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+}
 
 @end

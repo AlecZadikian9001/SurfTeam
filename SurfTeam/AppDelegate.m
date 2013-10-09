@@ -31,9 +31,7 @@ BrowserWindowController* browser;
     [starter.window makeKeyAndOrderFront:nil];
     
     //browser = [[BrowserWindowController alloc] init];
-    browser = [[BrowserWindowController alloc] initWithWindowNibName:@"BrowserWindow"];
-    [browser showWindow:nil];
-    [browser.window makeKeyAndOrderFront:nil];
+    browser = [[BrowserWindowController alloc] initWithDefaultNib];
     [browser addStarter: starter overNetwork: NO];
 }
 

@@ -31,10 +31,62 @@
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
 }
 
-@synthesize starter, owner, webView, url;
+@synthesize starter, owner, webView, url, primeTag;
 
-BOOL isControllable, primeTag; //that is, if I own it
+BOOL isControllable; //that is, if I own it
 int windowID;
+
+- (id) initWithDefaultNib{
+    NSLog(@"New BrowserWindowController initializing with default nib.");
+    self = [super init];
+    if (self){
+        self = [super initWithWindowNibName:@"BrowserWindow"];
+        [self showWindow:nil];
+        [self.window makeKeyAndOrderFront:nil];
+    }
+    return self;
+}
+
+- (id) initWithEssence: (BrowserWindowEssence*) essence{
+    self = [self initWithDefaultNib];
+    if (self){
+        if (essence.owner)      owner       = [BrowserWindowEssence stringFromData: essence.owner];
+        else NSLog(@"Error in BrowserWindowController when initializing with essence: essence is lacking parts!");
+        if (essence.url){       url         = [BrowserWindowEssence stringFromData: essence.url];   [webView setMainFrameURL: url]; }
+        else NSLog(@"Error in BrowserWindowController when initializing with essence: essence is lacking parts!");
+        if (essence.primeTag)   primeTag    = essence.primeTag;
+        else NSLog(@"Error in BrowserWindowController when initializing with essence: essence is lacking parts!");
+        
+        if (essence.html){
+            NSLog(@"Inserting HTML code into browser window.");
+            NSString* html = [BrowserWindowEssence stringFromData: essence.html];
+            [webView.mainFrame loadHTMLString: html baseURL: [NSURL URLWithString: url]];
+        }
+        else NSLog(@"Error in BrowserWindowController when initializing with essence: essence is lacking parts!");
+        
+        if (essence.scrollPosition){
+            //TODO
+        }
+        else NSLog(@"Error in BrowserWindowController when initializing with essence: essence is lacking parts!");
+    }
+    return self;
+}
+
+- (void) updateFromEssence: (BrowserWindowEssence*) essence{
+    if (essence.owner)      owner       = [BrowserWindowEssence stringFromData: essence.owner];
+    if (essence.url){       url         = [BrowserWindowEssence stringFromData: essence.url];   [webView setMainFrameURL: [NSURL URLWithString: url]]; }
+    if (essence.primeTag)   primeTag    = essence.primeTag;
+    
+    if (essence.html){
+        NSLog(@"Inserting HTML code into browser window.");
+        NSString* html = [BrowserWindowEssence stringFromData: essence.html];
+        [webView.mainFrame loadHTMLString: html baseURL: url];
+    }
+    
+    if (essence.scrollPosition){
+        //TODO
+    }
+}
 
 - (void) addStarter: (ServerConnectionViewController*) st overNetwork: (BOOL) net{
     NSLog(@"Starter being added to browser window.");

@@ -47,7 +47,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "89"
             endingLineNumber = "89"
-            landmarkName = "-sendHTML:"
+            landmarkName = "-sendCookies:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SurfTeam/BrowserWindowController.m"
-            timestampString = "402887926.212249"
+            timestampString = "402970355.233312"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
             landmarkName = "-loadPage:"
             landmarkType = "5">
          </BreakpointContent>
@@ -95,7 +95,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "95"
             endingLineNumber = "95"
-            landmarkName = "-sendURL:"
+            landmarkName = "-sendCookies:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -111,7 +111,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "108"
             endingLineNumber = "108"
-            landmarkName = "-connectButton:"
+            landmarkName = "-sendHTML:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SurfTeam/BrowserWindowController.m"
-            timestampString = "402887926.212249"
+            timestampString = "402970355.233312"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
             landmarkName = "-addStarter:overNetwork:"
             landmarkType = "5">
          </BreakpointContent>
@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SurfTeam/BrowserWindowController.m"
-            timestampString = "402887926.212249"
+            timestampString = "402970355.233312"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
             landmarkName = "-addStarter:overNetwork:"
             landmarkType = "5">
          </BreakpointContent>
@@ -175,7 +175,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "102"
             endingLineNumber = "102"
-            landmarkName = "-insertBrowserWindow:"
+            landmarkName = "-sendDimensions:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

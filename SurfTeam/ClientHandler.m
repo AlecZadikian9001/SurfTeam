@@ -120,7 +120,9 @@ int userID;
         NSData* primeTagData = [[NSString stringWithFormat:@"%d", primeTag] dataUsingEncoding: NSUTF8StringEncoding];
         for (BrowserWindowEssence* window in windows){
             if ([window.primeTag isEqualToData: primeTagData]){
-                receivingWindow = window; return;
+                receivingWindow = window;
+                [receivingWindow clear];
+                return;
             }
         }
         NSLog(@"Received a window update tag... but no window to update!");

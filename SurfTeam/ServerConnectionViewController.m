@@ -13,7 +13,7 @@
 @end
 
 @implementation ServerConnectionViewController
-BrowserWindowController* receivingWindow;
+BrowserWindowEssence* receivingWindow; BrowserWindowController* windowToBeUpdated;
 
 - (id)initWithWindow:(NSWindow *)window
 {
@@ -56,7 +56,7 @@ BrowserWindowController* receivingWindow;
     [self sendDimensions:   window];
     [self sendURL:          window];
     [self sendHTML:         window];
-    [self sendHeader:       window  isStart: NO]; //tell the other clients that a window is done being sent
+    [self sendHeader:       window  isUpdate: NO isStart: NO]; //tell the other clients that a window is done being sent
     NSLog(@"Finished sending window with URL \"%@\"", window.url);
 }
 
@@ -67,7 +67,7 @@ BrowserWindowController* receivingWindow;
     [self sendDimensions:   window];
     [self sendURL:          window];
     [self sendHTML:         window];
-    [self sendHeader:       window  isStart: NO]; //tell the other clients that a window is done being sent
+    [self sendHeader:       window  isUpdate: YES isStart: NO]; //tell the other clients that a window is done being sent
     NSLog(@"Finished sending window update with URL \"%@\"", window.url);
 }
 
@@ -162,6 +162,8 @@ BrowserWindowController* receivingWindow;
    // DLog(@"Data network tagged as %ld received: %@", tag, [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding]);
     if (tag==windowQueryTag){ [self sendWindows]; }
     
+    /*
+    
     //ADD CODE TO RECEIVE WINDOWS!!!
     
     else if (tag==windowBeginTag){
@@ -187,6 +189,46 @@ BrowserWindowController* receivingWindow;
         else{
             //todoreceivingWindow
         }
+    }
+    */
+    
+    if (tag == windowBeginTag){
+        NSLog(@"A window is about to be received.");
+        if (receivingWindow) NSLog(@"Client read a window receive tag when it was already receiving one! Error!");
+        windowToBeUpdated = nil;
+        receivingWindow = [[BrowserWindowEssence alloc] init];
+        receivingWindow.owner = [name dataUsingEncoding: NSUTF8StringEncoding];
+        receivingWindow.primeTag = data; //ugh, bad again
+        NSLog(@"Received prime tag %@", [BrowserWindowEssence stringFromData: receivingWindow.primeTag]);
+    }
+    else if (tag == windowEndTag){
+        if (!receivingWindow) NSLog(@"Client read a window end tag when it was not already receiving one! Error!");
+        if (!windowToBeUpdated){ BrowserWindowController* newWindow = [[BrowserWindowController alloc] initWithEssence: receivingWindow]; [newWindow addStarter: self overNetwork: YES]; }
+        else [windowToBeUpdated updateFromEssence: receivingWindow];
+        receivingWindow = nil; windowToBeUpdated = nil;
+    }
+    else if (tag == windowBeginUpdateTag){
+        if (receivingWindow) NSLog(@"Client read a window update receive tag when it was already receiving one! Error!");
+        NSData* primeTagData = data;
+        for (BrowserWindowController* window in browserWindows){
+            if ([window.primeTag isEqualToData: primeTagData]){
+                windowToBeUpdated = window;
+                return;
+            }
+        }
+        NSLog(@"Received a window update tag... but no window to update!");
+    }
+    else if (receivingWindow){
+        if      (tag==urlTag)           { receivingWindow.url = data; NSLog(@"Received URL data."); }
+        else if (tag==pageSourceTag)    { receivingWindow.html = data; NSLog(@"Received HTML data."); }
+        else if (tag==scrollPositionTag){ receivingWindow.scrollPosition = data; NSLog(@"Received scroll position data."); }
+    } //everything after this is called only when a window is not already being received!
+    
+    else if (tag == cookieTag){
+     //   NSLog(@"Data received that must be distributed.");
+        //DLog(@"Data tagged with %ld, contains %@", tag, [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding], tag);
+       // [server distributeData: data fromClient: self withTimeout: standardTimeout tag:tag];
+        //   [cookies addObject:[[NSHTTPCookie alloc] init];
     }
     
     [socket readDataToData:[GCDAsyncSocket CRLFData] withTimeout:-1 tag:connectedTag];
