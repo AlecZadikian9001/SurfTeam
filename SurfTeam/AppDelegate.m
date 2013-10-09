@@ -31,8 +31,11 @@ BrowserWindowController* browser;
     [starter.window makeKeyAndOrderFront:nil];
     
     //browser = [[BrowserWindowController alloc] init];
+    if (!browser){
     browser = [[BrowserWindowController alloc] initWithDefaultNib];
     [browser addStarter: starter overNetwork: NO];
+    }
+    else NSLog(@"WTF!?");
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender{

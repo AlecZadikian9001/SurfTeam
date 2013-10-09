@@ -96,7 +96,6 @@
 		E115CE9C17FA5A4F00AD850D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E115CE9E17FA5A4F00AD850D /* SurfTeam_ServerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SurfTeam_ServerTests.m; sourceTree = "<group>"; };
 		E115CEAE17FA5DE700AD850D /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
-		E115CEB517FA63AA00AD850D /* Old Browser Window.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Old Browser Window.xib"; sourceTree = "<group>"; };
 		E12CF46717FBACA200253242 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GCDAsyncSocket.h; path = CocoaAsyncSocket/GCD/GCDAsyncSocket.h; sourceTree = SOURCE_ROOT; };
 		E12CF46817FBACA200253242 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GCDAsyncSocket.m; path = CocoaAsyncSocket/GCD/GCDAsyncSocket.m; sourceTree = SOURCE_ROOT; };
 		E12CF46F17FBADE100253242 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -337,7 +336,6 @@
 				E164FBAC17F7A91600372B20 /* StarterWindowController.m */,
 				E140E6BA17F4F4AB00A58831 /* OldBrowserWindowController.h */,
 				E140E6BB17F4F4AB00A58831 /* OldBrowserWindowController.m */,
-				E115CEB517FA63AA00AD850D /* Old Browser Window.xib */,
 				E10CA72F1801CD51007D713E /* BrowserWindow.h */,
 				E10CA7301801CD51007D713E /* BrowserWindow.m */,
 				E15A58E617FCF27900569B96 /* Networking */,

@@ -22,10 +22,11 @@
 @property (strong, nonatomic) NSString* owner;
 @property (strong, nonatomic) NSString* url;
 @property (weak) IBOutlet IGIsolatedCookieWebView *webView;
-//@property (unsafe_unretained) IBOutlet NSWindow *window;
+
 
 - (IBAction)loadPage:(NSTextField *)sender;
 
+- (id) initWithWindowNibName:(NSString*) windowNibName; //just an override to see when it occurs
 - (id) initWithDefaultNib;
 - (id) initWithEssence: (BrowserWindowEssence*) essence;
 - (void) updateFromEssence: (BrowserWindowEssence*) essence;

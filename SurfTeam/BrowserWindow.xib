@@ -6,13 +6,7 @@
         <plugIn identifier="com.apple.WebKitIBPlugin" version="3336"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="BrowserWindowController">
-            <connections>
-                <outlet property="loadPage" destination="H3a-xm-HN3" id="Di1-U5-Ilr"/>
-                <outlet property="webView" destination="tCu-56-iXk" id="4Zy-zq-dH2"/>
-                <outlet property="window" destination="hAd-gg-jD3" id="RAO-7A-Q6d"/>
-            </connections>
-        </customObject>
+        <customObject id="-2" userLabel="File's Owner" customClass="NSApplication"/>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application"/>
         <window title="Browser Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="hAd-gg-jD3">
@@ -40,7 +34,7 @@
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                         <connections>
-                            <action selector="loadPage:" target="-2" id="Ok9-QH-U2O"/>
+                            <action selector="loadPage:" target="0mb-3f-6OB" id="pdj-pK-y3i"/>
                         </connections>
                     </textField>
                     <button verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Qy-tg-apC">
@@ -73,8 +67,14 @@
                 </constraints>
             </view>
             <connections>
-                <outlet property="delegate" destination="-2" id="dto-vK-yR6"/>
+                <outlet property="delegate" destination="0mb-3f-6OB" id="6t1-Er-Xdb"/>
             </connections>
         </window>
+        <customObject id="0mb-3f-6OB" customClass="BrowserWindowController">
+            <connections>
+                <outlet property="webView" destination="tCu-56-iXk" id="Gm2-ag-N8u"/>
+                <outlet property="window" destination="hAd-gg-jD3" id="Fyd-Ot-wC3"/>
+            </connections>
+        </customObject>
     </objects>
 </document>

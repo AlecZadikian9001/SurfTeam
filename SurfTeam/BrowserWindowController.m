@@ -36,13 +36,18 @@
 BOOL isControllable; //that is, if I own it
 int windowID;
 
+- (id) initWithWindowNibName:(NSString*) windowNibName{
+    
+    self = [super initWithWindowNibName: windowNibName];
+    return self;
+}
+
 - (id) initWithDefaultNib{
     NSLog(@"New BrowserWindowController initializing with default nib.");
-    self = [super init];
+    self = [super initWithWindowNibName:@"BrowserWindow"];
     if (self){
-        self = [super initWithWindowNibName:@"BrowserWindow"];
-        [self showWindow:nil];
-        [self.window makeKeyAndOrderFront:nil];
+      [self showWindow:self];
+      [self.window makeKeyAndOrderFront:nil];
     }
     return self;
 }
