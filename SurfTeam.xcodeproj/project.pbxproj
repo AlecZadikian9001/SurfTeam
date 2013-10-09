@@ -71,8 +71,6 @@
 /* Begin PBXFileReference section */
 		E10A070217F67E2400087C59 /* Server.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Server.h; sourceTree = "<group>"; };
 		E10A070317F67E2400087C59 /* Server.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Server.m; sourceTree = "<group>"; };
-		E10CA72F1801CD51007D713E /* BrowserWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserWindow.h; sourceTree = "<group>"; };
-		E10CA7301801CD51007D713E /* BrowserWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowserWindow.m; sourceTree = "<group>"; };
 		E10CA7321801D015007D713E /* BrowserWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserWindowController.h; sourceTree = "<group>"; };
 		E10CA7331801D015007D713E /* BrowserWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowserWindowController.m; sourceTree = "<group>"; };
 		E10CA7341801D015007D713E /* BrowserWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BrowserWindow.xib; sourceTree = "<group>"; };
@@ -336,8 +334,6 @@
 				E164FBAC17F7A91600372B20 /* StarterWindowController.m */,
 				E140E6BA17F4F4AB00A58831 /* OldBrowserWindowController.h */,
 				E140E6BB17F4F4AB00A58831 /* OldBrowserWindowController.m */,
-				E10CA72F1801CD51007D713E /* BrowserWindow.h */,
-				E10CA7301801CD51007D713E /* BrowserWindow.m */,
 				E15A58E617FCF27900569B96 /* Networking */,
 			);
 			name = Trash;

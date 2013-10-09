@@ -26,8 +26,6 @@
 
 - (IBAction)loadPage:(NSTextField *)sender;
 
-- (id) initWithWindowNibName:(NSString*) windowNibName; //just an override to see when it occurs
-- (id) initWithDefaultNib;
 - (id) initWithEssence: (BrowserWindowEssence*) essence;
 - (void) updateFromEssence: (BrowserWindowEssence*) essence;
 - (void) addStarter: (ServerConnectionViewController*) st overNetwork: (BOOL) net;

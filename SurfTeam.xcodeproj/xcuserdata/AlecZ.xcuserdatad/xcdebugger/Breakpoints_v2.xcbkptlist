@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SurfTeam/BrowserWindowController.m"
-            timestampString = "402970923.798262"
+            timestampString = "402987281.575722"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
             landmarkName = "-loadPage:"
             landmarkType = "5">
          </BreakpointContent>
@@ -122,27 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SurfTeam/BrowserWindowController.m"
-            timestampString = "402878814.367097"
+            timestampString = "402987281.575722"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "22"
-            endingLineNumber = "22"
-            landmarkName = "-initWithWindow:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SurfTeam/BrowserWindowController.m"
-            timestampString = "402970923.798262"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "97"
-            endingLineNumber = "97"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
             landmarkName = "-addStarter:overNetwork:"
             landmarkType = "5">
          </BreakpointContent>
@@ -154,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SurfTeam/BrowserWindowController.m"
-            timestampString = "402970923.798262"
+            timestampString = "402987281.575722"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
             landmarkName = "-addStarter:overNetwork:"
             landmarkType = "5">
          </BreakpointContent>
@@ -202,13 +186,21 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SurfTeam/BrowserWindowController.m"
-            timestampString = "402879585.745246"
+            timestampString = "402987287.252763"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "19"
-            endingLineNumber = "19"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
             landmarkName = "-initWithWindow:"
             landmarkType = "5">
+            <Actions>
+               <BreakpointActionProxy
+                  ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
+                  <ActionContent
+                     consoleCommand = "bt">
+                  </ActionContent>
+               </BreakpointActionProxy>
+            </Actions>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -218,12 +210,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SurfTeam/BrowserWindowController.m"
-            timestampString = "402970714.615912"
+            timestampString = "402987666.150935"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
-            landmarkName = "-initWithWindowNibName:"
+            startingLineNumber = "18"
+            endingLineNumber = "18"
+            landmarkName = "-initWithWindow:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

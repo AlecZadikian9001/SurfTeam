@@ -32,7 +32,10 @@ BrowserWindowController* browser;
     
     //browser = [[BrowserWindowController alloc] init];
     if (!browser){
-    browser = [[BrowserWindowController alloc] initWithDefaultNib];
+    browser = [BrowserWindowController alloc];
+    [browser initWithWindowNibName:@"BrowserWindow"];
+    [browser showWindow:nil];
+        //[self.window makeKeyAndOrderFront:nil];
     [browser addStarter: starter overNetwork: NO];
     }
     else NSLog(@"WTF!?");

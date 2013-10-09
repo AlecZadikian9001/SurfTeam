@@ -36,24 +36,9 @@
 BOOL isControllable; //that is, if I own it
 int windowID;
 
-- (id) initWithWindowNibName:(NSString*) windowNibName{
-    
-    self = [super initWithWindowNibName: windowNibName];
-    return self;
-}
-
-- (id) initWithDefaultNib{
-    NSLog(@"New BrowserWindowController initializing with default nib.");
-    self = [super initWithWindowNibName:@"BrowserWindow"];
-    if (self){
-      [self showWindow:self];
-      [self.window makeKeyAndOrderFront:nil];
-    }
-    return self;
-}
 
 - (id) initWithEssence: (BrowserWindowEssence*) essence{
-    self = [self initWithDefaultNib];
+    self = [self init];
     if (self){
         if (essence.owner)      owner       = [BrowserWindowEssence stringFromData: essence.owner];
         else NSLog(@"Error in BrowserWindowController when initializing with essence: essence is lacking parts!");

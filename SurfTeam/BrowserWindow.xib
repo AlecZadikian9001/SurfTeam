@@ -6,7 +6,12 @@
         <plugIn identifier="com.apple.WebKitIBPlugin" version="3336"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="NSApplication"/>
+        <customObject id="-2" userLabel="File's Owner" customClass="BrowserWindowController">
+            <connections>
+                <outlet property="webView" destination="tCu-56-iXk" id="E5S-7h-2cW"/>
+                <outlet property="window" destination="hAd-gg-jD3" id="ouz-Up-Rcq"/>
+            </connections>
+        </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application"/>
         <window title="Browser Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="hAd-gg-jD3">
@@ -34,7 +39,7 @@
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                         <connections>
-                            <action selector="loadPage:" target="0mb-3f-6OB" id="pdj-pK-y3i"/>
+                            <action selector="loadPage:" target="-2" id="bM4-M5-lfR"/>
                         </connections>
                     </textField>
                     <button verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Qy-tg-apC">
@@ -67,14 +72,8 @@
                 </constraints>
             </view>
             <connections>
-                <outlet property="delegate" destination="0mb-3f-6OB" id="6t1-Er-Xdb"/>
+                <outlet property="delegate" destination="-2" id="asn-1r-sKQ"/>
             </connections>
         </window>
-        <customObject id="0mb-3f-6OB" customClass="BrowserWindowController">
-            <connections>
-                <outlet property="webView" destination="tCu-56-iXk" id="Gm2-ag-N8u"/>
-                <outlet property="window" destination="hAd-gg-jD3" id="Fyd-Ot-wC3"/>
-            </connections>
-        </customObject>
     </objects>
 </document>
