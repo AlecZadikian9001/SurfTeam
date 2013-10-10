@@ -207,7 +207,13 @@ ServerConnectionViewController* defaultStarter;
     }
     else if (tag == windowEndTag){
         if (!receivingWindow) NSLog(@"Client read a window end tag when it was not already receiving one! Error!");
-        if (!windowToBeUpdated){ BrowserWindowController* newWindow = [[BrowserWindowController alloc] initWithEssence: receivingWindow]; [newWindow addStarter: self overNetwork: YES]; }
+        if (!windowToBeUpdated){
+            BrowserWindowController* newWindow = [[BrowserWindowController alloc] initWithEssence: receivingWindow];
+            [newWindow addStarter: self overNetwork: YES];
+            [newWindow initWithWindowNibName:@"BrowserWindowController"];
+            [newWindow showWindow:nil];
+            [newWindow.window makeKeyAndOrderFront:nil];
+        }
         else [windowToBeUpdated updateFromEssence: receivingWindow];
         receivingWindow = nil; windowToBeUpdated = nil;
     }
