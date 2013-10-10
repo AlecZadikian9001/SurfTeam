@@ -164,37 +164,7 @@ ServerConnectionViewController* defaultStarter;
     //NSLog(@"Socket %@ read data on thread %@ with local tag %ld.", sock, [NSThread currentThread], tag);
     tag = [TCPSender getTagFromData: data];
    // DLog(@"Data network tagged as %ld received: %@", tag, [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding]);
-    if (tag==windowQueryTag){ [self sendWindows]; }
-    
-    /*
-    
-    //ADD CODE TO RECEIVE WINDOWS!!!
-    
-    else if (tag==windowBeginTag){
-        NSLog(@"About to receive window data.");
-    }
-    else if (tag==urlTag && receivingWindow){
-        receivingWindow.url = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
-    }
-    else if (tag==pageSourceTag && receivingWindow){
-        [[receivingWindow.webView mainFrame] loadHTMLString: [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] baseURL: [NSURL URLWithString: receivingWindow.url]];
-    }
-    else if (tag==windowEndTag){
-        NSLog(@"A window has been receieved and should now appear onscreen.");
-        receivingWindow = [[BrowserWindowController alloc] initWithWindowNibName:@"BrowserWindow"];
-        [receivingWindow addStarter: self overNetwork: YES];
-        [receivingWindow showWindow:nil];
-        [receivingWindow.window makeKeyAndOrderFront:nil];
-        receivingWindow = nil;
-    }
-    
-    else if (tag==cookieTag){
-        if (!receivingWindow){ NSLog(@"Error! Received window data when not listening for a window!"); }
-        else{
-            //todoreceivingWindow
-        }
-    }
-    */
+    if (tag==windowQueryTag){ NSLog(@"Window query command received."); [self sendWindows]; }
     
     if (tag == windowBeginTag){
         NSLog(@"A window is about to be received.");
@@ -208,9 +178,10 @@ ServerConnectionViewController* defaultStarter;
     else if (tag == windowEndTag){
         if (!receivingWindow) NSLog(@"Client read a window end tag when it was not already receiving one! Error!");
         if (!windowToBeUpdated){
-            BrowserWindowController* newWindow = [[BrowserWindowController alloc] initWithEssence: receivingWindow];
+
+            BrowserWindowController* newWindow =[[BrowserWindowController alloc] initWithWindowNibName:@"BrowserWindowController"];
+            [newWindow updateFromEssence: receivingWindow];
             [newWindow addStarter: self overNetwork: YES];
-            [newWindow initWithWindowNibName:@"BrowserWindowController"];
             [newWindow showWindow:nil];
             [newWindow.window makeKeyAndOrderFront:nil];
         }

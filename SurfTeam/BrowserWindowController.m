@@ -43,41 +43,43 @@
 BOOL isControllable; //that is, if I own it
 int windowID;
 
-
+/*
 - (id) initWithEssence: (BrowserWindowEssence*) essence{
     self = [self init];
     if (self){
         if (essence.owner)      user       = [BrowserWindowEssence stringFromData: essence.owner];
-        else NSLog(@"Error in BrowserWindowController when initializing with essence: essence is lacking parts!");
+        else NSLog(@"Error in BrowserWindowController when initializing with essence: essence is lacking owner!");
         if (essence.url){       url         = [BrowserWindowEssence stringFromData: essence.url];   [webView setMainFrameURL: url]; }
-        else NSLog(@"Error in BrowserWindowController when initializing with essence: essence is lacking parts!");
+        else NSLog(@"Error in BrowserWindowController when initializing with essence: essence is lacking url!");
         if (essence.primeTag)   primeTag    = essence.primeTag;
-        else NSLog(@"Error in BrowserWindowController when initializing with essence: essence is lacking parts!");
+        else NSLog(@"Error in BrowserWindowController when initializing with essence: essence is lacking primetag!");
         
         if (essence.html){
             NSLog(@"Inserting HTML code into browser window.");
             NSString* html = [BrowserWindowEssence stringFromData: essence.html];
             [webView.mainFrame loadHTMLString: html baseURL: [NSURL URLWithString: url]];
+            loadData:webdata MIMEType: @"text/html" textEncodingName: @"UTF-8" baseURL:nil];
         }
-        else NSLog(@"Error in BrowserWindowController when initializing with essence: essence is lacking parts!");
+        else NSLog(@"Error in BrowserWindowController when initializing with essence: essence is lacking html!");
         
         if (essence.scrollPosition){
             //TODO
         }
-        else NSLog(@"Error in BrowserWindowController when initializing with essence: essence is lacking parts!");
+        else NSLog(@"Error in BrowserWindowController when initializing with essence: essence is lacking scroll position!");
     }
     return self;
 }
-
+*/
 - (void) updateFromEssence: (BrowserWindowEssence*) essence{
     if (essence.owner)      user       = [BrowserWindowEssence stringFromData: essence.owner];
     if (essence.url){       url         = [BrowserWindowEssence stringFromData: essence.url];   [webView setMainFrameURL: [NSURL URLWithString: url]]; }
     if (essence.primeTag)   primeTag    = essence.primeTag;
     
     if (essence.html){
-        NSLog(@"Inserting HTML code into browser window.");
-        NSString* html = [BrowserWindowEssence stringFromData: essence.html];
-        [webView.mainFrame loadHTMLString: html baseURL: url];
+        //NSString* html = [BrowserWindowEssence stringFromData: essence.html];
+        NSLog(@"Inserting HTML code into browser window with length %d.", essence.html.length);
+        [webView.mainFrame loadData:essence.html MIMEType: @"text/html" textEncodingName: @"UTF-8" baseURL:nil];
+    //    [webView.mainFrame loadHTMLString: html baseURL: url];
     }
     
     if (essence.scrollPosition){

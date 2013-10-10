@@ -28,7 +28,7 @@
 
 - (id)initWithWindow:(NSWindow *)window;
 -(id) initWithWindowNibName:(NSString *)windowNibName;
-- (id) initWithEssence: (BrowserWindowEssence*) essence;
+//- (id) initWithEssence: (BrowserWindowEssence*) essence;
 - (void) updateFromEssence: (BrowserWindowEssence*) essence;
 - (void) addStarter: (ServerConnectionViewController*) st overNetwork: (BOOL) net;
 
