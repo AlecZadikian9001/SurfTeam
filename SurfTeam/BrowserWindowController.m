@@ -102,8 +102,8 @@ int windowID;
     url = sender.stringValue;
     NSLog(@"Page being loaded, URL: %@", url);
     [webView setMainFrameURL: url];
-    [webView reload: self];
-    [starter sendWindowUpdate: self];
+    //[webView reload: self];
+    if (starter.socket) [starter sendWindowUpdate: self]; //only if logged in
 }
 
 - (NSArray*)getCookiesForCurrentURL
