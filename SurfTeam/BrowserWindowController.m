@@ -24,14 +24,21 @@
     return self;
 }
 
+/*
+ - (NSWindow *)window{
+ //THIS METHOD MUST DIE
+ NSLog(@"window called in BrowserWindowController instance %p", self);
+ return [super window];
+ }
+ */
 - (void)windowDidLoad
 {
     [super windowDidLoad];
-    
+    // [self addStarter: [ServerConnectionViewController defaultStarter] overNetwork:NO];
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
 }
 
-@synthesize starter, owner, webView, url, primeTag;
+@synthesize starter, user, webView, url, primeTag;
 
 BOOL isControllable; //that is, if I own it
 int windowID;
@@ -40,7 +47,7 @@ int windowID;
 - (id) initWithEssence: (BrowserWindowEssence*) essence{
     self = [self init];
     if (self){
-        if (essence.owner)      owner       = [BrowserWindowEssence stringFromData: essence.owner];
+        if (essence.owner)      user       = [BrowserWindowEssence stringFromData: essence.owner];
         else NSLog(@"Error in BrowserWindowController when initializing with essence: essence is lacking parts!");
         if (essence.url){       url         = [BrowserWindowEssence stringFromData: essence.url];   [webView setMainFrameURL: url]; }
         else NSLog(@"Error in BrowserWindowController when initializing with essence: essence is lacking parts!");
@@ -63,7 +70,7 @@ int windowID;
 }
 
 - (void) updateFromEssence: (BrowserWindowEssence*) essence{
-    if (essence.owner)      owner       = [BrowserWindowEssence stringFromData: essence.owner];
+    if (essence.owner)      user       = [BrowserWindowEssence stringFromData: essence.owner];
     if (essence.url){       url         = [BrowserWindowEssence stringFromData: essence.url];   [webView setMainFrameURL: [NSURL URLWithString: url]]; }
     if (essence.primeTag)   primeTag    = essence.primeTag;
     
@@ -80,11 +87,11 @@ int windowID;
 
 - (void) addStarter: (ServerConnectionViewController*) st overNetwork: (BOOL) net{
     NSLog(@"Starter being added to browser window.");
-        starter = st;
-        primeTag = 0; //to indicate that it is local
-        url = @"no url";
-        isControllable = !net;
-        [starter insertBrowserWindow: self];
+    starter = st;
+    primeTag = 0; //to indicate that it is local
+    url = @"no url";
+    isControllable = !net;
+    [starter insertBrowserWindow: self];
 }
 
 - (int)     getID{ return windowID; }

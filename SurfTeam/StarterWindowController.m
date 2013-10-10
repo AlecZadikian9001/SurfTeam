@@ -10,12 +10,14 @@
 
 @implementation StarterWindowController
 @synthesize serverIPField, serverPasswordField, serverPortField, nameField, socket, browserWindows, name;
+StarterWindowController* defaultStarter;
 
 -(id)initWithWindowNibName: (NSString*) nibName;
 {
     self = [super initWithWindowNibName: nibName];
     if (self){
         NSLog(@"init called in StarterWindowController, separator tag is %d", separatorTag);
+        defaultStarter = self;
         browserWindows = [[NSMutableArray alloc] init];
     }
     return self;
@@ -38,6 +40,10 @@
         [self sendWindows];
         [socket readDataToData:[GCDAsyncSocket CRLFData] withTimeout:-1 tag:firstTag];
     }
+}
+
++(StarterWindowController*) defaultStarter{
+    return defaultStarter;
 }
 
 -(void)sendData: (NSData*) data withTimeout: (NSTimeInterval) timeout tag: (long) tag{ //unified sending method

@@ -19,17 +19,20 @@
 
 @property (strong, nonatomic) ServerConnectionViewController* starter;
 @property (strong, nonatomic) NSData* primeTag;
-@property (strong, nonatomic) NSString* owner;
+@property (strong, nonatomic) NSString* user;
 @property (strong, nonatomic) NSString* url;
 @property (weak) IBOutlet IGIsolatedCookieWebView *webView;
 
 
 - (IBAction)loadPage:(NSTextField *)sender;
 
+- (id)initWithWindow:(NSWindow *)window;
+-(id) initWithWindowNibName:(NSString *)windowNibName;
 - (id) initWithEssence: (BrowserWindowEssence*) essence;
 - (void) updateFromEssence: (BrowserWindowEssence*) essence;
 - (void) addStarter: (ServerConnectionViewController*) st overNetwork: (BOOL) net;
 
+//- (NSWindow *)window; //to kill the method
 - (void)saveCookies;
 - (void)loadCookies;
 - (int) getID;

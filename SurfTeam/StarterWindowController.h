@@ -28,6 +28,7 @@
 
 - (IBAction)connectButton:(id)sender;
 
++(StarterWindowController*) defaultStarter;
 -(id) initWithWindowNibName:(NSString *)windowNibName;
 -(void)insertBrowserWindow: (BrowserWindowController*) window;
 -(void) sendWindow: (BrowserWindowController*) window;

@@ -8,71 +8,71 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BrowserWindowController">
             <connections>
-                <outlet property="webView" destination="tCu-56-iXk" id="E5S-7h-2cW"/>
-                <outlet property="window" destination="hAd-gg-jD3" id="ouz-Up-Rcq"/>
+                <outlet property="webView" destination="1SQ-Gb-zse" id="kgV-BP-88l"/>
+                <outlet property="window" destination="yi9-wU-FYx" id="ZhR-gN-UhE"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application"/>
-        <window title="Browser Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="hAd-gg-jD3">
+        <window title="SurfTeam Browser" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="yi9-wU-FYx">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
             <rect key="contentRect" x="686" y="302" width="1274" height="816"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1058"/>
-            <view key="contentView" id="Rpw-kR-xD4">
+            <view key="contentView" id="c5e-NQ-3VB">
                 <rect key="frame" x="0.0" y="0.0" width="1274" height="816"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <webView misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tCu-56-iXk" customClass="IGIsolatedCookieWebView">
+                    <webView misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1SQ-Gb-zse" customClass="IGIsolatedCookieWebView">
                         <rect key="frame" x="0.0" y="0.0" width="1274" height="789"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12">
                             <nil key="identifier"/>
                         </webPreferences>
                     </webView>
-                    <textField verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H3a-xm-HN3">
-                        <rect key="frame" x="0.0" y="788" width="1040" height="28"/>
+                    <textField verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4NM-ZZ-isu">
+                        <rect key="frame" x="0.0" y="789" width="1040" height="27"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" alignment="left" title="http://" drawsBackground="YES" id="Lcb-3W-JqP">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" alignment="left" title="http://" drawsBackground="YES" id="oIS-ge-bFc">
                             <font key="font" size="22" name="LucidaGrande"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                         <connections>
-                            <action selector="loadPage:" target="-2" id="bM4-M5-lfR"/>
+                            <action selector="loadPage:" target="-2" id="qSf-Mt-Uej"/>
                         </connections>
                     </textField>
-                    <button verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Qy-tg-apC">
+                    <button verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KY8-XL-RDg">
                         <rect key="frame" x="1202" y="787" width="72" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="smallSquare" title="Yours" bezelStyle="smallSquare" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="LeV-nA-gMB">
+                        <buttonCell key="cell" type="smallSquare" title="Yours" bezelStyle="smallSquare" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aHw-Xl-iBT">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="18" name="LucidaGrande"/>
                         </buttonCell>
                     </button>
-                    <button verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QEc-NB-qcf">
+                    <button verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="duJ-c8-Mtm">
                         <rect key="frame" x="1040" y="787" width="162" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="smallSquare" title="Local" bezelStyle="smallSquare" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Hfa-Qe-9WJ">
+                        <buttonCell key="cell" type="smallSquare" title="Local" bezelStyle="smallSquare" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nqk-3w-cnx">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="18" name="LucidaGrande"/>
                         </buttonCell>
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="H3a-xm-HN3" firstAttribute="leading" secondItem="Rpw-kR-xD4" secondAttribute="leading" id="BZA-N0-oKM"/>
-                    <constraint firstItem="tCu-56-iXk" firstAttribute="leading" secondItem="Rpw-kR-xD4" secondAttribute="leading" id="MAI-gd-6ZN"/>
-                    <constraint firstItem="tCu-56-iXk" firstAttribute="top" secondItem="Rpw-kR-xD4" secondAttribute="top" constant="29" id="Tm6-O8-Zgx"/>
-                    <constraint firstAttribute="trailing" secondItem="9Qy-tg-apC" secondAttribute="trailing" id="Too-fM-5eI"/>
-                    <constraint firstAttribute="trailing" secondItem="tCu-56-iXk" secondAttribute="trailing" id="Wue-38-HS0"/>
-                    <constraint firstAttribute="trailing" secondItem="H3a-xm-HN3" secondAttribute="trailing" constant="234" id="Zlm-56-B4N"/>
-                    <constraint firstItem="9Qy-tg-apC" firstAttribute="leading" secondItem="QEc-NB-qcf" secondAttribute="trailing" id="apW-1k-wyC"/>
-                    <constraint firstAttribute="bottom" secondItem="tCu-56-iXk" secondAttribute="bottom" id="ddF-XG-rEs"/>
-                    <constraint firstAttribute="trailing" secondItem="QEc-NB-qcf" secondAttribute="trailing" constant="93" id="mOi-sr-AzL"/>
+                    <constraint firstAttribute="trailing" secondItem="1SQ-Gb-zse" secondAttribute="trailing" id="Cj5-aS-NaF"/>
+                    <constraint firstAttribute="trailing" secondItem="KY8-XL-RDg" secondAttribute="trailing" id="DK8-C0-IsF"/>
+                    <constraint firstAttribute="trailing" secondItem="4NM-ZZ-isu" secondAttribute="trailing" constant="234" id="FZ8-jO-s8k"/>
+                    <constraint firstAttribute="trailing" secondItem="duJ-c8-Mtm" secondAttribute="trailing" constant="93" id="MEB-76-gdW"/>
+                    <constraint firstItem="4NM-ZZ-isu" firstAttribute="leading" secondItem="c5e-NQ-3VB" secondAttribute="leading" id="QaA-Ot-5i0"/>
+                    <constraint firstItem="1SQ-Gb-zse" firstAttribute="top" secondItem="c5e-NQ-3VB" secondAttribute="top" constant="29" id="crt-fM-ROW"/>
+                    <constraint firstItem="1SQ-Gb-zse" firstAttribute="leading" secondItem="c5e-NQ-3VB" secondAttribute="leading" id="dR6-Qp-xeC"/>
+                    <constraint firstAttribute="bottom" secondItem="1SQ-Gb-zse" secondAttribute="bottom" id="ogK-5c-FI1"/>
+                    <constraint firstItem="KY8-XL-RDg" firstAttribute="leading" secondItem="duJ-c8-Mtm" secondAttribute="trailing" id="wsp-3v-42t"/>
                 </constraints>
             </view>
             <connections>
-                <outlet property="delegate" destination="-2" id="asn-1r-sKQ"/>
+                <outlet property="delegate" destination="-2" id="UTU-4F-QHp"/>
             </connections>
         </window>
     </objects>

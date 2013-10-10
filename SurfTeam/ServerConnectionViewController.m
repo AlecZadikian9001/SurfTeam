@@ -14,6 +14,7 @@
 
 @implementation ServerConnectionViewController
 BrowserWindowEssence* receivingWindow; BrowserWindowController* windowToBeUpdated;
+ServerConnectionViewController* defaultStarter;
 
 - (id)initWithWindow:(NSWindow *)window
 {
@@ -21,9 +22,12 @@ BrowserWindowEssence* receivingWindow; BrowserWindowController* windowToBeUpdate
     if (self) {
         NSLog(@"init called in StarterWindowController, separator tag is %d", separatorTag);
         browserWindows = [[NSMutableArray alloc] init];
+        defaultStarter = self;
     }
     return self;
 }
+
++(ServerConnectionViewController*) defaultStarter{ return defaultStarter; }
 
 - (void)windowDidLoad
 {

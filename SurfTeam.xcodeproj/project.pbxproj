@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E10CA7351801D015007D713E /* BrowserWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = E10CA7331801D015007D713E /* BrowserWindowController.m */; };
-		E10CA7361801D015007D713E /* BrowserWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = E10CA7341801D015007D713E /* BrowserWindow.xib */; };
 		E10CA73A1801F64F007D713E /* ServerConnectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E10CA7381801F64F007D713E /* ServerConnectionViewController.m */; };
 		E10CA73B1801F64F007D713E /* ServerConnection.xib in Resources */ = {isa = PBXBuildFile; fileRef = E10CA7391801F64F007D713E /* ServerConnection.xib */; };
 		E10CA73E18022998007D713E /* BrowserWindowEssence.m in Sources */ = {isa = PBXBuildFile; fileRef = E10CA73D18022998007D713E /* BrowserWindowEssence.m */; };
@@ -42,13 +40,15 @@
 		E14E297A17F3F5B6007F9C36 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E14E297817F3F5B6007F9C36 /* InfoPlist.strings */; };
 		E14E297C17F3F5B6007F9C36 /* SurfTeamTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E14E297B17F3F5B6007F9C36 /* SurfTeamTests.m */; };
 		E14E298617F3F844007F9C36 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14E298517F3F844007F9C36 /* WebKit.framework */; };
-		E15BF75C17FD3A9C00AD79A1 /* SurfTeam.icns in Resources */ = {isa = PBXBuildFile; fileRef = E15BF75B17FD3A9C00AD79A1 /* SurfTeam.icns */; };
 		E15EB29C1801219A0028F5DA /* TCPSender.m in Sources */ = {isa = PBXBuildFile; fileRef = E15EB29B1801219A0028F5DA /* TCPSender.m */; };
 		E15EB29D1801219A0028F5DA /* TCPSender.m in Sources */ = {isa = PBXBuildFile; fileRef = E15EB29B1801219A0028F5DA /* TCPSender.m */; };
 		E16284311803937F0093E1C9 /* BrowserWindowEssence.m in Sources */ = {isa = PBXBuildFile; fileRef = E10CA73D18022998007D713E /* BrowserWindowEssence.m */; };
 		E164FBA717F7A86400372B20 /* IGIsolatedCookieWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = E164FBA617F7A86400372B20 /* IGIsolatedCookieWebView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		E1AAA30E17FCCBA10016C886 /* ClientSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = E1AAA30D17FCCBA10016C886 /* ClientSocket.m */; };
 		E1AAA30F17FCCBA10016C886 /* ClientSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = E1AAA30D17FCCBA10016C886 /* ClientSocket.m */; };
+		E1CE16A7180643A400383F6C /* BrowserWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1CE16A5180643A400383F6C /* BrowserWindowController.m */; };
+		E1CE16A9180646C800383F6C /* SurfTeam.icns in Resources */ = {isa = PBXBuildFile; fileRef = E1CE16A8180646C800383F6C /* SurfTeam.icns */; };
+		E1CE16AB1806490F00383F6C /* BrowserWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1CE16AA1806490F00383F6C /* BrowserWindowController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,9 +71,6 @@
 /* Begin PBXFileReference section */
 		E10A070217F67E2400087C59 /* Server.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Server.h; sourceTree = "<group>"; };
 		E10A070317F67E2400087C59 /* Server.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Server.m; sourceTree = "<group>"; };
-		E10CA7321801D015007D713E /* BrowserWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserWindowController.h; sourceTree = "<group>"; };
-		E10CA7331801D015007D713E /* BrowserWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowserWindowController.m; sourceTree = "<group>"; };
-		E10CA7341801D015007D713E /* BrowserWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BrowserWindow.xib; sourceTree = "<group>"; };
 		E10CA7371801F64F007D713E /* ServerConnectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerConnectionViewController.h; sourceTree = "<group>"; };
 		E10CA7381801F64F007D713E /* ServerConnectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerConnectionViewController.m; sourceTree = "<group>"; };
 		E10CA7391801F64F007D713E /* ServerConnection.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ServerConnection.xib; sourceTree = "<group>"; };
@@ -97,8 +94,6 @@
 		E12CF46717FBACA200253242 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GCDAsyncSocket.h; path = CocoaAsyncSocket/GCD/GCDAsyncSocket.h; sourceTree = SOURCE_ROOT; };
 		E12CF46817FBACA200253242 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GCDAsyncSocket.m; path = CocoaAsyncSocket/GCD/GCDAsyncSocket.m; sourceTree = SOURCE_ROOT; };
 		E12CF46F17FBADE100253242 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		E140E6BA17F4F4AB00A58831 /* OldBrowserWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldBrowserWindowController.h; sourceTree = "<group>"; };
-		E140E6BB17F4F4AB00A58831 /* OldBrowserWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldBrowserWindowController.m; sourceTree = "<group>"; };
 		E14E294E17F3F5B5007F9C36 /* SurfTeam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SurfTeam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E14E295117F3F5B5007F9C36 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		E14E295417F3F5B5007F9C36 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -119,17 +114,18 @@
 		E14E297917F3F5B6007F9C36 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E14E297B17F3F5B6007F9C36 /* SurfTeamTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SurfTeamTests.m; sourceTree = "<group>"; };
 		E14E298517F3F844007F9C36 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		E15BF75B17FD3A9C00AD79A1 /* SurfTeam.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = SurfTeam.icns; sourceTree = "<group>"; };
 		E15EB29A1801219A0028F5DA /* TCPSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPSender.h; sourceTree = "<group>"; };
 		E15EB29B1801219A0028F5DA /* TCPSender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCPSender.m; sourceTree = "<group>"; };
 		E161539717F7813B0097708F /* ClientHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClientHandler.h; sourceTree = "<group>"; };
 		E161539817F7813B0097708F /* ClientHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClientHandler.m; sourceTree = "<group>"; };
 		E164FBA517F7A86400372B20 /* IGIsolatedCookieWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGIsolatedCookieWebView.h; sourceTree = "<group>"; };
 		E164FBA617F7A86400372B20 /* IGIsolatedCookieWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGIsolatedCookieWebView.m; sourceTree = "<group>"; };
-		E164FBAB17F7A91600372B20 /* StarterWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarterWindowController.h; sourceTree = "<group>"; };
-		E164FBAC17F7A91600372B20 /* StarterWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarterWindowController.m; sourceTree = "<group>"; };
 		E1AAA30C17FCCBA10016C886 /* ClientSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClientSocket.h; sourceTree = "<group>"; };
 		E1AAA30D17FCCBA10016C886 /* ClientSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClientSocket.m; sourceTree = "<group>"; };
+		E1CE16A5180643A400383F6C /* BrowserWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowserWindowController.m; sourceTree = "<group>"; };
+		E1CE16A6180643A400383F6C /* BrowserWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserWindowController.h; sourceTree = "<group>"; };
+		E1CE16A8180646C800383F6C /* SurfTeam.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = SurfTeam.icns; sourceTree = "<group>"; };
+		E1CE16AA1806490F00383F6C /* BrowserWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BrowserWindowController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -290,7 +286,7 @@
 		E14E295817F3F5B5007F9C36 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				E15BF75B17FD3A9C00AD79A1 /* SurfTeam.icns */,
+				E1CE16A8180646C800383F6C /* SurfTeam.icns */,
 				E14E295917F3F5B5007F9C36 /* SurfTeam-Info.plist */,
 				E14E295A17F3F5B5007F9C36 /* InfoPlist.strings */,
 				E14E295D17F3F5B5007F9C36 /* main.m */,
@@ -330,10 +326,6 @@
 		E15A58E717FCFA6200569B96 /* Trash */ = {
 			isa = PBXGroup;
 			children = (
-				E164FBAB17F7A91600372B20 /* StarterWindowController.h */,
-				E164FBAC17F7A91600372B20 /* StarterWindowController.m */,
-				E140E6BA17F4F4AB00A58831 /* OldBrowserWindowController.h */,
-				E140E6BB17F4F4AB00A58831 /* OldBrowserWindowController.m */,
 				E15A58E617FCF27900569B96 /* Networking */,
 			);
 			name = Trash;
@@ -351,8 +343,8 @@
 		E164FBAF17F7A93300372B20 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E1CE16AA1806490F00383F6C /* BrowserWindowController.xib */,
 				E10CA7391801F64F007D713E /* ServerConnection.xib */,
-				E10CA7341801D015007D713E /* BrowserWindow.xib */,
 				E14E296617F3F5B5007F9C36 /* MainMenu.xib */,
 				E164FBA517F7A86400372B20 /* IGIsolatedCookieWebView.h */,
 				E164FBA617F7A86400372B20 /* IGIsolatedCookieWebView.m */,
@@ -363,12 +355,12 @@
 		E164FBB017F7A93E00372B20 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E1CE16A6180643A400383F6C /* BrowserWindowController.h */,
+				E1CE16A5180643A400383F6C /* BrowserWindowController.m */,
 				E14E296317F3F5B5007F9C36 /* AppDelegate.h */,
 				E14E296417F3F5B5007F9C36 /* AppDelegate.m */,
 				E10CA7371801F64F007D713E /* ServerConnectionViewController.h */,
 				E10CA7381801F64F007D713E /* ServerConnectionViewController.m */,
-				E10CA7321801D015007D713E /* BrowserWindowController.h */,
-				E10CA7331801D015007D713E /* BrowserWindowController.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -521,10 +513,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1CE16AB1806490F00383F6C /* BrowserWindowController.xib in Resources */,
 				E14E295C17F3F5B5007F9C36 /* InfoPlist.strings in Resources */,
-				E10CA7361801D015007D713E /* BrowserWindow.xib in Resources */,
+				E1CE16A9180646C800383F6C /* SurfTeam.icns in Resources */,
 				E14E296A17F3F5B5007F9C36 /* Images.xcassets in Resources */,
-				E15BF75C17FD3A9C00AD79A1 /* SurfTeam.icns in Resources */,
 				E14E296217F3F5B5007F9C36 /* Credits.rtf in Resources */,
 				E14E296817F3F5B5007F9C36 /* MainMenu.xib in Resources */,
 				E10CA73B1801F64F007D713E /* ServerConnection.xib in Resources */,
@@ -573,7 +565,7 @@
 				E12CF46917FBACA200253242 /* GCDAsyncSocket.m in Sources */,
 				E14E296517F3F5B5007F9C36 /* AppDelegate.m in Sources */,
 				E164FBA717F7A86400372B20 /* IGIsolatedCookieWebView.m in Sources */,
-				E10CA7351801D015007D713E /* BrowserWindowController.m in Sources */,
+				E1CE16A7180643A400383F6C /* BrowserWindowController.m in Sources */,
 				E10CA73A1801F64F007D713E /* ServerConnectionViewController.m in Sources */,
 				E16284311803937F0093E1C9 /* BrowserWindowEssence.m in Sources */,
 				E15EB29C1801219A0028F5DA /* TCPSender.m in Sources */,
