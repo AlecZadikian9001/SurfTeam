@@ -100,7 +100,7 @@ int windowID;
 
 - (IBAction)loadPage:(NSTextField *)sender {
     url = sender.stringValue;
-    NSLog(@"Page on window %d being loaded, URL: %@", windowID, url);
+    NSLog(@"Page on window %d (mem %p) being loaded, URL: %@", windowID, self, url);
     [webView setMainFrameURL: url];
     //[webView reload: self];
     if (starter.socket) [starter sendWindowUpdate: self]; //only if logged in

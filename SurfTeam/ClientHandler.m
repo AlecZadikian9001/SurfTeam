@@ -65,6 +65,7 @@ int userID;
  //   NSLog(@"Socket %@ read data on thread %@ with local tag %ld.", sock, [NSThread currentThread], tag);
     tag = [TCPSender getTagFromData: data];
   //  DLog(@"Data network tagged as %ld received: %@", tag, [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding]);
+    if (!isLoggedIn && tag!=negotiationTag){ NSLog(@"Client tried to send data without being logged in."); [self disconnectSocketForcibly: socket]; }
     if (tag==negotiationTag){
         if (isLoggedIn){ NSLog(@"User %@ trying to send negotiation tag but is already logged in. Major error!", name); return; }
         NSLog(@"User is trying to negotiate login: \"%@\"", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);

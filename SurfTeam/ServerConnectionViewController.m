@@ -121,7 +121,6 @@ ServerConnectionViewController* defaultStarter;
     [window setID: i+1];
     NSLog(@"Browser window being added with index %d and id %d.", i, i+1);
     [browserWindows addObject:window];
-    DLog(@"Number of browserWindows now: %d", browserWindows.count);
 }
 
 - (IBAction)connectButton:(id)sender {
@@ -171,20 +170,6 @@ ServerConnectionViewController* defaultStarter;
         receivingWindow = [[BrowserWindowEssence alloc] init];
         receivingWindow.owner = [name dataUsingEncoding: NSUTF8StringEncoding]; //not good
         receivingWindow.primeTag = data;
-        NSLog(@"Received prime tag %@", [BrowserWindowEssence stringFromData: receivingWindow.primeTag]);
-    }
-    else if (tag == windowEndTag){
-        if (!receivingWindow) NSLog(@"Client read a window end tag when it was not already receiving one! Error!");
-        if (!windowToBeUpdated){
-            BrowserWindowController* newWindow =[[BrowserWindowController alloc] initWithWindowNibName:@"BrowserWindowController"];
-            [newWindow updateFromEssence: receivingWindow];
-            [newWindow addStarter: self overNetwork: YES];
-            NSLog(@"About to show window from network. URL is %@.", newWindow.url);
-            [newWindow showWindow:nil];
-            [newWindow.window makeKeyAndOrderFront:nil];
-        }
-        else{ NSLog(@"About to update window with current URL %@ from network.", windowToBeUpdated.url); [windowToBeUpdated updateFromEssence: receivingWindow]; }
-        receivingWindow = nil; windowToBeUpdated = nil;
     }
     else if (tag == windowBeginUpdateTag){
         if (receivingWindow) NSLog(@"Client read a window update receive tag when it was already receiving one! Error!");
@@ -197,6 +182,19 @@ ServerConnectionViewController* defaultStarter;
             }
         }
         if (!found) NSLog(@"Received a window update tag... but no window to update!");
+    }
+    else if (tag == windowEndTag){ //SOMETING IS WRONG HERE
+        if (!receivingWindow) NSLog(@"Client read a window end tag when it was not already receiving one! Error!");
+        if (!windowToBeUpdated){
+            BrowserWindowController* newWindow =[[BrowserWindowController alloc] initWithWindowNibName:@"BrowserWindowController"];
+            [newWindow updateFromEssence: receivingWindow];
+            [newWindow addStarter: self overNetwork: YES];
+            NSLog(@"About to show new window from network. URL is %@. PrimeTag is %@.", newWindow.url, [BrowserWindowEssence stringFromData: receivingWindow.primeTag]);
+            [newWindow showWindow:nil];
+            [newWindow.window makeKeyAndOrderFront:nil];
+        }
+        else{ NSLog(@"About to update window with current URL %@ from network. PrimeTag is %@.", windowToBeUpdated.url, [BrowserWindowEssence stringFromData: receivingWindow.primeTag]); [windowToBeUpdated updateFromEssence: receivingWindow]; }
+        receivingWindow = nil; windowToBeUpdated = nil;
     }
     else if (receivingWindow){
         if      (tag==urlTag)           { receivingWindow.url = data; NSLog(@"Received URL data."); }
