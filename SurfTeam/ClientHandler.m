@@ -10,7 +10,7 @@
 
 Server* server;
 BOOL isLoggedIn;
-BrowserWindowEssence* receivingWindow, *receivingWindowUpdate;
+BrowserWindowEssence* receivingWindow;
 int userID;
 
 @implementation ClientHandler
@@ -90,8 +90,12 @@ int userID;
         NSLog(@"Received local ID from %@ and used it to make prime tag %d", name, primeTag);
     }
     else if (tag == windowEndTag){
+        @try{
         if (!receivingWindow) NSLog(@"Client handler read a window end tag when it was not already receiving one! Error!");
         [windows addObject: receivingWindow];
+        } @catch(id){
+            NSLog(@"Unhandled exception in windowEndTag portion of clientHandler readData.");
+        }
         
         NSLog(@"Window %@ has finished being received, now sending it to others.", receivingWindow.url);
         NSMutableData* tempBegin =  [NSMutableData dataWithData: receivingWindow.primeTag];
@@ -118,20 +122,24 @@ int userID;
         int localID = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] integerValue]; //bad efficiency alert! :(
         int primeTag = pow(2, localID)*pow(3, userID);
         NSData* primeTagData = [[NSString stringWithFormat:@"%d", primeTag] dataUsingEncoding: NSUTF8StringEncoding];
+        BOOL found = NO;
         for (BrowserWindowEssence* window in windows){
             if ([window.primeTag isEqualToData: primeTagData]){
                 receivingWindow = window;
+                NSLog(@"Must update window with primetag %@ and URL %@", [[NSString alloc] initWithData: window.primeTag encoding: NSUTF8StringEncoding], window.url);
                 [receivingWindow clear];
-                return;
+                found = YES;
+                break;
             }
+            else{ DLog(@"A window with primeTag %@ has been skipped over in windowBeginUpdateTag.", [BrowserWindowEssence stringFromData: window.primeTag]); }
         }
-        NSLog(@"Received a window update tag... but no window to update!");
+        if (!found) NSLog(@"Received a window update tag %d... but no window to update!", primeTag);
     }
     else if (receivingWindow){
         if      (tag==urlTag)           { receivingWindow.url = data; NSLog(@"Received URL data."); }
         else if (tag==pageSourceTag)    { receivingWindow.html = data; NSLog(@"Received HTML data."); }
         else if (tag==scrollPositionTag){ receivingWindow.scrollPosition = data; NSLog(@"Received scroll position data."); }
-    } //everything after this is called only when a window is not already being received!
+    }
     
     else if (tag == cookieTag){
         NSLog(@"Data received that must be distributed.");
@@ -140,7 +148,7 @@ int userID;
      //   [cookies addObject:[[NSHTTPCookie alloc] init];
     }
     
-    else if (tag == windowQueryTag) [server askForWindows: self];
+    else if (tag == windowQueryTag){ NSLog(@"Client %@ asked for windows.", name); [server askForWindows: self]; }
     else if (tag==nicknameTag){ name = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]; NSLog(@"User changed nickname to %@", name); }
     else (NSLog(@"Socket %@ read data with an invalid tag! Tag is %ld", sock, tag));
     [socket readDataToData:[GCDAsyncSocket CRLFData] withTimeout:-1 tag: connectedTag];

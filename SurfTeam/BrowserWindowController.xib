@@ -17,10 +17,10 @@
         <window title="SurfTeam Browser" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="yi9-wU-FYx">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
-            <rect key="contentRect" x="686" y="302" width="1274" height="816"/>
+            <rect key="contentRect" x="686" y="302" width="1274" height="519"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1058"/>
             <view key="contentView" id="c5e-NQ-3VB">
-                <rect key="frame" x="0.0" y="0.0" width="1274" height="816"/>
+                <rect key="frame" x="0.0" y="0.0" width="1274" height="519"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <webView misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1SQ-Gb-zse" customClass="IGIsolatedCookieWebView">
@@ -31,7 +31,7 @@
                         </webPreferences>
                     </webView>
                     <textField verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4NM-ZZ-isu">
-                        <rect key="frame" x="0.0" y="789" width="1040" height="27"/>
+                        <rect key="frame" x="0.0" y="492" width="1040" height="27"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" alignment="left" title="http://" drawsBackground="YES" id="oIS-ge-bFc">
                             <font key="font" size="22" name="LucidaGrande"/>
@@ -43,7 +43,7 @@
                         </connections>
                     </textField>
                     <button verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KY8-XL-RDg">
-                        <rect key="frame" x="1202" y="787" width="72" height="30"/>
+                        <rect key="frame" x="1202" y="490" width="72" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="smallSquare" title="Yours" bezelStyle="smallSquare" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aHw-Xl-iBT">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -51,7 +51,7 @@
                         </buttonCell>
                     </button>
                     <button verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="duJ-c8-Mtm">
-                        <rect key="frame" x="1040" y="787" width="162" height="30"/>
+                        <rect key="frame" x="1040" y="490" width="162" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="smallSquare" title="Local" bezelStyle="smallSquare" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nqk-3w-cnx">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>

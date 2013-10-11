@@ -90,8 +90,6 @@ int windowID;
 - (void) addStarter: (ServerConnectionViewController*) st overNetwork: (BOOL) net{
     NSLog(@"Starter being added to browser window.");
     starter = st;
-    primeTag = 0; //to indicate that it is local
-    url = @"no url";
     isControllable = !net;
     [starter insertBrowserWindow: self];
 }
@@ -102,7 +100,7 @@ int windowID;
 
 - (IBAction)loadPage:(NSTextField *)sender {
     url = sender.stringValue;
-    NSLog(@"Page being loaded, URL: %@", url);
+    NSLog(@"Page on window %d being loaded, URL: %@", windowID, url);
     [webView setMainFrameURL: url];
     //[webView reload: self];
     if (starter.socket) [starter sendWindowUpdate: self]; //only if logged in

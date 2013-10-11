@@ -43,6 +43,7 @@ ServerConnectionViewController* defaultStarter;
 }
 
 -(void)askForWindows{
+    NSLog(@"Asking for windows...");
     [self sendData: [@"a" dataUsingEncoding: NSUTF8StringEncoding] withTimeout: standardTimeout tag: windowQueryTag];
 }
 
@@ -54,7 +55,7 @@ ServerConnectionViewController* defaultStarter;
 }
 
 -(void) sendWindow: (BrowserWindowController*) window{
-    NSLog(@"Began sending window with URL \"%@\"", window.url);
+    NSLog(@"Began sending window with URL \"%@\" and local id %d", window.url, window.getID);
     [self sendHeader:       window  isUpdate: NO isStart: YES]; //tell the other clients that a window is beginning being sent and what local ID it has
     [self sendCookies:      window];
     [self sendDimensions:   window];
@@ -65,7 +66,7 @@ ServerConnectionViewController* defaultStarter;
 }
 
 -(void) sendWindowUpdate:(BrowserWindowController*) window{
-    NSLog(@"Began sending window update with URL \"%@\"", window.url);
+    NSLog(@"Began sending window update with URL \"%@\" and local id %d", window.url, window.getID);
     [self sendHeader:       window  isUpdate: YES isStart: YES]; //tell the other clients that a window is beginning being sent and what local ID it has
     [self sendCookies:      window];
     [self sendDimensions:   window];
@@ -77,19 +78,16 @@ ServerConnectionViewController* defaultStarter;
 
 - (void)sendHeader: (BrowserWindowController*) window isUpdate: (BOOL) update isStart: (BOOL) isStart{
     NSData* headerData = [[NSString stringWithFormat: @"%d", window.getID] dataUsingEncoding: NSUTF8StringEncoding];
-    if (!update){
-    if (isStart)    [self sendData: headerData withTimeout: standardTimeout tag: windowBeginTag];
+    if (isStart){
+            if (update) [self sendData: headerData withTimeout: standardTimeout tag: windowBeginUpdateTag];
+            else        [self sendData: headerData withTimeout: standardTimeout tag: windowBeginTag];
+    }
     else            [self sendData: headerData withTimeout: standardTimeout tag: windowEndTag];
-    }
-    else{
-        if (isStart)    [self sendData: headerData withTimeout: standardTimeout tag: windowBeginUpdateTag];
-        else            [self sendData: headerData withTimeout: standardTimeout tag: windowEndTag];
-    }
 }
 
 - (void)sendCookies: (BrowserWindowController*) window{ //sends the cookies if logged in
     return; //FOR NOW, DO NOTHING, TODO TODO
-    if (socket==nil) return;
+    if (socket==nil){ NSLog(@"Null socket!"); return; }
     NSArray* cookies = [window getCookiesForCurrentURL];
     //[starter.socket writeData: [[NSData alloc] init] withTimeout: standardTimeout tag:cookieBeginTag];
     for (NSHTTPCookie* cookie in cookies) {
@@ -108,14 +106,14 @@ ServerConnectionViewController* defaultStarter;
 }
 
 - (void)sendHTML: (BrowserWindowController*) window{
-    if (socket==nil) return;
+    if (socket==nil){ NSLog(@"Null socket!"); return; }
     NSString *html = [window.webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.outerHTML"];
     [self sendData: [html dataUsingEncoding: NSUTF8StringEncoding] withTimeout: standardTimeout tag:pageSourceTag];
 }
 
 - (void)sendURL: (BrowserWindowController*) window{
-    if (socket==nil) return;
-    [self sendData: [window.url dataUsingEncoding: NSUTF8StringEncoding] withTimeout: standardTimeout tag:pageSourceTag];
+    if (socket==nil){ NSLog(@"Null socket!"); return; }
+    [self sendData: [window.url dataUsingEncoding: NSUTF8StringEncoding] withTimeout: standardTimeout tag:urlTag];
 }
 
 -(void)insertBrowserWindow: (BrowserWindowController*) window{
@@ -171,33 +169,34 @@ ServerConnectionViewController* defaultStarter;
         if (receivingWindow) NSLog(@"Client read a window receive tag when it was already receiving one! Error!");
         windowToBeUpdated = nil;
         receivingWindow = [[BrowserWindowEssence alloc] init];
-        receivingWindow.owner = [name dataUsingEncoding: NSUTF8StringEncoding];
-        receivingWindow.primeTag = data; //ugh, bad again
+        receivingWindow.owner = [name dataUsingEncoding: NSUTF8StringEncoding]; //not good
+        receivingWindow.primeTag = data;
         NSLog(@"Received prime tag %@", [BrowserWindowEssence stringFromData: receivingWindow.primeTag]);
     }
     else if (tag == windowEndTag){
         if (!receivingWindow) NSLog(@"Client read a window end tag when it was not already receiving one! Error!");
         if (!windowToBeUpdated){
-
             BrowserWindowController* newWindow =[[BrowserWindowController alloc] initWithWindowNibName:@"BrowserWindowController"];
             [newWindow updateFromEssence: receivingWindow];
             [newWindow addStarter: self overNetwork: YES];
+            NSLog(@"About to show window from network. URL is %@.", newWindow.url);
             [newWindow showWindow:nil];
             [newWindow.window makeKeyAndOrderFront:nil];
         }
-        else [windowToBeUpdated updateFromEssence: receivingWindow];
+        else{ NSLog(@"About to update window with current URL %@ from network.", windowToBeUpdated.url); [windowToBeUpdated updateFromEssence: receivingWindow]; }
         receivingWindow = nil; windowToBeUpdated = nil;
     }
     else if (tag == windowBeginUpdateTag){
         if (receivingWindow) NSLog(@"Client read a window update receive tag when it was already receiving one! Error!");
-        NSData* primeTagData = data;
+        NSData* primeTagData = data; BOOL found = false;
         for (BrowserWindowController* window in browserWindows){
-            if ([window.primeTag isEqualToData: primeTagData]){
+            if (window.primeTag && [window.primeTag isEqualToData: primeTagData]){
                 windowToBeUpdated = window;
-                return;
+                found = true;
+                break;
             }
         }
-        NSLog(@"Received a window update tag... but no window to update!");
+        if (!found) NSLog(@"Received a window update tag... but no window to update!");
     }
     else if (receivingWindow){
         if      (tag==urlTag)           { receivingWindow.url = data; NSLog(@"Received URL data."); }

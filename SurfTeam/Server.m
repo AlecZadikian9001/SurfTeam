@@ -51,9 +51,11 @@ int port;
         for (ClientHandler* client in clientHandlers){
             if (client!=sourceClient){
                 for (BrowserWindowEssence* window in client.windows){
-                    [TCPSender sendData: window.owner   onSocket: sourceClient.socket withTimeout: standardTimeout tag: ownerTag];
-                    [TCPSender sendData: window.url     onSocket: sourceClient.socket withTimeout: standardTimeout tag: urlTag];
-                    [TCPSender sendData: window.html    onSocket: sourceClient.socket withTimeout: standardTimeout tag: pageSourceTag];
+                    [TCPSender sendData: window.primeTag    onSocket: sourceClient.socket withTimeout: standardTimeout tag: windowBeginTag];
+                    [TCPSender sendData: window.owner       onSocket: sourceClient.socket withTimeout: standardTimeout tag: ownerTag];
+                    [TCPSender sendData: window.url         onSocket: sourceClient.socket withTimeout: standardTimeout tag: urlTag];
+                    [TCPSender sendData: window.html        onSocket: sourceClient.socket withTimeout: standardTimeout tag: pageSourceTag];
+                    [TCPSender sendData: window.primeTag    onSocket: sourceClient.socket withTimeout: standardTimeout tag: windowEndTag];
                 }
             }
         }
