@@ -27,6 +27,11 @@
            withTimeout: (NSTimeInterval)timeout
                    tag: (long) tag;
 
+//similar to above but wraps the tag into the data
+- (void)distributeDataWithWrappedTag: (NSData*) data fromClient: (ClientHandler*) client
+           withTimeout: (NSTimeInterval)timeout
+                   tag: (long) tag;
+
 //sends the windows from other clients to the specified client
 - (void) sendWindowsToClient: (ClientHandler*) sourceClient;
 

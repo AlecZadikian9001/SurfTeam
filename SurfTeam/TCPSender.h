@@ -12,7 +12,7 @@
 
 @interface TCPSender : NSObject
 
-+(void)sendData: (NSData*) data onSocket: (GCDAsyncSocket*) socket withTimeout: (NSTimeInterval) timeout tag: (long) tag; //sends data with tag appended and all
++(void)sendData: (NSData*) data onSocket: (GCDAsyncSocket*) socket withTimeout: (NSTimeInterval) timeout tag: (long) tag; //sends copy of data with tag appended and all
 +(void)wrapData: (NSData*) data withTag: (int) tag;
 +(int)getTagFromData: (NSData*) data; //get the network tag AND modify data to not contain the tag
 

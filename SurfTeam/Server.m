@@ -46,6 +46,17 @@ int port;
     }
 }
 
+- (void)distributeDataWithWrappedTag: (NSData*) data fromClient: (ClientHandler*) client
+           withTimeout: (NSTimeInterval)timeout
+                   tag: (long) tag
+{
+    @synchronized(self){ //that's right, only one client at a time!
+        for (ClientHandler* client2 in clientHandlers){
+            if (client!=client2) [TCPSender sendData: data onSocket: client2.socket withTimeout: timeout tag: tag]; //don't send to the sender
+        }
+    }
+}
+
 - (void) sendWindowsToClient: (ClientHandler*) sourceClient{
     @synchronized(self){
         for (ClientHandler* client in clientHandlers){

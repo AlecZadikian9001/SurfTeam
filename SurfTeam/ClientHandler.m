@@ -109,25 +109,26 @@ BrowserWindowEssence* receivingWindow, *windowToBeUpdated;
         }
     }
     else if (tag == windowEndTag){
+        /*
         NSMutableData *tempBegin, *tempOwner, *tempURL, *tempHTML, *tempFinish;
         
         if (receivingWindow){
             NSLog(@"Window %@ has finished being received, now sending it to others.", receivingWindow.url);
             [windows addObject: receivingWindow];
-            tempBegin =  [NSMutableData dataWithData: receivingWindow.primeTag];
-            tempOwner =  [NSMutableData dataWithData: receivingWindow.owner];
-            tempURL =    [NSMutableData dataWithData: receivingWindow.url];
-            tempHTML =   [NSMutableData dataWithData: receivingWindow.html];
-            tempFinish = [NSMutableData dataWithData: receivingWindow.primeTag];
+            tempBegin =  [receivingWindow.primeTag  mutableCopy];
+            tempOwner =  [receivingWindow.owner     mutableCopy];
+            tempURL =    [receivingWindow.url       mutableCopy];
+            tempHTML =   [receivingWindow.html      mutableCopy];
+            tempFinish = [receivingWindow.primeTag  mutableCopy];
             receivingWindow = nil;
         }
         else if (windowToBeUpdated){
             NSLog(@"Window update %@ has finished being received, now sending it to others.", windowToBeUpdated.url);
-            tempBegin =  [NSMutableData dataWithData: windowToBeUpdated.primeTag];
-            tempOwner =  [NSMutableData dataWithData: windowToBeUpdated.owner];
-            tempURL =    [NSMutableData dataWithData: windowToBeUpdated.url];
-            tempHTML =   [NSMutableData dataWithData: windowToBeUpdated.html];
-            tempFinish = [NSMutableData dataWithData: windowToBeUpdated.primeTag];
+            tempBegin =  [receivingWindow.primeTag  mutableCopy];
+            tempOwner =  [receivingWindow.owner     mutableCopy];
+            tempURL =    [receivingWindow.url       mutableCopy];
+            tempHTML =   [receivingWindow.html      mutableCopy];
+            tempFinish = [receivingWindow.primeTag  mutableCopy];
             windowToBeUpdated = nil;
         }
         else{
@@ -145,11 +146,33 @@ BrowserWindowEssence* receivingWindow, *windowToBeUpdated;
         
         if (receivingWindow)        [server distributeData: tempBegin   fromClient: self withTimeout: standardTimeout tag:windowBeginTag];
         else if (windowToBeUpdated) [server distributeData: tempBegin   fromClient: self withTimeout: standardTimeout tag:windowBeginUpdateTag];
-        [server distributeData: tempOwner   fromClient: self withTimeout: standardTimeout tag:ownerTag];
+        [server distributeDataWithWrappedTag: tempOwner   fromClient: self withTimeout: standardTimeout tag:ownerTag];
         [server distributeData: tempURL     fromClient: self withTimeout: standardTimeout tag:urlTag];
         [server distributeData: tempHTML    fromClient: self withTimeout: standardTimeout tag:pageSourceTag];
         [server distributeData: tempFinish  fromClient: self withTimeout: standardTimeout tag:windowEndTag];
-        
+        */
+        if (receivingWindow){
+            NSLog(@"Window %@ has finished being received, now sending it to others.", receivingWindow.url);
+            [windows addObject: receivingWindow];
+            [server distributeDataWithWrappedTag:receivingWindow.primeTag    fromClient:self withTimeout:standardTimeout tag:windowBeginTag];
+            [server distributeDataWithWrappedTag:receivingWindow.owner       fromClient:self withTimeout:standardTimeout tag:ownerTag];
+            [server distributeDataWithWrappedTag:receivingWindow.url         fromClient:self withTimeout:standardTimeout tag:urlTag];
+            [server distributeDataWithWrappedTag:receivingWindow.html        fromClient:self withTimeout:standardTimeout tag:pageSourceTag];
+            [server distributeDataWithWrappedTag:receivingWindow.primeTag    fromClient:self withTimeout:standardTimeout tag:windowEndTag];
+            receivingWindow = nil;
+        }
+        else if (windowToBeUpdated){
+            NSLog(@"Window update %@ has finished being received, now sending it to others.", windowToBeUpdated.url);
+            [server distributeDataWithWrappedTag:receivingWindow.primeTag    fromClient:self withTimeout:standardTimeout tag:windowBeginUpdateTag];
+            [server distributeDataWithWrappedTag:receivingWindow.owner       fromClient:self withTimeout:standardTimeout tag:ownerTag];
+            [server distributeDataWithWrappedTag:receivingWindow.url         fromClient:self withTimeout:standardTimeout tag:urlTag];
+            [server distributeDataWithWrappedTag:receivingWindow.html        fromClient:self withTimeout:standardTimeout tag:pageSourceTag];
+            [server distributeDataWithWrappedTag:receivingWindow.primeTag    fromClient:self withTimeout:standardTimeout tag:windowEndTag];
+            windowToBeUpdated = nil;
+        }
+        else{
+            NSLog(@"Client handler read a window end tag when it was not already receiving one! Error!");
+        }
         NSLog(@"Finished sending data for page at URL %@", receivingWindow.url);
     }
     else if (receivingWindow || windowToBeUpdated){

@@ -11,7 +11,7 @@
 @implementation TCPSender
 
 +(void)sendData: (NSMutableData*) originalData onSocket: (GCDAsyncSocket*) socket withTimeout: (NSTimeInterval) timeout tag: (long) tag{ //encapsulated/abstract sending mechanism
-    NSMutableData* data = [originalData mutableCopy];
+    NSMutableData* data = [originalData mutableCopy]; //so it does not mutate input... lol
     [[self class] wrapData: data withTag: tag];
     DLog(@"Write: %@", [[NSString alloc] initWithData: data encoding:NSUTF8StringEncoding]); //should remove later...
  //   DLog(@"TCPSender sending, with tag %ld, data: %@", tag, [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding]);
