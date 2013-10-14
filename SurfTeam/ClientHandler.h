@@ -23,8 +23,7 @@
 
 - (id) initWithServer: (Server*) server socket: (GCDAsyncSocket*) sock;
 
-- (void)askForWindows;
-- (void)disconnectSocketForcibly: (GCDAsyncSocket*) socket;
-- (void)disconnectSocketGracefully: (GCDAsyncSocket*) socket;
+- (void)disconnectSocketForcibly;
+- (void)disconnectSocketGracefully;
 
 @end

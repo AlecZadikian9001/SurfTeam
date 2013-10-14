@@ -13,8 +13,6 @@
 @end
 
 @implementation ServerConnectionViewController
-BrowserWindowEssence* receivingWindow; BrowserWindowController* windowToBeUpdated;
-ServerConnectionViewController* defaultStarter;
 
 - (id)initWithWindow:(NSWindow *)window
 {
@@ -22,12 +20,9 @@ ServerConnectionViewController* defaultStarter;
     if (self) {
         NSLog(@"init called in StarterWindowController, separator tag is %d", separatorTag);
         browserWindows = [[NSMutableArray alloc] init];
-        defaultStarter = self;
     }
     return self;
 }
-
-+(ServerConnectionViewController*) defaultStarter{ return defaultStarter; }
 
 - (void)windowDidLoad
 {
@@ -119,7 +114,8 @@ ServerConnectionViewController* defaultStarter;
 -(void)insertBrowserWindow: (BrowserWindowController*) window{
     int i = browserWindows.count;
     [window setID: i+1];
-    NSLog(@"Browser window being added with index %d and id %d.", i, i+1);
+    window.starter = self;
+    NSLog(@"Browser window %p being added with index %d and id %d.", window, i, i+1);
     [browserWindows addObject:window];
 }
 
@@ -134,13 +130,12 @@ ServerConnectionViewController* defaultStarter;
     else{
         [self sendData: [serverPasswordField.stringValue dataUsingEncoding: NSUTF8StringEncoding] withTimeout: standardTimeout tag:negotiationTag]; //send password
         //[socket readDataWithTimeout: standardTimeout tag: nicknameTag];
-        [self sendData: [name dataUsingEncoding: NSUTF8StringEncoding] withTimeout: standardTimeout tag:nicknameTag];
+        [self sendData: [name dataUsingEncoding: NSUTF8StringEncoding] withTimeout: standardTimeout tag:nicknameTag]; //send nickname
         
         [self sendWindows];
         [self askForWindows];
         [socket readDataToData:[GCDAsyncSocket CRLFData] withTimeout:-1 tag:firstTag];
     }
-
 }
 
 //AsyncSocketDelegate methods:
@@ -157,6 +152,8 @@ ServerConnectionViewController* defaultStarter;
     NSLog(@"Socket %@ connected to host %@:%d", sock, host, port);
 }
 
+BrowserWindowEssence* receivingWindow; BrowserWindowController* windowToBeUpdated;
+
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag{
     //NSLog(@"Socket %@ read data on thread %@ with local tag %ld.", sock, [NSThread currentThread], tag);
     tag = [TCPSender getTagFromData: data];
@@ -165,36 +162,43 @@ ServerConnectionViewController* defaultStarter;
     
     if (tag == windowBeginTag){
         NSLog(@"A window is about to be received.");
-        if (receivingWindow) NSLog(@"Client read a window receive tag when it was already receiving one! Error!");
-        windowToBeUpdated = nil;
+        if (receivingWindow || windowToBeUpdated) NSLog(@"Client read a window receive tag when it was already receiving one! Error!");
         receivingWindow = [[BrowserWindowEssence alloc] init];
-        receivingWindow.owner = [name dataUsingEncoding: NSUTF8StringEncoding]; //not good
         receivingWindow.primeTag = data;
     }
     else if (tag == windowBeginUpdateTag){
-        if (receivingWindow) NSLog(@"Client read a window update receive tag when it was already receiving one! Error!");
-        NSData* primeTagData = data; BOOL found = false;
+        NSLog(@"A window update is about to be received.");
+        if (receivingWindow  || windowToBeUpdated) NSLog(@"Client read a window update receive tag when it was already receiving one! Error!");
+        BOOL found = NO;
         for (BrowserWindowController* window in browserWindows){
-            if (window.primeTag && [window.primeTag isEqualToData: primeTagData]){
+            if (window.primeTag && [window.primeTag isEqualToData: data]){
                 windowToBeUpdated = window;
-                found = true;
+                receivingWindow = [[BrowserWindowEssence alloc] init];
+                receivingWindow.primeTag = data;
+                found = YES;
                 break;
             }
         }
         if (!found) NSLog(@"Received a window update tag... but no window to update!");
     }
-    else if (tag == windowEndTag){ //SOMETING IS WRONG HERE
-        if (!receivingWindow) NSLog(@"Client read a window end tag when it was not already receiving one! Error!");
-        if (!windowToBeUpdated){
-            BrowserWindowController* newWindow =[[BrowserWindowController alloc] initWithWindowNibName:@"BrowserWindowController"];
+    else if (tag == windowEndTag){ //SOMETING IS WRONG HERE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~=== !!!!!!!!!
+        //Bug: Memory address of previous window is being changed somehow.
+        if (receivingWindow && !windowToBeUpdated){ //if it's new
+            BrowserWindowController* newWindow =[[BrowserWindowController alloc] initWithDefaultWindowAndControllable:NO];
+            [self insertBrowserWindow: newWindow];
             [newWindow updateFromEssence: receivingWindow];
-            [newWindow addStarter: self overNetwork: YES];
             NSLog(@"About to show new window from network. URL is %@. PrimeTag is %@.", newWindow.url, [BrowserWindowEssence stringFromData: receivingWindow.primeTag]);
-            [newWindow showWindow:nil];
-            [newWindow.window makeKeyAndOrderFront:nil];
+            receivingWindow = nil;
         }
-        else{ NSLog(@"About to update window with current URL %@ from network. PrimeTag is %@.", windowToBeUpdated.url, [BrowserWindowEssence stringFromData: receivingWindow.primeTag]); [windowToBeUpdated updateFromEssence: receivingWindow]; }
-        receivingWindow = nil; windowToBeUpdated = nil;
+        else if (receivingWindow && windowToBeUpdated){ //if it's an update
+            NSLog(@"About to update window with current URL %@ from network. PrimeTag is %@.", windowToBeUpdated.url, [BrowserWindowEssence stringFromData: receivingWindow.primeTag]);
+            [windowToBeUpdated updateFromEssence: receivingWindow];
+            receivingWindow = nil;
+            windowToBeUpdated = nil;
+        }
+        else{
+            NSLog(@"Received a window end tag with no window to update or make! Error!");
+        }
     }
     else if (receivingWindow){
         if      (tag==urlTag)           { receivingWindow.url = data; NSLog(@"Received URL data."); }

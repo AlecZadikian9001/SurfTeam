@@ -26,11 +26,10 @@
 
 - (IBAction)loadPage:(NSTextField *)sender;
 
-- (id)initWithWindow:(NSWindow *)window;
--(id) initWithWindowNibName:(NSString *)windowNibName;
-//- (id) initWithEssence: (BrowserWindowEssence*) essence;
+- (id) initWithWindow:(NSWindow *)window; //override for debug
+
+- (id) initWithDefaultWindowAndControllable: (BOOL) cont;
 - (void) updateFromEssence: (BrowserWindowEssence*) essence;
-- (void) addStarter: (ServerConnectionViewController*) st overNetwork: (BOOL) net;
 
 //- (NSWindow *)window; //to kill the method
 - (void)saveCookies;

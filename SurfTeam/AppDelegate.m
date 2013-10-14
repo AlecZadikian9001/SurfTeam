@@ -30,11 +30,8 @@ BrowserWindowController* browser;
     [starter showWindow:nil];
     [starter.window makeKeyAndOrderFront:nil];
     
-    browser = [[BrowserWindowController alloc] initWithWindowNibName:@"BrowserWindowController"];
-    [browser addStarter: starter overNetwork: NO];
-    [browser showWindow:nil];
-    [browser.window makeKeyAndOrderFront:nil];
-
+    browser = [[BrowserWindowController alloc] initWithDefaultWindowAndControllable: YES];
+    [starter insertBrowserWindow:browser];
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender{

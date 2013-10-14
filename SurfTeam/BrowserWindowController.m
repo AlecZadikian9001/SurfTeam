@@ -24,17 +24,9 @@
     return self;
 }
 
-/*
- - (NSWindow *)window{
- //THIS METHOD MUST DIE
- NSLog(@"window called in BrowserWindowController instance %p", self);
- return [super window];
- }
- */
 - (void)windowDidLoad
 {
     [super windowDidLoad];
-    // [self addStarter: [ServerConnectionViewController defaultStarter] overNetwork:NO];
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
 }
 
@@ -43,43 +35,28 @@
 BOOL isControllable; //that is, if I own it
 int windowID;
 
-/*
-- (id) initWithEssence: (BrowserWindowEssence*) essence{
-    self = [self init];
+- (id) initWithDefaultWindowAndControllable: (BOOL) cont{
+    self = [super initWithWindowNibName:@"BrowserWindowController"];
     if (self){
-        if (essence.owner)      user       = [BrowserWindowEssence stringFromData: essence.owner];
-        else NSLog(@"Error in BrowserWindowController when initializing with essence: essence is lacking owner!");
-        if (essence.url){       url         = [BrowserWindowEssence stringFromData: essence.url];   [webView setMainFrameURL: url]; }
-        else NSLog(@"Error in BrowserWindowController when initializing with essence: essence is lacking url!");
-        if (essence.primeTag)   primeTag    = essence.primeTag;
-        else NSLog(@"Error in BrowserWindowController when initializing with essence: essence is lacking primetag!");
-        
-        if (essence.html){
-            NSLog(@"Inserting HTML code into browser window.");
-            NSString* html = [BrowserWindowEssence stringFromData: essence.html];
-            [webView.mainFrame loadHTMLString: html baseURL: [NSURL URLWithString: url]];
-            loadData:webdata MIMEType: @"text/html" textEncodingName: @"UTF-8" baseURL:nil];
-        }
-        else NSLog(@"Error in BrowserWindowController when initializing with essence: essence is lacking html!");
-        
-        if (essence.scrollPosition){
-            //TODO
-        }
-        else NSLog(@"Error in BrowserWindowController when initializing with essence: essence is lacking scroll position!");
+        isControllable = cont;
+        [self showWindow:nil];
+        [self.window makeKeyAndOrderFront:nil];
     }
     return self;
+    
 }
-*/
+
 - (void) updateFromEssence: (BrowserWindowEssence*) essence{
     if (essence.owner)      user       = [BrowserWindowEssence stringFromData: essence.owner];
-    if (essence.url){       url         = [BrowserWindowEssence stringFromData: essence.url];   [webView setMainFrameURL: [NSURL URLWithString: url]]; }
-    if (essence.primeTag)   primeTag    = essence.primeTag;
+    if (essence.url){       url        = [BrowserWindowEssence stringFromData: essence.url];   [webView setMainFrameURL:  url]; }
+    if (essence.primeTag)   primeTag   = essence.primeTag;
     
     if (essence.html){
-        //NSString* html = [BrowserWindowEssence stringFromData: essence.html];
-        NSLog(@"Inserting HTML code into browser window with length %d.", essence.html.length);
-        [webView.mainFrame loadData:essence.html MIMEType: @"text/html" textEncodingName: @"UTF-8" baseURL:nil];
-    //    [webView.mainFrame loadHTMLString: html baseURL: url];
+        NSLog(@"Inserting HTML code into browser window: %@", [[NSString alloc] initWithData:essence.html encoding: NSUTF8StringEncoding]);
+        //[webView.mainFrame loadData:essence.html MIMEType: @"text/html" textEncodingName: @"utf-8" baseURL:nil];
+        [webView.mainFrame loadHTMLString:
+         [[NSString alloc] initWithData:essence.html encoding:NSUTF8StringEncoding]
+                        baseURL:nil];
     }
     
     if (essence.scrollPosition){
@@ -87,16 +64,10 @@ int windowID;
     }
 }
 
-- (void) addStarter: (ServerConnectionViewController*) st overNetwork: (BOOL) net{
-    NSLog(@"Starter being added to browser window.");
-    starter = st;
-    isControllable = !net;
-    [starter insertBrowserWindow: self];
-}
-
 - (int)     getID{ return windowID; }
 - (void)    setID: (int) i{ windowID = i; }
 - (BOOL)    getIsControllable{ return isControllable; }
+- (void)    setIsControllable: (BOOL) cont{ isControllable = cont; }
 
 - (IBAction)loadPage:(NSTextField *)sender {
     url = sender.stringValue;

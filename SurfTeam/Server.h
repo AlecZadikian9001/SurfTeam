@@ -27,8 +27,8 @@
            withTimeout: (NSTimeInterval)timeout
                    tag: (long) tag;
 
-//ask every client to send its windows over, telling the client handlers to be prepared for the information, sending the data to the source userID
-- (void) askForWindows: (ClientHandler*) sourceClient;
+//sends the windows from other clients to the specified client
+- (void) sendWindowsToClient: (ClientHandler*) sourceClient;
 
 
 //stop the server

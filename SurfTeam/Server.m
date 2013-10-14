@@ -46,7 +46,7 @@ int port;
     }
 }
 
-- (void) askForWindows: (ClientHandler*) sourceClient{
+- (void) sendWindowsToClient: (ClientHandler*) sourceClient{
     @synchronized(self){
         for (ClientHandler* client in clientHandlers){
             if (client!=sourceClient){
