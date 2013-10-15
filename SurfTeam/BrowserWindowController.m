@@ -30,15 +30,13 @@
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
 }
 
-@synthesize starter, user, webView, url, primeTag;
-
-BOOL isControllable; //that is, if I own it
-int windowID;
+@synthesize starter, user, webView, url, primeTag, windowID, isControllable, currentHTML;
 
 - (id) initWithDefaultWindowAndControllable: (BOOL) cont{
     self = [super initWithWindowNibName:@"BrowserWindowController"];
     if (self){
-        isControllable = cont;
+        isControllable = [NSNumber numberWithBool:cont];
+        windowID = [NSNumber numberWithInt: -1]; //should actually never be -1 when being used
         [self showWindow:nil];
         [self.window makeKeyAndOrderFront:nil];
     }
@@ -53,26 +51,29 @@ int windowID;
     
     if (essence.html){
         NSLog(@"Inserting HTML code into browser window: %@", [[NSString alloc] initWithData:essence.html encoding: NSUTF8StringEncoding]);
-        //[webView.mainFrame loadData:essence.html MIMEType: @"text/html" textEncodingName: @"utf-8" baseURL:nil];
-        [webView.mainFrame loadHTMLString:
+        currentHTML = [[NSString alloc] initWithData: essence.html encoding: NSUTF8StringEncoding];
+        [webView.mainFrame loadHTMLString: currentHTML baseURL:nil];
+       // [webView.mainFrame loadData:essence.html MIMEType: @"text/html" textEncodingName: @"utf-8" baseURL:nil];
+     /*   [webView.mainFrame loadHTMLString:
          [[NSString alloc] initWithData:essence.html encoding:NSUTF8StringEncoding]
-                        baseURL:nil];
+                        baseURL:nil]; */
     }
+    NSLog(@"Done updating window from essence.");
     
     if (essence.scrollPosition){
         //TODO
     }
 }
 
-- (int)     getID{ return windowID; }
-- (void)    setID: (int) i{ windowID = i; }
-- (BOOL)    getIsControllable{ return isControllable; }
-- (void)    setIsControllable: (BOOL) cont{ isControllable = cont; }
-
 - (IBAction)loadPage:(NSTextField *)sender {
     url = sender.stringValue;
-    NSLog(@"Page on window %d (mem %p) being loaded, URL: %@", windowID, self, url);
-    [webView setMainFrameURL: url];
+    NSLog(@"Page on window %@ (mem %p) being loaded, URL: %@", windowID, self, url);
+    
+    NSURL *urlToLoad = [NSURL URLWithString:url];
+    NSError* error;
+    currentHTML = [NSString stringWithContentsOfURL:urlToLoad encoding: NSUTF8StringEncoding error:&error];
+    [webView.mainFrame loadHTMLString: currentHTML baseURL:nil];
+   // [[webView mainFrame] loadRequest:[NSURLRequest requestWithURL: [NSURL URLWithString:url]]];
     //[webView reload: self];
     if (starter.socket) [starter sendWindowUpdate: self]; //only if logged in
 }

@@ -21,7 +21,10 @@
 @property (strong, nonatomic) NSData* primeTag;
 @property (strong, nonatomic) NSString* user;
 @property (strong, nonatomic) NSString* url;
+@property (strong, nonatomic) NSNumber* windowID; //represents integer
+@property (strong, nonatomic) NSNumber* isControllable; //represents boolean
 @property (weak) IBOutlet IGIsolatedCookieWebView *webView;
+@property (strong, nonatomic) NSString* currentHTML;
 
 
 - (IBAction)loadPage:(NSTextField *)sender;
@@ -34,9 +37,6 @@
 //- (NSWindow *)window; //to kill the method
 - (void)saveCookies;
 - (void)loadCookies;
-- (int) getID;
-- (void) setID: (int) i;
-- (BOOL) getIsControllable;
 
 - (NSArray*)getCookiesForCurrentURL;
 

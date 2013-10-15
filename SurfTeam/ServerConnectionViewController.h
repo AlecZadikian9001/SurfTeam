@@ -25,6 +25,9 @@
 @property (strong, nonatomic) GCDAsyncSocket* socket;
 @property (strong, nonatomic) NSString* name;
 
+@property (strong, nonatomic) BrowserWindowEssence* receivingWindow;
+@property (strong, nonatomic) BrowserWindowController* windowToBeUpdated;
+
 - (IBAction)connectButton:(id)sender;
 
 -(id) initWithWindowNibName:(NSString *)windowNibName;

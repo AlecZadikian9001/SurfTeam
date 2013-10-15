@@ -31,7 +31,7 @@
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
 }
 
-@synthesize serverIPField, serverPasswordField, serverPortField, nameField, socket, browserWindows, name;
+@synthesize serverIPField, serverPasswordField, serverPortField, nameField, socket, browserWindows, name, windowToBeUpdated, receivingWindow;
 
 -(void)sendData: (NSData*) data withTimeout: (NSTimeInterval) timeout tag: (long) tag{ //unified sending method
     [TCPSender sendData: data onSocket: socket withTimeout: timeout tag: tag];
@@ -45,12 +45,12 @@
 -(void)sendWindows{
     NSLog(@"Sending %d windows...", browserWindows.count);
     for (BrowserWindowController* window in browserWindows){
-        if ([window getIsControllable]) [self sendWindow: window]; //only want to send windows that you are in control of
+        if ([window.isControllable boolValue]) [self sendWindow: window]; //only want to send windows that you are in control of
     }
 }
 
 -(void) sendWindow: (BrowserWindowController*) window{
-    NSLog(@"Began sending window with URL \"%@\" and local id %d", window.url, window.getID);
+    NSLog(@"Began sending window with URL \"%@\" and local id %d", window.url, window.windowID.integerValue);
     [self sendHeader:       window  isUpdate: NO isStart: YES]; //tell the other clients that a window is beginning being sent and what local ID it has
     [self sendCookies:      window];
     [self sendDimensions:   window];
@@ -61,7 +61,7 @@
 }
 
 -(void) sendWindowUpdate:(BrowserWindowController*) window{
-    NSLog(@"Began sending window update with URL \"%@\" and local id %d", window.url, window.getID);
+    NSLog(@"Began sending window update with URL \"%@\" and local id %d", window.url, window.windowID.integerValue);
     [self sendHeader:       window  isUpdate: YES isStart: YES]; //tell the other clients that a window is beginning being sent and what local ID it has
     [self sendCookies:      window];
     [self sendDimensions:   window];
@@ -72,7 +72,7 @@
 }
 
 - (void)sendHeader: (BrowserWindowController*) window isUpdate: (BOOL) update isStart: (BOOL) isStart{
-    NSData* headerData = [[NSString stringWithFormat: @"%d", window.getID] dataUsingEncoding: NSUTF8StringEncoding];
+    NSData* headerData = [[NSString stringWithFormat: @"%d", window.windowID.integerValue] dataUsingEncoding: NSUTF8StringEncoding];
     if (isStart){
             if (update) [self sendData: headerData withTimeout: standardTimeout tag: windowBeginUpdateTag];
             else        [self sendData: headerData withTimeout: standardTimeout tag: windowBeginTag];
@@ -102,7 +102,8 @@
 
 - (void)sendHTML: (BrowserWindowController*) window{
     if (socket==nil){ NSLog(@"Null socket!"); return; }
-    NSString *html = [window.webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.outerHTML"];
+    NSString* html = [window.currentHTML copy];
+    //NSString *html = [window.webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.outerHTML"];
     [self sendData: [html dataUsingEncoding: NSUTF8StringEncoding] withTimeout: standardTimeout tag:pageSourceTag];
 }
 
@@ -113,7 +114,7 @@
 
 -(void)insertBrowserWindow: (BrowserWindowController*) window{
     int i = browserWindows.count;
-    [window setID: i+1];
+    window.windowID = [NSNumber numberWithInt: i+1];
     window.starter = self;
     NSLog(@"Browser window %p being added with index %d and id %d.", window, i, i+1);
     [browserWindows addObject:window];
@@ -152,8 +153,6 @@
     NSLog(@"Socket %@ connected to host %@:%d", sock, host, port);
 }
 
-BrowserWindowEssence* receivingWindow; BrowserWindowController* windowToBeUpdated;
-
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag{
     //NSLog(@"Socket %@ read data on thread %@ with local tag %ld.", sock, [NSThread currentThread], tag);
     tag = [TCPSender getTagFromData: data];
@@ -181,8 +180,7 @@ BrowserWindowEssence* receivingWindow; BrowserWindowController* windowToBeUpdate
         }
         if (!found) NSLog(@"Received a window update tag... but no window to update!");
     }
-    else if (tag == windowEndTag){ //SOMETING IS WRONG HERE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~=== !!!!!!!!!
-        //Bug: Memory address of previous window is being changed somehow.
+    else if (tag == windowEndTag){
         if (receivingWindow && !windowToBeUpdated){ //if it's new
             BrowserWindowController* newWindow =[[BrowserWindowController alloc] initWithDefaultWindowAndControllable:NO];
             [self insertBrowserWindow: newWindow];

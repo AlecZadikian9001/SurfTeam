@@ -13,7 +13,11 @@
 +(void)sendData: (NSMutableData*) originalData onSocket: (GCDAsyncSocket*) socket withTimeout: (NSTimeInterval) timeout tag: (long) tag{ //encapsulated/abstract sending mechanism
     NSMutableData* data = [originalData mutableCopy]; //so it does not mutate input... lol
     [[self class] wrapData: data withTag: tag];
-    DLog(@"Write: %@", [[NSString alloc] initWithData: data encoding:NSUTF8StringEncoding]); //should remove later...
+    
+    NSString* debugString = [[NSString alloc] initWithData: data encoding:NSUTF8StringEncoding];
+    if (debugString.length>100) debugString = @"Some string longer than 100.";
+    DLog(@"Write: %@", debugString); //should remove later...
+    
  //   DLog(@"TCPSender sending, with tag %ld, data: %@", tag, [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding]);
     [socket writeData: data withTimeout: timeout tag: tag];
 }
@@ -25,7 +29,10 @@
 }
 
 +(int)getTagFromData: (NSMutableData*) data{ //MUTATES THE INPUT!
-    DLog(@"Read: %@", [[NSString alloc] initWithData: data encoding:NSUTF8StringEncoding]); //should remove later...
+    NSString* debugString = [[NSString alloc] initWithData: data encoding:NSUTF8StringEncoding];
+    if (debugString.length>100) debugString = @"Some string longer than 100.";
+    DLog(@"Read: %@", debugString); //should remove later...
+    
     NSString* dataString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     NSCharacterSet * set = [NSCharacterSet characterSetWithCharactersInString:@"\t"];
     NSRange range = [dataString rangeOfCharacterFromSet: set];

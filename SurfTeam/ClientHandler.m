@@ -8,21 +8,16 @@
 
 #import "ClientHandler.h"
 
-Server* server;
-BOOL isLoggedIn;
-int userID;
-
 @implementation ClientHandler
-@synthesize socket, name, windows, cookies;
+@synthesize socket, name, windows, cookies, userID, server, isLoggedIn, windowToBeUpdated, receivingWindow;
 
 - (id) initWithServer:(Server*) s socket:(GCDAsyncSocket*) sock{
     self = [super init];
     if (self){
-        isLoggedIn = NO;
+        isLoggedIn = [NSNumber numberWithBool: NO];
         server = s;
         socket = sock;
         windows = [[NSMutableArray alloc] init];
-        userID = server.clientHandlers.count+1;
         name = @"default";
 
         //creator of this is going to run the thread to make sure client is valid
@@ -54,15 +49,14 @@ int userID;
     NSLog(@"Socket %@ connected to host %@:%d", sock, host, port);
 }
 
-BrowserWindowEssence* receivingWindow, *windowToBeUpdated;
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag{
  //   NSLog(@"Socket %@ read data on thread %@ with local tag %ld.", sock, [NSThread currentThread], tag);
     tag = [TCPSender getTagFromData: data];
   //  DLog(@"Data network tagged as %ld received: %@", tag, [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding]);
     
-    if (!isLoggedIn && tag!=negotiationTag){ NSLog(@"Client tried to send data without being logged in."); [self disconnectSocketForcibly]; }
+    if (![isLoggedIn boolValue] && tag!=negotiationTag){ NSLog(@"Client tried to send data without being logged in."); [self disconnectSocketForcibly]; }
     if (tag==negotiationTag){
-        if (isLoggedIn){ NSLog(@"User %@ trying to send negotiation tag but is already logged in. Major error!", name); return; }
+        if ([isLoggedIn boolValue]){ NSLog(@"User %@ trying to send negotiation tag but is already logged in. Major error!", name); return; }
         NSLog(@"User is trying to negotiate login: \"%@\"", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
                 NSString* password = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                 if (![password isEqualToString: server.password]){ //if password is wrong
@@ -70,8 +64,8 @@ BrowserWindowEssence* receivingWindow, *windowToBeUpdated;
                         [self disconnectSocketForcibly]; //fatality
                     }
                 else{
-                        isLoggedIn = YES;
-                        name = [NSString stringWithFormat:@"User%d", userID];
+                    isLoggedIn = [NSNumber numberWithBool: YES];
+                        name = [NSString stringWithFormat:@"User%d", userID.integerValue];
                         NSLog(@"User %@ successfully logged in.", name);
                     }
     }
@@ -81,7 +75,7 @@ BrowserWindowEssence* receivingWindow, *windowToBeUpdated;
         receivingWindow = [[BrowserWindowEssence alloc] init];
         receivingWindow.owner = [name dataUsingEncoding: NSUTF8StringEncoding];
         int localID = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] integerValue]; //bad efficiency alert! :(
-        int primeTag = pow(2, localID)*pow(3, userID);
+        int primeTag = pow(2, localID)*pow(3, userID.integerValue);
         receivingWindow.primeTag = [[NSString stringWithFormat:@"%d", primeTag] dataUsingEncoding: NSUTF8StringEncoding]; //ugh, bad again
         NSLog(@"Received local ID from %@ and used it to make prime tag %d", name, primeTag);
     }
@@ -89,7 +83,7 @@ BrowserWindowEssence* receivingWindow, *windowToBeUpdated;
         NSLog(@"A window update is about to be received.");
         if (receivingWindow || windowToBeUpdated) NSLog(@"Client handler read a window update receive tag when it was already receiving one! Error!");
         int localID = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] integerValue]; //bad efficiency alert! :(
-        int primeTag = pow(2, localID)*pow(3, userID);
+        int primeTag = pow(2, localID)*pow(3, userID.integerValue);
         NSData* primeTagData = [[NSString stringWithFormat:@"%d", primeTag] dataUsingEncoding: NSUTF8StringEncoding];
         BOOL found = NO;
         for (BrowserWindowEssence* window in windows){
@@ -109,48 +103,6 @@ BrowserWindowEssence* receivingWindow, *windowToBeUpdated;
         }
     }
     else if (tag == windowEndTag){
-        /*
-        NSMutableData *tempBegin, *tempOwner, *tempURL, *tempHTML, *tempFinish;
-        
-        if (receivingWindow){
-            NSLog(@"Window %@ has finished being received, now sending it to others.", receivingWindow.url);
-            [windows addObject: receivingWindow];
-            tempBegin =  [receivingWindow.primeTag  mutableCopy];
-            tempOwner =  [receivingWindow.owner     mutableCopy];
-            tempURL =    [receivingWindow.url       mutableCopy];
-            tempHTML =   [receivingWindow.html      mutableCopy];
-            tempFinish = [receivingWindow.primeTag  mutableCopy];
-            receivingWindow = nil;
-        }
-        else if (windowToBeUpdated){
-            NSLog(@"Window update %@ has finished being received, now sending it to others.", windowToBeUpdated.url);
-            tempBegin =  [receivingWindow.primeTag  mutableCopy];
-            tempOwner =  [receivingWindow.owner     mutableCopy];
-            tempURL =    [receivingWindow.url       mutableCopy];
-            tempHTML =   [receivingWindow.html      mutableCopy];
-            tempFinish = [receivingWindow.primeTag  mutableCopy];
-            windowToBeUpdated = nil;
-        }
-        else{
-            NSLog(@"Client handler read a window end tag when it was not already receiving one! Error!");
-            [socket readDataToData:[GCDAsyncSocket CRLFData] withTimeout:-1 tag: connectedTag];
-            return;
-        }
-        
-        if (receivingWindow)        [TCPSender wrapData: tempBegin  withTag: windowBeginTag];
-        else if (windowToBeUpdated) [TCPSender wrapData: tempBegin  withTag: windowBeginUpdateTag];
-        [TCPSender wrapData: tempOwner  withTag: ownerTag];
-        [TCPSender wrapData: tempURL    withTag: urlTag];
-        [TCPSender wrapData: tempHTML   withTag: pageSourceTag];
-        [TCPSender wrapData: tempFinish withTag: windowEndTag];
-        
-        if (receivingWindow)        [server distributeData: tempBegin   fromClient: self withTimeout: standardTimeout tag:windowBeginTag];
-        else if (windowToBeUpdated) [server distributeData: tempBegin   fromClient: self withTimeout: standardTimeout tag:windowBeginUpdateTag];
-        [server distributeDataWithWrappedTag: tempOwner   fromClient: self withTimeout: standardTimeout tag:ownerTag];
-        [server distributeData: tempURL     fromClient: self withTimeout: standardTimeout tag:urlTag];
-        [server distributeData: tempHTML    fromClient: self withTimeout: standardTimeout tag:pageSourceTag];
-        [server distributeData: tempFinish  fromClient: self withTimeout: standardTimeout tag:windowEndTag];
-        */
         if (receivingWindow){
             NSLog(@"Window %@ has finished being received, now sending it to others.", receivingWindow.url);
             [windows addObject: receivingWindow];
@@ -163,11 +115,11 @@ BrowserWindowEssence* receivingWindow, *windowToBeUpdated;
         }
         else if (windowToBeUpdated){
             NSLog(@"Window update %@ has finished being received, now sending it to others.", windowToBeUpdated.url);
-            [server distributeDataWithWrappedTag:receivingWindow.primeTag    fromClient:self withTimeout:standardTimeout tag:windowBeginUpdateTag];
-            [server distributeDataWithWrappedTag:receivingWindow.owner       fromClient:self withTimeout:standardTimeout tag:ownerTag];
-            [server distributeDataWithWrappedTag:receivingWindow.url         fromClient:self withTimeout:standardTimeout tag:urlTag];
-            [server distributeDataWithWrappedTag:receivingWindow.html        fromClient:self withTimeout:standardTimeout tag:pageSourceTag];
-            [server distributeDataWithWrappedTag:receivingWindow.primeTag    fromClient:self withTimeout:standardTimeout tag:windowEndTag];
+            [server distributeDataWithWrappedTag:windowToBeUpdated.primeTag    fromClient:self withTimeout:standardTimeout tag:windowBeginUpdateTag];
+            [server distributeDataWithWrappedTag:windowToBeUpdated.owner       fromClient:self withTimeout:standardTimeout tag:ownerTag];
+            [server distributeDataWithWrappedTag:windowToBeUpdated.url         fromClient:self withTimeout:standardTimeout tag:urlTag];
+            [server distributeDataWithWrappedTag:windowToBeUpdated.html        fromClient:self withTimeout:standardTimeout tag:pageSourceTag];
+            [server distributeDataWithWrappedTag:windowToBeUpdated.primeTag    fromClient:self withTimeout:standardTimeout tag:windowEndTag];
             windowToBeUpdated = nil;
         }
         else{
@@ -175,12 +127,16 @@ BrowserWindowEssence* receivingWindow, *windowToBeUpdated;
         }
         NSLog(@"Finished sending data for page at URL %@", receivingWindow.url);
     }
-    else if (receivingWindow || windowToBeUpdated){
+    else if (receivingWindow){
         if      (tag==urlTag)           { receivingWindow.url = data; NSLog(@"Received URL data."); }
         else if (tag==pageSourceTag)    { receivingWindow.html = data; NSLog(@"Received HTML data."); }
         else if (tag==scrollPositionTag){ receivingWindow.scrollPosition = data; NSLog(@"Received scroll position data."); }
     }
-    
+    else if (windowToBeUpdated){
+        if      (tag==urlTag)           { windowToBeUpdated.url = data; NSLog(@"Received URL data."); }
+        else if (tag==pageSourceTag)    { windowToBeUpdated.html = data; NSLog(@"Received HTML data."); }
+        else if (tag==scrollPositionTag){ windowToBeUpdated.scrollPosition = data; NSLog(@"Received scroll position data."); }
+    }
     else if (tag == cookieTag){
         NSLog(@"Data received that must be distributed.");
         //DLog(@"Data tagged with %ld, contains %@", tag, [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding], tag);

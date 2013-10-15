@@ -20,6 +20,12 @@
 @property(strong, nonatomic) NSString* name;
 @property(strong, nonatomic) NSMutableArray* windows; //array of BrowserWindowEssence objects
 @property(strong, nonatomic) NSMutableArray* cookies;
+@property(strong, nonatomic) NSNumber* userID;
+@property(strong, nonatomic) NSNumber* isLoggedIn;
+@property(weak, nonatomic) Server* server;
+
+@property(strong, nonatomic) BrowserWindowEssence* windowToBeUpdated;
+@property(strong, nonatomic) BrowserWindowEssence* receivingWindow;
 
 - (id) initWithServer: (Server*) server socket: (GCDAsyncSocket*) sock;
 

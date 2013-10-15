@@ -88,6 +88,8 @@ int port;
     ClientHandler* temp = [ClientHandler alloc];
     [newSocket setDelegate: temp];
     [temp initWithServer: self socket: newSocket];
+    temp.userID = [NSNumber numberWithInt:clientHandlers.count+1];
+    NSLog(@"New clientHandler created with userID %d", temp.userID.integerValue);
     [newSocket synchronouslySetDelegateQueue: dispatch_queue_create(NULL, DISPATCH_QUEUE_CONCURRENT)];
     [clientHandlers addObject: temp];
     [delegate onClientConnect];
