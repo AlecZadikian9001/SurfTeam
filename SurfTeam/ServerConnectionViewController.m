@@ -71,6 +71,14 @@
     NSLog(@"Finished sending window update with URL \"%@\"", window.url);
 }
 
+-(void) sendWindowDimensionsUpdate:(BrowserWindowController*) window{
+    NSLog(@"Began sending window dimensions update with URL \"%@\" and local id %d", window.url, window.windowID.integerValue);
+    [self sendHeader:       window  isUpdate: YES isStart: YES]; //tell the other clients that a window is beginning being sent and what local ID it has
+    [self sendDimensions:   window];
+    [self sendHeader:       window  isUpdate: YES isStart: NO]; //tell the other clients that a window is done being sent
+    NSLog(@"Finished sending window dimensions update with URL \"%@\"", window.url);
+}
+
 - (void)sendHeader: (BrowserWindowController*) window isUpdate: (BOOL) update isStart: (BOOL) isStart{
     NSData* headerData = [[NSString stringWithFormat: @"%d", window.windowID.integerValue] dataUsingEncoding: NSUTF8StringEncoding];
     if (isStart){
@@ -93,9 +101,9 @@
 }
 
 - (void)sendDimensions: (BrowserWindowController*) window{
-    /*   NSRect rect = window.window.frame; NSPoint origin = rect.origin; NSSize size = rect.size;
-     WebView* webView = window.webView; CGPoint offset = webView.contentOffset;
-     NSString* dimensionString = [NSString stringWithFormat:@"%f;%f;%f;%f;%f;%f", origin.x, origin.y, size.width, size.height,offset.x, offset.y];
+   // NSRect rect = window.window.frame; NSPoint origin = rect.origin; NSSize size = rect.size;
+    // WebView* webView = window.webView; CGPoint offset = webView.mainFrame.contentOffset;
+    // NSString* dimensionString = [NSString stringWithFormat:@"%f;%f;%f;%f;%f;%f", origin.x, origin.y, size.width, size.height,offset.x, offset.y];
      //so the dimensions that must be parsed are like this: x, y, width, heigh, scroll position x, scroll position y
      //not going to send it yet... TODO */
 }

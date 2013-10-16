@@ -49,9 +49,22 @@ WebPreferences* defaultPreferences;
       */
         //[[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(onBeginLoad:) name: WebViewProgressStartedNotification object:webView]; //which to use?
         [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(onFinishLoad:) name: WebViewProgressFinishedNotification object:webView];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(onWindowClose:) name: NSWindowWillCloseNotification object:[self window]];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(onFinishResize:) name: NSWindowDidResizeNotification object:[self window]];
     }
     return self;
 }
+
+-(void) onFinishResize: (NSNotification *) notification{
+    NSLog(@"onFinishResize called for window %@.", windowID);
+    if (starter.socket && [isControllable boolValue]) [starter sendWindowDimensionsUpdate: self];
+}
+
+-(void) onWindowClose: (NSNotification *) notification{
+    NSLog(@"onWindowClose called for window %@.", windowID);
+}
+
 //************************************************************** Need to fix content loading bugs with link loading and other things! *********************************
 -(void) onFinishLoad: (NSNotification *) notification{
     url = webView.mainFrameURL;
@@ -80,13 +93,13 @@ WebPreferences* defaultPreferences;
     currentHTML = [NSString stringWithContentsOfURL:urlToLoad encoding: NSUTF8StringEncoding error:&error];
     [webView.mainFrame loadHTMLString: currentHTML baseURL:[NSURL URLWithString:url]];
 }
-// **********************************************************************************************************************************************************************
+
 - (void) updateFromEssence: (BrowserWindowEssence*) essence{
     if (essence.owner)      user       = [BrowserWindowEssence stringFromData: essence.owner];
     if (essence.url){       url        = [BrowserWindowEssence stringFromData: essence.url];   [webView setMainFrameURL:  url]; }
     if (essence.primeTag)   primeTag   = essence.primeTag;
     
-    if (essence.html){ //should use base URL TODO
+    if (essence.html){
         NSLog(@"Inserting HTML code into browser window: %@", [[NSString alloc] initWithData:essence.html encoding: NSUTF8StringEncoding]);
         currentHTML = [[NSString alloc] initWithData: essence.html encoding: NSUTF8StringEncoding];
         isOverridingLoad = [NSNumber numberWithBool:NO];
@@ -112,7 +125,7 @@ WebPreferences* defaultPreferences;
     //[webView reload: self];
     //if (starter.socket && [isControllable boolValue]) [starter sendWindowUpdate: self]; //only if logged in and controllable window
 }
-
+// **********************************************************************************************************************************************************************
 - (NSArray*)getCookiesForCurrentURL
 {
     if (!url) return [[NSArray alloc] init];

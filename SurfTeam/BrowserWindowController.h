@@ -30,6 +30,7 @@
 
 
 - (IBAction)loadPage:(NSTextField *)sender;
+//- (void)viewDidEndLiveResize;
 
 - (id) initWithWindow:(NSWindow *)window; //override for debug
 

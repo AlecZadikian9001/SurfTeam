@@ -34,5 +34,6 @@
 -(void)insertBrowserWindow: (BrowserWindowController*) window;
 -(void) sendWindow: (BrowserWindowController*) window;
 -(void) sendWindowUpdate:(BrowserWindowController*) window;
+-(void) sendWindowDimensionsUpdate:(BrowserWindowController*) window;
 
 @end
