@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BrowserWindowController">
             <connections>
+                <outlet property="urlField" destination="4NM-ZZ-isu" id="hKA-ya-06F"/>
                 <outlet property="webView" destination="1SQ-Gb-zse" id="kgV-BP-88l"/>
                 <outlet property="window" destination="yi9-wU-FYx" id="ZhR-gN-UhE"/>
             </connections>

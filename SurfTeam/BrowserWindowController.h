@@ -23,8 +23,10 @@
 @property (strong, nonatomic) NSString* url;
 @property (strong, nonatomic) NSNumber* windowID; //represents integer
 @property (strong, nonatomic) NSNumber* isControllable; //represents boolean
+@property (strong, nonatomic) NSNumber* isOverridingLoad; //represents boolean
 @property (weak) IBOutlet IGIsolatedCookieWebView *webView;
 @property (strong, nonatomic) NSString* currentHTML;
+@property (weak) IBOutlet NSTextField *urlField;
 
 
 - (IBAction)loadPage:(NSTextField *)sender;
