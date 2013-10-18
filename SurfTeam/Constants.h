@@ -22,6 +22,7 @@ typedef enum {
     primeIDTag, //the prime ID
     ownerTag, //for sending the owner of a window
     scrollPositionTag, //sending scroll position, should it change
+    dimensionsTag, //sending window size, should it change
     pulseTag, //not used yet, sent occasionally to keep TCP stream alive
     nicknameTag, //when client is sending nickname to server or server is asking for nickname
     windowQueryTag, //when client is asking server to ask other clients for windows or server is asking clients for windows

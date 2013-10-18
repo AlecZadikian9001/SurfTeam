@@ -9,12 +9,13 @@
 #import "BrowserWindowEssence.h"
 
 @implementation BrowserWindowEssence
-@synthesize owner, url, scrollPosition, html, primeTag;
+@synthesize owner, url, scrollPosition, html, primeTag, dimensions;
 
 -(void) clear{
     url = nil;
     html = nil;
     scrollPosition = nil;
+    dimensions = nil;
 }
 
 +(NSString*) stringFromData: (NSData*) data{

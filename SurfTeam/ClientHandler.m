@@ -108,6 +108,8 @@
             [windows addObject: receivingWindow];
             [server distributeDataWithWrappedTag:receivingWindow.primeTag    fromClient:self withTimeout:standardTimeout tag:windowBeginTag];
             [server distributeDataWithWrappedTag:receivingWindow.owner       fromClient:self withTimeout:standardTimeout tag:ownerTag];
+            [server distributeDataWithWrappedTag:receivingWindow.dimensions  fromClient:self withTimeout:standardTimeout tag:dimensionsTag];
+            [server distributeDataWithWrappedTag:receivingWindow.scrollPosition  fromClient:self withTimeout:standardTimeout tag:scrollPositionTag];
             [server distributeDataWithWrappedTag:receivingWindow.url         fromClient:self withTimeout:standardTimeout tag:urlTag];
             [server distributeDataWithWrappedTag:receivingWindow.html        fromClient:self withTimeout:standardTimeout tag:pageSourceTag];
             [server distributeDataWithWrappedTag:receivingWindow.primeTag    fromClient:self withTimeout:standardTimeout tag:windowEndTag];
@@ -116,9 +118,11 @@
         else if (windowToBeUpdated){
             NSLog(@"Window update %@ has finished being received, now sending it to others.", windowToBeUpdated.url);
             [server distributeDataWithWrappedTag:windowToBeUpdated.primeTag    fromClient:self withTimeout:standardTimeout tag:windowBeginUpdateTag];
-            [server distributeDataWithWrappedTag:windowToBeUpdated.owner       fromClient:self withTimeout:standardTimeout tag:ownerTag];
-            [server distributeDataWithWrappedTag:windowToBeUpdated.url         fromClient:self withTimeout:standardTimeout tag:urlTag];
-            [server distributeDataWithWrappedTag:windowToBeUpdated.html        fromClient:self withTimeout:standardTimeout tag:pageSourceTag];
+            if (windowToBeUpdated.owner) [server distributeDataWithWrappedTag:windowToBeUpdated.owner       fromClient:self withTimeout:standardTimeout tag:ownerTag];
+            if (windowToBeUpdated.dimensions) [server distributeDataWithWrappedTag:windowToBeUpdated.dimensions  fromClient:self withTimeout:standardTimeout tag:dimensionsTag];
+            if (windowToBeUpdated.scrollPosition) [server distributeDataWithWrappedTag:windowToBeUpdated.scrollPosition  fromClient:self withTimeout:standardTimeout tag:scrollPositionTag];
+            if (windowToBeUpdated.url) [server distributeDataWithWrappedTag:windowToBeUpdated.url         fromClient:self withTimeout:standardTimeout tag:urlTag];
+            if (windowToBeUpdated.html) [server distributeDataWithWrappedTag:windowToBeUpdated.html        fromClient:self withTimeout:standardTimeout tag:pageSourceTag];
             [server distributeDataWithWrappedTag:windowToBeUpdated.primeTag    fromClient:self withTimeout:standardTimeout tag:windowEndTag];
             windowToBeUpdated = nil;
         }
@@ -131,11 +135,13 @@
         if      (tag==urlTag)           { receivingWindow.url = data; NSLog(@"Received URL data."); }
         else if (tag==pageSourceTag)    { receivingWindow.html = data; NSLog(@"Received HTML data."); }
         else if (tag==scrollPositionTag){ receivingWindow.scrollPosition = data; NSLog(@"Received scroll position data."); }
+        else if (tag==dimensionsTag)    { receivingWindow.dimensions = data; NSLog(@"Received dimensions data."); }
     }
     else if (windowToBeUpdated){
         if      (tag==urlTag)           { windowToBeUpdated.url = data; NSLog(@"Received URL data."); }
         else if (tag==pageSourceTag)    { windowToBeUpdated.html = data; NSLog(@"Received HTML data."); }
         else if (tag==scrollPositionTag){ windowToBeUpdated.scrollPosition = data; NSLog(@"Received scroll position data."); }
+        else if (tag==dimensionsTag)    { windowToBeUpdated.dimensions = data; NSLog(@"Received dimensions data."); }
     }
     else if (tag == cookieTag){
         NSLog(@"Data received that must be distributed.");

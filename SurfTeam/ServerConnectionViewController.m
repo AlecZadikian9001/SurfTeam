@@ -54,6 +54,7 @@
     [self sendHeader:       window  isUpdate: NO isStart: YES]; //tell the other clients that a window is beginning being sent and what local ID it has
     [self sendCookies:      window];
     [self sendDimensions:   window];
+    [self sendScrollPosition:   window];
     [self sendURL:          window];
     [self sendHTML:         window];
     [self sendHeader:       window  isUpdate: NO isStart: NO]; //tell the other clients that a window is done being sent
@@ -65,6 +66,7 @@
     [self sendHeader:       window  isUpdate: YES isStart: YES]; //tell the other clients that a window is beginning being sent and what local ID it has
     [self sendCookies:      window];
     [self sendDimensions:   window];
+    [self sendScrollPosition:   window];
     [self sendURL:          window];
     [self sendHTML:         window];
     [self sendHeader:       window  isUpdate: YES isStart: NO]; //tell the other clients that a window is done being sent
@@ -100,12 +102,18 @@
     //[socket writeData: [[NSData alloc] init] withTimeout: standardTimeout tag:cookieEndTag];
 }
 
+- (void)sendScrollPosition: (BrowserWindowController*) window{
+    int scrollX = [[window.webView stringByEvaluatingJavaScriptFromString:@"window.pageXOffset"] intValue];
+    int scrollY = [[window.webView stringByEvaluatingJavaScriptFromString:@"window.pageYOffset"] intValue];
+    NSPoint scroll = NSMakePoint(scrollX, scrollY);
+    NSString* scrollString = NSStringFromPoint(scroll);
+    [self sendData: [scrollString dataUsingEncoding: NSUTF8StringEncoding] withTimeout: standardTimeout tag:scrollPositionTag];
+}
+
 - (void)sendDimensions: (BrowserWindowController*) window{
-   // NSRect rect = window.window.frame; NSPoint origin = rect.origin; NSSize size = rect.size;
-    // WebView* webView = window.webView; CGPoint offset = webView.mainFrame.contentOffset;
-    // NSString* dimensionString = [NSString stringWithFormat:@"%f;%f;%f;%f;%f;%f", origin.x, origin.y, size.width, size.height,offset.x, offset.y];
-     //so the dimensions that must be parsed are like this: x, y, width, heigh, scroll position x, scroll position y
-     //not going to send it yet... TODO */
+    NSRect rect = window.window.frame; NSPoint origin = rect.origin; NSSize size = rect.size;
+    NSString* dimensionString = NSStringFromRect(rect); //[NSString stringWithFormat:@"%f;%f;%f;%f", origin.x, origin.y, size.width, size.height];
+    [self sendData: [dimensionString dataUsingEncoding: NSUTF8StringEncoding] withTimeout: standardTimeout tag:dimensionsTag];
 }
 
 - (void)sendHTML: (BrowserWindowController*) window{
@@ -140,7 +148,7 @@
         [self sendData: [serverPasswordField.stringValue dataUsingEncoding: NSUTF8StringEncoding] withTimeout: standardTimeout tag:negotiationTag]; //send password
         //[socket readDataWithTimeout: standardTimeout tag: nicknameTag];
         [self sendData: [name dataUsingEncoding: NSUTF8StringEncoding] withTimeout: standardTimeout tag:nicknameTag]; //send nickname
-        
+        for (BrowserWindowController* window in browserWindows) [window onConnect];
         [self sendWindows];
         [self askForWindows];
         [socket readDataToData:[GCDAsyncSocket CRLFData] withTimeout:-1 tag:firstTag];
@@ -208,8 +216,10 @@
     }
     else if (receivingWindow){
         if      (tag==urlTag)           { receivingWindow.url = data; NSLog(@"Received URL data."); }
+        else if (tag==ownerTag)    { receivingWindow.owner = data; NSLog(@"Received username data."); }
         else if (tag==pageSourceTag)    { receivingWindow.html = data; NSLog(@"Received HTML data."); }
         else if (tag==scrollPositionTag){ receivingWindow.scrollPosition = data; NSLog(@"Received scroll position data."); }
+        else if (tag==dimensionsTag)    { receivingWindow.dimensions = data; NSLog(@"Received dimensions data."); }
     } //everything after this is called only when a window is not already being received!
     
     else if (tag == cookieTag){

@@ -12,6 +12,7 @@
 
 @end
 
+@class WebViewEventKillingWindow;
 @implementation BrowserWindowController
 
 - (id)initWithWindow:(NSWindow *)window
@@ -28,9 +29,16 @@
 {
     [super windowDidLoad];
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
+    if ([isControllable boolValue]) [controllableIndicator setTitle: @"Local"];
+    else{
+        [controllableIndicator setTitle: @"Remote"];
+        //[urlField setEnabled: NO];
+        //[webView setEditable: NO];
+    }
 }
 
-@synthesize starter, user, webView, url, primeTag, urlField, windowID, isControllable, currentHTML, isOverridingLoad;
+@synthesize starter, user, webView, url, primeTag, urlField, windowID, isControllable, currentHTML, isOverridingLoad, scrollPositionJS, controllableIndicator, userIndicator;
+@synthesize killerWindow;
 WebPreferences* defaultPreferences;
 
 - (id) initWithDefaultWindowAndControllable: (BOOL) cont{
@@ -41,6 +49,7 @@ WebPreferences* defaultPreferences;
         windowID = [NSNumber numberWithInt: -1]; //should actually never be -1 when being used
         [self showWindow:nil];
         [self.window makeKeyAndOrderFront:nil];
+        if (!cont) killerWindow.shouldKill = [NSNumber numberWithBool: YES];
     /*
         defaultPreferences = [[WebPreferences alloc] initWithIdentifier:@"defaultPreferences"]; //maybe this bit needs to be cleaned up
         [defaultPreferences setPlugInsEnabled: YES];
@@ -48,12 +57,33 @@ WebPreferences* defaultPreferences;
         if ([webView.preferences arePlugInsEnabled]) NSLog(@"Plugins are enabled.");
       */
         //[[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(onBeginLoad:) name: WebViewProgressStartedNotification object:webView]; //which to use?
+        
+        [webView setPolicyDelegate: self];
+        
         [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(onFinishLoad:) name: WebViewProgressFinishedNotification object:webView];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(onWindowClose:) name: NSWindowWillCloseNotification object:[self window]];
         [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(onFinishResize:) name: NSWindowDidResizeNotification object:[self window]];
     }
     return self;
+}
+
+- (void)webView:(WebView *)webView decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame  decisionListener:(id < WebPolicyDecisionListener >)listener
+
+{
+    
+    NSUInteger actionType = [[actionInformation objectForKey:WebActionNavigationTypeKey] unsignedIntValue];
+    if (actionType == WebNavigationTypeLinkClicked) {
+        if (![isControllable boolValue]) return;
+        else [listener use];
+    } else {
+        [listener use];
+    }
+    
+}
+
+- (void) onConnect{
+    if (starter && starter.name) [userIndicator setTitle: starter.name];
 }
 
 -(void) onFinishResize: (NSNotification *) notification{
@@ -70,8 +100,12 @@ WebPreferences* defaultPreferences;
     url = webView.mainFrameURL;
     NSLog(@"onFinishLoad called, URL is %@", url);
     if (urlField && url) [urlField setStringValue: url];
-    else NSLog(@"ERROR updating url in text field box!");
+    else NSLog(@"ERROR updating url in text field box!"); //seems to happen when there really is no error?
     if (starter.socket && [isControllable boolValue]) [starter sendWindowUpdate: self]; //only if logged in and controllable window
+    if (scrollPositionJS){
+        NSLog(@"Setting new scroll position with Javascript %@ for window with URL %@", scrollPositionJS, url); //THIS IS STILL PROBLEMATIC
+        [webView stringByEvaluatingJavaScriptFromString:scrollPositionJS];
+    }
 }
 
 -(void) onBeginLoad: (NSNotification *) notification{ //make this work! AND MAKE THIS ONSTARTLOAD!
@@ -79,7 +113,7 @@ WebPreferences* defaultPreferences;
     url = webView.mainFrameURL;
     NSLog(@"onBeginLoad called, URL is %@", url);
     if (urlField && url) [urlField setStringValue: url];
-    else NSLog(@"ERROR updating url in text field box!");
+    else NSLog(@"ERROR updating url in text field box!"); //this seems to show up when there isn't really anything wrong...
     isOverridingLoad = [NSNumber numberWithBool:NO];
     [self loadCurrentContent];
     if (starter.socket && [isControllable boolValue]) [starter sendWindowUpdate: self]; //only if logged in and controllable window
@@ -95,7 +129,12 @@ WebPreferences* defaultPreferences;
 }
 
 - (void) updateFromEssence: (BrowserWindowEssence*) essence{
-    if (essence.owner)      user       = [BrowserWindowEssence stringFromData: essence.owner];
+    scrollPositionJS = nil; //hackjob?
+    if (essence.owner){
+        user = [BrowserWindowEssence stringFromData: essence.owner];
+        NSLog(@"Setting browser window owner name to %@", user);
+        [userIndicator setTitle: user]; //isn't working for some reason TODO
+    }
     if (essence.url){       url        = [BrowserWindowEssence stringFromData: essence.url];   [webView setMainFrameURL:  url]; }
     if (essence.primeTag)   primeTag   = essence.primeTag;
     
@@ -109,11 +148,20 @@ WebPreferences* defaultPreferences;
          [[NSString alloc] initWithData:essence.html encoding:NSUTF8StringEncoding]
                         baseURL:nil]; */
     }
-    NSLog(@"Done updating window from essence.");
     
-    if (essence.scrollPosition){
-        //TODO
+    if (essence.scrollPosition){ //NOT WORKING PROPERLY YET
+        NSString* dataString = [[NSString alloc] initWithData:essence.dimensions encoding: NSUTF8StringEncoding];
+        NSPoint dimensions = NSPointFromString(dataString);
+        scrollPositionJS = [NSString stringWithFormat:@"window.scrollTo(%d,%d)", (int)dimensions.x, (int)dimensions.y];
     }
+    
+    if (essence.dimensions){
+        NSString* dataString = [[NSString alloc] initWithData:essence.dimensions encoding: NSUTF8StringEncoding];
+        NSRect dimensions = NSRectFromString(dataString);
+        dimensions.origin = self.window.frame.origin;
+        [[self window] setFrame:dimensions display: YES animate: NO];
+    }
+    NSLog(@"Done updating window from essence.");
 }
 
 - (IBAction)loadPage:(NSTextField *)sender { //should use base URL TODO

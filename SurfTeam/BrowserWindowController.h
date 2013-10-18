@@ -13,6 +13,7 @@
 #import "ServerConnectionViewController.h"
 #import "IGIsolatedCookieWebView.h"
 #import "BrowserWindowEssence.h"
+#import "WebViewEventKillingWindow.h"
 
 @class ServerConnectionViewController, BrowserWindowEssence;
 @interface BrowserWindowController : NSWindowController
@@ -27,7 +28,10 @@
 @property (weak) IBOutlet IGIsolatedCookieWebView *webView;
 @property (strong, nonatomic) NSString* currentHTML;
 @property (weak) IBOutlet NSTextField *urlField;
-
+@property (strong, nonatomic) NSString* scrollPositionJS;
+@property (weak) IBOutlet NSButton *userIndicator;
+@property (weak) IBOutlet NSButton *controllableIndicator;
+@property (unsafe_unretained) IBOutlet WebViewEventKillingWindow *killerWindow;
 
 - (IBAction)loadPage:(NSTextField *)sender;
 //- (void)viewDidEndLiveResize;
@@ -36,6 +40,7 @@
 
 - (id) initWithDefaultWindowAndControllable: (BOOL) cont;
 - (void) updateFromEssence: (BrowserWindowEssence*) essence;
+- (void) onConnect;
 
 //- (NSWindow *)window; //to kill the method
 - (void)saveCookies;
