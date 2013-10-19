@@ -136,6 +136,11 @@
     [browserWindows addObject:window];
 }
 
+- (IBAction)newWindow{
+    BrowserWindowController* browser = [[BrowserWindowController alloc] initWithDefaultWindowAndControllable: YES];
+    [self insertBrowserWindow:browser];
+}
+
 - (IBAction)connectButton:(id)sender {
     NSLog(@"About to connect to address %@ on port %@ with %d local windows open.", serverIPField.stringValue, serverPortField.stringValue, browserWindows.count);
     socket = [[GCDAsyncSocket alloc] initWithDelegate: self delegateQueue: dispatch_get_main_queue()];

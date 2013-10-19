@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment defaultVersion="1080" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4510"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
+        <customObject id="-2" userLabel="File's Owner">
             <connections>
                 <outlet property="delegate" destination="494" id="495"/>
             </connections>
@@ -68,16 +68,26 @@
                         <items>
                             <menuItem title="New Window" keyEquivalent="n" id="82">
                                 <connections>
-                                    <action selector="newDocument:" target="-1" id="373"/>
+                                    <action selector="newWindow:" target="494" id="Y8H-0c-At5"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Open…" keyEquivalent="o" id="72"/>
-                            <menuItem title="Reload" keyEquivalent="r" id="6ye-L3-9HH"/>
+                            <menuItem title="Reload" keyEquivalent="r" id="6ye-L3-9HH">
+                                <connections>
+                                    <action selector="reloadPage:" target="-1" id="xLZ-dY-biu"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="Forward" keyEquivalent="" id="jBT-33-s8k">
                                 <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="forward:" target="-1" id="9tk-AZ-PEh"/>
+                                </connections>
                             </menuItem>
                             <menuItem title="Back" keyEquivalent="" id="sJr-XE-MnV">
                                 <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="back:" target="-1" id="CbI-nY-fxL"/>
+                                </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="79">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>

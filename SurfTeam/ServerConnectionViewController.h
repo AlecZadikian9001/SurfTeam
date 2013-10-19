@@ -29,6 +29,7 @@
 @property (strong, nonatomic) BrowserWindowController* windowToBeUpdated;
 
 - (IBAction)connectButton:(id)sender;
+- (IBAction)newWindow;
 
 -(id) initWithWindowNibName:(NSString *)windowNibName;
 -(void)insertBrowserWindow: (BrowserWindowController*) window;

@@ -164,6 +164,21 @@ WebPreferences* defaultPreferences;
     NSLog(@"Done updating window from essence.");
 }
 
+- (IBAction)forward:(id)sender {
+    NSLog(@"Browser window navigating forward.");
+    [webView goForward];
+}
+
+- (IBAction)back:(id)sender {
+    NSLog(@"Browser window navigating back.");
+    [webView goBack];
+}
+
+- (IBAction)reloadPage:(id)sender {
+    NSLog(@"Browser window reloading.");
+    [self loadCurrentContent];
+}
+
 - (IBAction)loadPage:(NSTextField *)sender { //should use base URL TODO
     url = sender.stringValue;
     NSLog(@"Page on window %@ (mem %p) being loaded, URL: %@", windowID, self, url);

@@ -34,7 +34,9 @@
 @property (unsafe_unretained) IBOutlet WebViewEventKillingWindow *killerWindow;
 
 - (IBAction)loadPage:(NSTextField *)sender;
-//- (void)viewDidEndLiveResize;
+- (IBAction)forward:(id)sender;
+- (IBAction)back:(id)sender;
+- (IBAction)reloadPage:(id)sender;
 
 - (id) initWithWindow:(NSWindow *)window; //override for debug
 

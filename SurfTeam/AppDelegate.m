@@ -15,7 +15,6 @@
 WebHistory* history;
 NSURL *applicationSupportURL, *historyFileURL;
 ServerConnectionViewController* starter;
-BrowserWindowController* browser;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
@@ -29,9 +28,12 @@ BrowserWindowController* browser;
     starter = [[ServerConnectionViewController alloc] initWithWindowNibName:@"ServerConnection"];
     [starter showWindow:nil];
     [starter.window makeKeyAndOrderFront:nil];
-    
-    browser = [[BrowserWindowController alloc] initWithDefaultWindowAndControllable: YES];
-    [starter insertBrowserWindow:browser];
+
+    [starter newWindow];
+}
+
+- (IBAction)newWindow:(id)sender {
+    [starter newWindow];
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender{
