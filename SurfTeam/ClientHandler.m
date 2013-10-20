@@ -143,6 +143,11 @@
         else if (tag==scrollPositionTag){ windowToBeUpdated.scrollPosition = data; NSLog(@"Received scroll position data."); }
         else if (tag==dimensionsTag)    { windowToBeUpdated.dimensions = data; NSLog(@"Received dimensions data."); }
     }
+    
+    else if (tag==cookieBeginTag){
+        
+    }
+    
     else if (tag == cookieTag){
         NSLog(@"Data received that must be distributed.");
         //DLog(@"Data tagged with %ld, contains %@", tag, [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding], tag);

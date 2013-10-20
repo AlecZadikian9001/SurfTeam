@@ -16,6 +16,7 @@
     html = nil;
     scrollPosition = nil;
     dimensions = nil;
+   // cookies = nil;
 }
 
 +(NSString*) stringFromData: (NSData*) data{

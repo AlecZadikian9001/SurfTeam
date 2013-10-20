@@ -37,4 +37,7 @@
 -(void) sendWindowUpdate:(BrowserWindowController*) window;
 -(void) sendWindowDimensionsUpdate:(BrowserWindowController*) window;
 
+- (NSData*) getCookiesData;
+- (void) setCookiesData: (NSData*) data primeTag: (NSData*) primeTag;
+
 @end

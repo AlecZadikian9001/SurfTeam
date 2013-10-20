@@ -26,6 +26,7 @@
 
 @property(strong, nonatomic) BrowserWindowEssence* windowToBeUpdated;
 @property(strong, nonatomic) BrowserWindowEssence* receivingWindow;
+@property(strong, nonatomic) NSData* receivingCookies;
 
 - (id) initWithServer: (Server*) server socket: (GCDAsyncSocket*) sock;
 

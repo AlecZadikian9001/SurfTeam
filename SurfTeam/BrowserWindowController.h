@@ -44,10 +44,6 @@
 - (void) updateFromEssence: (BrowserWindowEssence*) essence;
 - (void) onConnect;
 
-//- (NSWindow *)window; //to kill the method
-- (void)saveCookies;
-- (void)loadCookies;
-
-- (NSArray*)getCookiesForCurrentURL;
+- (void) setCookiesFromData: (NSData*) data;
 
 @end

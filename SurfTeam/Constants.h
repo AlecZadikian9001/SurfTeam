@@ -13,7 +13,7 @@ typedef enum {
     negotiationTag, //for sending password
     clientMessageTag, //not used yet, maybe useful for collaborative features
     pageSourceTag, //for sending page source
-   // cookieBeginTag, //not used anymore?
+    cookieBeginTag, //sent before a cookie is sent (if from server, contains primetag data)
     cookieTag, //for sending cookies
    // cookieEndTag, //not used anymore?
     windowBeginTag, //sent before window info is sent, which should be every time a page is loaded

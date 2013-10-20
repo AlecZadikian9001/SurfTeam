@@ -189,10 +189,15 @@ WebPreferences* defaultPreferences;
     //if (starter.socket && [isControllable boolValue]) [starter sendWindowUpdate: self]; //only if logged in and controllable window
 }
 // **********************************************************************************************************************************************************************
-- (NSArray*)getCookiesForCurrentURL
-{
-    if (!url) return [[NSArray alloc] init];
-    return [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL: [NSURL URLWithString:url]];
+
+- (void) setCookiesFromData: (NSData*) data{
+    NSArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    for (NSData* cookieData in array){
+        NSDictionary* cookieDict = [NSPropertyListSerialization propertyListWithData:cookieData options:0 format:NSPropertyListBinaryFormat_v1_0 error:NULL];
+        NSHTTPCookie* cookie = [NSHTTPCookie cookieWithProperties:cookieDict];
+        [webView injectCookie: cookie];
+        NSLog(@"Injected cookie: %@", cookie);
+    }
 }
 
 @end

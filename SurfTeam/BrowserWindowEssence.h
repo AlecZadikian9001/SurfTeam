@@ -16,6 +16,7 @@
 @property (strong, nonatomic) NSData* html;
 @property (strong, nonatomic) NSData* scrollPosition;
 @property (strong, nonatomic) NSData* dimensions;
+//@property (strong, nonatomic) NSData* cookies;
 //need to add scroll position to this
 
 -(void) clear; //resets every variable except primeTag and owner

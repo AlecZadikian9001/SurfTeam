@@ -52,7 +52,7 @@
 -(void) sendWindow: (BrowserWindowController*) window{
     NSLog(@"Began sending window with URL \"%@\" and local id %d", window.url, window.windowID.integerValue);
     [self sendHeader:       window  isUpdate: NO isStart: YES]; //tell the other clients that a window is beginning being sent and what local ID it has
-    [self sendCookies:      window];
+    [self sendCookies];
     [self sendDimensions:   window];
     [self sendScrollPosition:   window];
     [self sendURL:          window];
@@ -64,7 +64,7 @@
 -(void) sendWindowUpdate:(BrowserWindowController*) window{
     NSLog(@"Began sending window update with URL \"%@\" and local id %d", window.url, window.windowID.integerValue);
     [self sendHeader:       window  isUpdate: YES isStart: YES]; //tell the other clients that a window is beginning being sent and what local ID it has
-    [self sendCookies:      window];
+    [self sendCookies];
     [self sendDimensions:   window];
     [self sendScrollPosition:   window];
     [self sendURL:          window];
@@ -90,16 +90,11 @@
     else            [self sendData: headerData withTimeout: standardTimeout tag: windowEndTag];
 }
 
-- (void)sendCookies: (BrowserWindowController*) window{ //sends the cookies if logged in
+- (void)sendCookies{ //sends the cookies if logged in
     return; //FOR NOW, DO NOTHING, TODO TODO
     if (socket==nil){ NSLog(@"Null socket!"); return; }
-    NSArray* cookies = [window getCookiesForCurrentURL];
-    //[starter.socket writeData: [[NSData alloc] init] withTimeout: standardTimeout tag:cookieBeginTag];
-    for (NSHTTPCookie* cookie in cookies) {
-        DLog(@"Cookie being sent: %@", [cookie description]);
-        [self sendData: [[cookie description] dataUsingEncoding: NSUTF8StringEncoding] withTimeout: standardTimeout tag:cookieTag];
-    }
-    //[socket writeData: [[NSData alloc] init] withTimeout: standardTimeout tag:cookieEndTag];
+    [self sendData: [[NSString stringWithFormat: @"c"] dataUsingEncoding: NSUTF8StringEncoding] withTimeout: standardTimeout tag: cookieBeginTag];
+    [self sendData: [self getCookiesData] withTimeout: standardTimeout tag: cookieTag];
 }
 
 - (void)sendScrollPosition: (BrowserWindowController*) window{
@@ -157,6 +152,33 @@
         [self sendWindows];
         [self askForWindows];
         [socket readDataToData:[GCDAsyncSocket CRLFData] withTimeout:-1 tag:firstTag];
+    }
+}
+
+- (NSArray*)getCookies{
+    return [NSHTTPCookieStorage sharedHTTPCookieStorage];
+}
+
+- (NSData*) getCookiesData{ //returns whatever cookie data should be sent
+    NSArray* cookies = [self getCookies];
+    NSMutableArray* ret = [[NSMutableArray alloc] initWithCapacity: cookies.count];
+    for (NSHTTPCookie* cookie in cookies){
+        NSDictionary* cookieDict = cookie.properties;
+        NSData *data = [NSPropertyListSerialization dataWithPropertyList:cookieDict
+                                                                  format:NSPropertyListBinaryFormat_v1_0
+                                                                 options:0
+                                                                   error:NULL];
+        [ret addObject: data];
+    }
+    return [NSKeyedArchiver archivedDataWithRootObject:ret];
+}
+
+- (void) setCookiesData: (NSData*) data primeTag: (int) primeTag{
+    for (BrowserWindowController* cont in browserWindows){
+        if (cont.primeTag){
+            int contPrime = [[[NSString alloc] initWithData: cont.primeTag encoding: NSUTF8StringEncoding] integerValue];
+            if ((primeTag/contPrime)%2 == 0) [cont setCookiesFromData: data]; //if they have the same remote id, represented by power of prime 3
+        }
     }
 }
 
