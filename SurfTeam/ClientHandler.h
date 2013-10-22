@@ -24,6 +24,7 @@
 @property(strong, nonatomic) NSNumber* isLoggedIn;
 @property(weak, nonatomic) Server* server;
 
+@property (strong, nonatomic) NSData* receivingCookiesData;
 @property(strong, nonatomic) BrowserWindowEssence* windowToBeUpdated;
 @property(strong, nonatomic) BrowserWindowEssence* receivingWindow;
 @property(strong, nonatomic) NSData* receivingCookies;

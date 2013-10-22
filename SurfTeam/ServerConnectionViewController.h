@@ -25,6 +25,7 @@
 @property (strong, nonatomic) GCDAsyncSocket* socket;
 @property (strong, nonatomic) NSString* name;
 
+@property (strong, nonatomic) NSData* receivingCookiesData;
 @property (strong, nonatomic) BrowserWindowEssence* receivingWindow;
 @property (strong, nonatomic) BrowserWindowController* windowToBeUpdated;
 

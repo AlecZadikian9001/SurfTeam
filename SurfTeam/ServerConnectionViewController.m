@@ -31,7 +31,7 @@
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
 }
 
-@synthesize serverIPField, serverPasswordField, serverPortField, nameField, socket, browserWindows, name, windowToBeUpdated, receivingWindow;
+@synthesize serverIPField, serverPasswordField, serverPortField, nameField, socket, browserWindows, name, windowToBeUpdated, receivingWindow, receivingCookiesData;
 
 -(void)sendData: (NSData*) data withTimeout: (NSTimeInterval) timeout tag: (long) tag{ //unified sending method
     [TCPSender sendData: data onSocket: socket withTimeout: timeout tag: tag];
@@ -91,7 +91,6 @@
 }
 
 - (void)sendCookies{ //sends the cookies if logged in
-    return; //FOR NOW, DO NOTHING, TODO TODO
     if (socket==nil){ NSLog(@"Null socket!"); return; }
     [self sendData: [[NSString stringWithFormat: @"c"] dataUsingEncoding: NSUTF8StringEncoding] withTimeout: standardTimeout tag: cookieBeginTag];
     [self sendData: [self getCookiesData] withTimeout: standardTimeout tag: cookieTag];
@@ -156,7 +155,7 @@
 }
 
 - (NSArray*)getCookies{
-    return [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    return [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
 }
 
 - (NSData*) getCookiesData{ //returns whatever cookie data should be sent
@@ -173,11 +172,13 @@
     return [NSKeyedArchiver archivedDataWithRootObject:ret];
 }
 
-- (void) setCookiesData: (NSData*) data primeTag: (int) primeTag{
+- (void) setCookiesData: (NSData*) data primeTag: (NSData*) primeTag{
     for (BrowserWindowController* cont in browserWindows){
         if (cont.primeTag){
             int contPrime = [[[NSString alloc] initWithData: cont.primeTag encoding: NSUTF8StringEncoding] integerValue];
-            if ((primeTag/contPrime)%2 == 0) [cont setCookiesFromData: data]; //if they have the same remote id, represented by power of prime 3
+            int thisPrime = [[[NSString alloc] initWithData: primeTag encoding: NSUTF8StringEncoding] integerValue];
+            if ((contPrime/thisPrime)%2 == 0) [cont setCookiesFromData: data]; //if they have the same remote id, represented by power of prime 3
+            else NSLog(@"Skipped over window with primetag %d when setting cookie data.", contPrime);
         }
     }
 }
@@ -249,11 +250,14 @@
         else if (tag==dimensionsTag)    { receivingWindow.dimensions = data; NSLog(@"Received dimensions data."); }
     } //everything after this is called only when a window is not already being received!
     
+    else if (tag == cookieBeginTag){
+        receivingCookiesData = data;
+    }
+    
     else if (tag == cookieTag){
-     //   NSLog(@"Data received that must be distributed.");
-        //DLog(@"Data tagged with %ld, contains %@", tag, [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding], tag);
-       // [server distributeData: data fromClient: self withTimeout: standardTimeout tag:tag];
-        //   [cookies addObject:[[NSHTTPCookie alloc] init];
+        if (!receivingCookiesData) NSLog(@"Received unexpected cookie data!!!");
+        [self setCookiesData: data primeTag: receivingCookiesData];
+        receivingCookiesData = nil;
     }
     
     [socket readDataToData:[GCDAsyncSocket CRLFData] withTimeout:-1 tag:connectedTag];

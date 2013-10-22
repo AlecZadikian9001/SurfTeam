@@ -9,7 +9,7 @@
 #import "ClientHandler.h"
 
 @implementation ClientHandler
-@synthesize socket, name, windows, cookies, userID, server, isLoggedIn, windowToBeUpdated, receivingWindow;
+@synthesize socket, name, windows, cookies, userID, server, isLoggedIn, windowToBeUpdated, receivingWindow, receivingCookiesData;
 
 - (id) initWithServer:(Server*) s socket:(GCDAsyncSocket*) sock{
     self = [super init];
@@ -144,15 +144,16 @@
         else if (tag==dimensionsTag)    { windowToBeUpdated.dimensions = data; NSLog(@"Received dimensions data."); }
     }
     
-    else if (tag==cookieBeginTag){
-        
+    else if (tag == cookieBeginTag){
+        receivingCookiesData = [NSData alloc];
     }
     
     else if (tag == cookieTag){
-        NSLog(@"Data received that must be distributed.");
-        //DLog(@"Data tagged with %ld, contains %@", tag, [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding], tag);
-        [server distributeData: data fromClient: self withTimeout: standardTimeout tag:tag];
-     //   [cookies addObject:[[NSHTTPCookie alloc] init];
+        if (!receivingCookiesData) NSLog(@"Received unexpected cookie data!!!");
+        NSData* header = [[NSString stringWithFormat: @"%d", [userID intValue]] dataUsingEncoding:NSUTF8StringEncoding];
+        [server distributeDataWithWrappedTag:header fromClient:self withTimeout:standardTimeout tag:cookieBeginTag];
+        [server distributeDataWithWrappedTag:data fromClient:self withTimeout:standardTimeout tag:cookieTag];
+        receivingCookiesData = nil;
     }
     
     else if (tag == windowQueryTag){ NSLog(@"Client %@ asked for windows.", name); [server sendWindowsToClient: self]; }
