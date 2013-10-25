@@ -28,6 +28,12 @@
     return self;
 }
 
+- (NSData*)getPrimeTagDataFromLocalID: (int) localID{
+    int primeTag = pow(2, localID)*pow(3, userID.integerValue);
+    NSData* primeTagData = [[NSString stringWithFormat:@"%d", primeTag] dataUsingEncoding: NSUTF8StringEncoding]; //eeeewwwwwwwww I feel ashamed
+    return primeTagData;
+}
+
 - (void)disconnectSocketGracefully{
 	[socket disconnectAfterReadingAndWriting];
     [socket setDelegate: nil];
@@ -42,7 +48,7 @@
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err{
     NSLog(@"Socket %@ disconnecting from ClientHandler with error %@", sock, err);
-    [server.delegate onClientDisconnect];
+    [server killClientHandler: self];
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port{
@@ -75,16 +81,14 @@
         receivingWindow = [[BrowserWindowEssence alloc] init];
         receivingWindow.owner = [name dataUsingEncoding: NSUTF8StringEncoding];
         int localID = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] integerValue]; //bad efficiency alert! :(
-        int primeTag = pow(2, localID)*pow(3, userID.integerValue);
-        receivingWindow.primeTag = [[NSString stringWithFormat:@"%d", primeTag] dataUsingEncoding: NSUTF8StringEncoding]; //ugh, bad again
-        NSLog(@"Received local ID from %@ and used it to make prime tag %d", name, primeTag);
+        receivingWindow.primeTag = [self getPrimeTagDataFromLocalID:localID];
+        //NSLog(@"Received local ID from %@ and used it to make prime tag %d", name, primeTag);
     }
     else if (tag == windowBeginUpdateTag){
         NSLog(@"A window update is about to be received.");
         if (receivingWindow || windowToBeUpdated) NSLog(@"Client handler read a window update receive tag when it was already receiving one! Error!");
         int localID = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] integerValue]; //bad efficiency alert! :(
-        int primeTag = pow(2, localID)*pow(3, userID.integerValue);
-        NSData* primeTagData = [[NSString stringWithFormat:@"%d", primeTag] dataUsingEncoding: NSUTF8StringEncoding];
+        NSData* primeTagData = [self getPrimeTagDataFromLocalID:localID];
         BOOL found = NO;
         for (BrowserWindowEssence* window in windows){
             if ([window.primeTag isEqualToData: primeTagData]){
@@ -97,7 +101,7 @@
             else{ DLog(@"A window with primeTag %@ has been skipped over in windowBeginUpdateTag.", [BrowserWindowEssence stringFromData: window.primeTag]); }
         }
         if (!found){
-            NSLog(@"Received a window update tag %d... but no window to update!", primeTag);
+            NSLog(@"Received a window update tag... but no window to update!");
             [socket readDataToData:[GCDAsyncSocket CRLFData] withTimeout:-1 tag: connectedTag];
             return;
         }
@@ -145,15 +149,32 @@
     }
     
     else if (tag == cookieBeginTag){
+        NSLog(@"cookieBeginTag received");
         receivingCookiesData = [NSData alloc];
     }
     
     else if (tag == cookieTag){
         if (!receivingCookiesData) NSLog(@"Received unexpected cookie data!!!");
+        NSLog(@"cookies being received now");
         NSData* header = [[NSString stringWithFormat: @"%d", [userID intValue]] dataUsingEncoding:NSUTF8StringEncoding];
         [server distributeDataWithWrappedTag:header fromClient:self withTimeout:standardTimeout tag:cookieBeginTag];
         [server distributeDataWithWrappedTag:data fromClient:self withTimeout:standardTimeout tag:cookieTag];
         receivingCookiesData = nil;
+    }
+    
+    else if (tag==windowCloseTag){
+        int localID = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] intValue];
+        NSLog(@"windowCloseTag received, ordering window with local ID %d to die", localID);
+        NSData* primeTag = [self getPrimeTagDataFromLocalID:localID];
+        for (int i = windows.count-1; i>=0; i--){
+            BrowserWindowEssence* window = [windows objectAtIndex:i];
+            if ([window.primeTag isEqualToData: primeTag]){
+                NSLog(@"Found a window to be killed.");
+                [server distributeDataWithWrappedTag:primeTag fromClient: self withTimeout: standardTimeout tag: windowCloseTag];
+                [windows removeObjectAtIndex: i];
+                break;
+            }
+        }
     }
     
     else if (tag == windowQueryTag){ NSLog(@"Client %@ asked for windows.", name); [server sendWindowsToClient: self]; }

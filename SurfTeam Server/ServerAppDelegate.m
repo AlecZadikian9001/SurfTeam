@@ -10,7 +10,7 @@
 #import "Server.h"
 
 @implementation ServerAppDelegate
-@synthesize connectionsLabel, progressIndicator, serverToggleButton;
+@synthesize connectionsLabel, progressIndicator, serverToggleButton, portField, passwordField;
 int numberConnected = 0;
 
 Server* server;
@@ -24,7 +24,14 @@ Server* server;
     NSLog(@"Server button pressed; state is %d", (sender.state==NSOnState));
     if (sender.state == NSOffState){
         NSLog(@"User wants to start server.");
-        server = [[Server alloc] initWithDelegate: self port: defaultPort password: @"alpine"];
+        NSString* password = [passwordField stringValue];
+        if (!password || password.length<=0) password = @"alpine";
+        int port;
+        @try{
+        port = [portField intValue];
+        }
+        @catch (id){ port = 9000; }
+        server = [[Server alloc] initWithDelegate: self port: port password: password];
         numberConnected = 0;
         connectionsLabel.stringValue = @"0";
         serverToggleButton.title = @"RUNNING";

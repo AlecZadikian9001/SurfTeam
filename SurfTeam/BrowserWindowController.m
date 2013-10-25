@@ -93,6 +93,8 @@ WebPreferences* defaultPreferences;
 
 -(void) onWindowClose: (NSNotification *) notification{
     NSLog(@"onWindowClose called for window %@.", windowID);
+    NSData* header = [[NSString stringWithFormat:@"%d", [windowID intValue]] dataUsingEncoding:NSUTF8StringEncoding];
+    if (starter.socket && [isControllable boolValue]) [TCPSender sendData: header onSocket: starter.socket withTimeout: standardTimeout tag: windowCloseTag];
 }
 
 //************************************************************** Need to fix content loading bugs with link loading and other things! *********************************
@@ -192,6 +194,7 @@ WebPreferences* defaultPreferences;
 
 - (void) setCookiesFromData: (NSData*) data{
     NSArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    NSLog(@"Window %d unarchiving cookies data, length of array is %d", [windowID intValue], array.count);
     for (NSData* cookieData in array){
         NSDictionary* cookieDict = [NSPropertyListSerialization propertyListWithData:cookieData options:0 format:NSPropertyListBinaryFormat_v1_0 error:NULL];
         NSHTTPCookie* cookie = [NSHTTPCookie cookieWithProperties:cookieDict];

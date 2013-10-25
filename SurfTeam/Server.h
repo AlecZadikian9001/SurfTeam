@@ -35,6 +35,8 @@
 //sends the windows from other clients to the specified client
 - (void) sendWindowsToClient: (ClientHandler*) sourceClient;
 
+//kills the specified client handler properly
+- (void) killClientHandler: (ClientHandler*) handler;
 
 //stop the server
 - (void)close;

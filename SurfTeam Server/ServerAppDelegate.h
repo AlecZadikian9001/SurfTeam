@@ -14,6 +14,8 @@
 @property (weak) IBOutlet NSTextField *connectionsLabel;
 @property (weak) IBOutlet NSProgressIndicator *progressIndicator;
 @property (weak) IBOutlet NSButton *serverToggleButton;
+@property (weak) IBOutlet NSTextField *portField;
+@property (weak) IBOutlet NSTextField *passwordField;
 
 - (IBAction)serverToggle:(NSButton *)sender;
 

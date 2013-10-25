@@ -27,6 +27,7 @@ typedef enum {
     nicknameTag, //when client is sending nickname to server or server is asking for nickname
     windowQueryTag, //when client is asking server to ask other clients for windows or server is asking clients for windows
     separatorTag, //to make sure server and client are in sync (not very useful)
+    windowCloseTag, //when a window should be closed/killed
     
     windowBeginUpdateTag, //Similar to above but only when a window is being changed, not when a new one is created. The data for this contains the window's primetag
   //  urlUpdateTag,

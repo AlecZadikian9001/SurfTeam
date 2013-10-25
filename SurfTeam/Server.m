@@ -101,8 +101,13 @@ int port;
 
 //- (BOOL)onSocketWillConnect:(AsyncSocket *)sock{ return YES; }
 
-- (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err{
-    NSLog(@"Socket %@ disconnecting with error %@", sock, err);
+- (void) killClientHandler: (ClientHandler*) handler{
+    NSLog(@"Trying to kill a client handler %p.", handler);
+    for (BrowserWindowEssence* window in handler.windows){
+        [self distributeDataWithWrappedTag:window.primeTag fromClient:handler withTimeout:standardTimeout tag:windowCloseTag];
+    }
+    handler.server = nil;
+    [clientHandlers removeObject: handler]; //let it die
     [delegate onClientDisconnect];
 }
 

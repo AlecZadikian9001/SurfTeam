@@ -91,6 +91,7 @@
 }
 
 - (void)sendCookies{ //sends the cookies if logged in
+    return; //for now, do nothing!
     if (socket==nil){ NSLog(@"Null socket!"); return; }
     [self sendData: [[NSString stringWithFormat: @"c"] dataUsingEncoding: NSUTF8StringEncoding] withTimeout: standardTimeout tag: cookieBeginTag];
     [self sendData: [self getCookiesData] withTimeout: standardTimeout tag: cookieTag];
@@ -126,6 +127,10 @@
     int i = browserWindows.count;
     window.windowID = [NSNumber numberWithInt: i+1];
     window.starter = self;
+    if (socket && [window.isControllable boolValue]){
+        [self sendWindow: window];
+        [window.userIndicator setTitle: name];
+    }
     NSLog(@"Browser window %p being added with index %d and id %d.", window, i, i+1);
     [browserWindows addObject:window];
 }
@@ -160,6 +165,7 @@
 
 - (NSData*) getCookiesData{ //returns whatever cookie data should be sent
     NSArray* cookies = [self getCookies];
+    NSLog(@"getCookiesData in server view controller called, getting data for %d cookies.", cookies.count);
     NSMutableArray* ret = [[NSMutableArray alloc] initWithCapacity: cookies.count];
     for (NSHTTPCookie* cookie in cookies){
         NSDictionary* cookieDict = cookie.properties;
@@ -249,6 +255,18 @@
         else if (tag==scrollPositionTag){ receivingWindow.scrollPosition = data; NSLog(@"Received scroll position data."); }
         else if (tag==dimensionsTag)    { receivingWindow.dimensions = data; NSLog(@"Received dimensions data."); }
     } //everything after this is called only when a window is not already being received!
+    
+    else if (tag == windowCloseTag){
+        for (int i = browserWindows.count-1; i>=0; i--){
+            BrowserWindowController* window = [browserWindows objectAtIndex:i];
+            if ([window.primeTag isEqualToData: data]){
+                NSLog(@"Found a window to be killed.");
+                [browserWindows removeObjectAtIndex: i];
+                [window close];
+                break;
+            }
+        }
+    }
     
     else if (tag == cookieBeginTag){
         receivingCookiesData = data;
