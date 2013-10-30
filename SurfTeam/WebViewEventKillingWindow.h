@@ -8,8 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 #import "IGIsolatedCookieWebView.h"
+#import "BrowserWindowController.h"
 
+@class BrowserWindowController;
 @interface WebViewEventKillingWindow : NSWindow
 @property (weak) IBOutlet IGIsolatedCookieWebView *webView;
-@property (strong, nonatomic) NSNumber* shouldKill; //a boolean
+@property (weak, nonatomic) BrowserWindowController* controller;
 @end

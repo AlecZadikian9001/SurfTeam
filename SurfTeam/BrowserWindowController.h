@@ -15,7 +15,7 @@
 #import "BrowserWindowEssence.h"
 #import "WebViewEventKillingWindow.h"
 
-@class ServerConnectionViewController, BrowserWindowEssence;
+@class ServerConnectionViewController, BrowserWindowEssence, WebViewEventKillingWindow;
 @interface BrowserWindowController : NSWindowController
 
 @property (strong, nonatomic) ServerConnectionViewController* starter;
@@ -43,6 +43,7 @@
 - (id) initWithDefaultWindowAndControllable: (BOOL) cont;
 - (void) updateFromEssence: (BrowserWindowEssence*) essence;
 - (void) onConnect;
+- (void) onScroll;
 
 - (void) setCookiesFromData: (NSData*) data;
 

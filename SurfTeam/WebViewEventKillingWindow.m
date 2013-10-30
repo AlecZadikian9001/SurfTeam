@@ -9,24 +9,38 @@
 #import "WebViewEventKillingWindow.h"
 
 @implementation WebViewEventKillingWindow
-@synthesize webView, shouldKill;
+@synthesize webView, controller;
 - (void)sendEvent:(NSEvent*)event
 {
-    //NSLog(@"WebViewEventKillingWindow received an event. Shall it die?");
-    if (!shouldKill || ![shouldKill boolValue]){ [super sendEvent:event]; return; }
+  //  NSLog(@"WebViewEventKillingWindow received an event. Shall it die?");
     NSView* hitView;
+    if ([controller.isControllable boolValue]){ //NOT WORKING PROPERLY
+        switch ([event type]){
+            case NSScrollWheel:
+            case NSLeftMouseDragged:
+                hitView = [webView hitTest:[event locationInWindow]];
+                //if ([hitView isKindOfClass: [NSScroller class]]){
+                [controller onScroll];
+             //   }
+                break;
+                
+            default: break;
+        }
+        [super sendEvent:event];
+        return;
+    }
     switch([event type])
     {
         //case NSScrollWheel:
-        case NSKeyDown:
-        case NSKeyUp:
-        case NSLeftMouseDown:
-        case NSLeftMouseUp:
+        case NSKeyDown: break;
+        case NSKeyUp: break;
+        case NSLeftMouseDown: break;
+        case NSLeftMouseUp: break;
+        case NSRightMouseDragged: break;
+        case NSMouseMoved: break;
+        case NSRightMouseDown: break;
+        case NSRightMouseUp: break;
         case NSLeftMouseDragged:
-        case NSMouseMoved:
-        case NSRightMouseDown:
-        case NSRightMouseUp:
-        case NSRightMouseDragged:
             hitView = [webView hitTest:[event locationInWindow]];
             if([hitView isDescendantOf:webView] &&
                !([hitView isKindOfClass:[NSScroller class]] ||

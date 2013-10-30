@@ -37,6 +37,10 @@
     }
 }
 
+- (void) onScroll{
+    [starter sendWindowScrollUpdate:self];
+}
+
 @synthesize starter, user, webView, url, primeTag, urlField, windowID, isControllable, currentHTML, isOverridingLoad, scrollPositionJS, controllableIndicator, userIndicator;
 @synthesize killerWindow;
 WebPreferences* defaultPreferences;
@@ -49,7 +53,7 @@ WebPreferences* defaultPreferences;
         windowID = [NSNumber numberWithInt: -1]; //should actually never be -1 when being used
         [self showWindow:nil];
         [self.window makeKeyAndOrderFront:nil];
-        if (!cont) killerWindow.shouldKill = [NSNumber numberWithBool: YES];
+        killerWindow.controller = self;
     /*
         defaultPreferences = [[WebPreferences alloc] initWithIdentifier:@"defaultPreferences"]; //maybe this bit needs to be cleaned up
         [defaultPreferences setPlugInsEnabled: YES];
@@ -152,9 +156,11 @@ WebPreferences* defaultPreferences;
     }
     
     if (essence.scrollPosition){ //NOT WORKING PROPERLY YET
-        NSString* dataString = [[NSString alloc] initWithData:essence.dimensions encoding: NSUTF8StringEncoding];
+        NSString* dataString = [[NSString alloc] initWithData:essence.scrollPosition encoding: NSUTF8StringEncoding];
         NSPoint dimensions = NSPointFromString(dataString);
-        scrollPositionJS = [NSString stringWithFormat:@"window.scrollTo(%d,%d)", (int)dimensions.x, (int)dimensions.y];
+        NSLog(@"Changing scroll position of existing window to %@.", dataString);
+        scrollPositionJS = [NSString stringWithFormat:@"scrollTo(%d,%d)", (int)dimensions.x, (int)dimensions.y];
+        [webView stringByEvaluatingJavaScriptFromString:scrollPositionJS];
     }
     
     if (essence.dimensions){

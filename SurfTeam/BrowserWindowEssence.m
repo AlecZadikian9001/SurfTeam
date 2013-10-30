@@ -12,6 +12,7 @@
 @synthesize owner, url, scrollPosition, html, primeTag, dimensions;
 
 -(void) clear{
+    owner = nil;
     url = nil;
     html = nil;
     scrollPosition = nil;

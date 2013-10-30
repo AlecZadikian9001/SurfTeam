@@ -81,6 +81,14 @@
     NSLog(@"Finished sending window dimensions update with URL \"%@\"", window.url);
 }
 
+-(void) sendWindowScrollUpdate:(BrowserWindowController*) window{
+    NSLog(@"Began sending window scroll update with URL \"%@\" and local id %d", window.url, window.windowID.integerValue);
+    [self sendHeader:           window  isUpdate: YES isStart: YES]; //tell the other clients that a window is beginning being sent and what local ID it has
+    [self sendScrollPosition:   window];
+    [self sendHeader:           window  isUpdate: YES isStart: NO]; //tell the other clients that a window is done being sent
+    NSLog(@"Finished sending window scroll update with URL \"%@\"", window.url);
+}
+
 - (void)sendHeader: (BrowserWindowController*) window isUpdate: (BOOL) update isStart: (BOOL) isStart{
     NSData* headerData = [[NSString stringWithFormat: @"%d", window.windowID.integerValue] dataUsingEncoding: NSUTF8StringEncoding];
     if (isStart){
