@@ -14,9 +14,11 @@
 {
   //  NSLog(@"WebViewEventKillingWindow received an event. Shall it die?");
     NSView* hitView;
-    if ([controller.isControllable boolValue]){ //NOT WORKING PROPERLY
+    if ([controller.isControllable boolValue]){
+        [super sendEvent:event];
         switch ([event type]){
             case NSScrollWheel:
+            case NSLeftMouseDown:
             case NSLeftMouseDragged:
                 hitView = [webView hitTest:[event locationInWindow]];
                 //if ([hitView isKindOfClass: [NSScroller class]]){
@@ -26,7 +28,6 @@
                 
             default: break;
         }
-        [super sendEvent:event];
         return;
     }
     switch([event type])

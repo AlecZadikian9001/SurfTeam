@@ -440,7 +440,39 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SurfTeam/WebViewEventKillingWindow.m"
-            timestampString = "404786129.243718"
+            timestampString = "404947411.848047"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "-sendEvent:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SurfTeam/WebViewEventKillingWindow.m"
+            timestampString = "404947411.848047"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
+            landmarkName = "-sendEvent:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SurfTeam/WebViewEventKillingWindow.m"
+            timestampString = "404947411.848047"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "21"
@@ -456,11 +488,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SurfTeam/WebViewEventKillingWindow.m"
-            timestampString = "404782602.688166"
+            timestampString = "404947411.848047"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "15"
-            endingLineNumber = "15"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
             landmarkName = "-sendEvent:"
             landmarkType = "5">
          </BreakpointContent>
@@ -471,29 +503,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SurfTeam/WebViewEventKillingWindow.m"
-            timestampString = "404786129.243718"
+            filePath = "SurfTeam/BrowserWindowController.m"
+            timestampString = "404946724.579975"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "18"
-            endingLineNumber = "18"
-            landmarkName = "-sendEvent:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SurfTeam/WebViewEventKillingWindow.m"
-            timestampString = "404786129.243718"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "20"
-            endingLineNumber = "20"
-            landmarkName = "-sendEvent:"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
+            landmarkName = "-updateFromEssence:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
